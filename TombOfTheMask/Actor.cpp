@@ -1,10 +1,14 @@
 #include "Actor.h"
 #include "LevelSubsystem.h"
-Actor::Actor()
+
+Actor::Actor(ActorType Type, sf::Vector2f position)
 {
 	GLevelSubsystem->ActorsOnLevel.push_back(this);
 
-	ActorSprite = new SpriteComponent(0);
+	ActorLocation = position;
+	CollisionBox = { position.x - SPRITE_GAME_SIZE / 2, position.y - SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
+
+	ActorSprite = new SpriteComponent(static_cast<int>(Type), position);
 }
 
 Actor::~Actor()
@@ -17,8 +21,17 @@ void Actor::BeginPlay()
 {
 }
 
-void Actor::Update()
+bool Actor::CanTick()
 {
+	return canTick;
+}
 
-	ActorSprite->SetPosition({128.f, 128.f});
+sf::Vector2f Actor::Getlocation()
+{
+	return ActorLocation;
+}
+
+sf::FloatRect Actor::GetCollisionBox()
+{
+	return CollisionBox;
 }

@@ -14,3 +14,8 @@ const std::string RESOURCES_PATH = "Resources/";
 const int RAW_SPRITE_SIZE = 8;
 const int SPRITE_GAME_SIZE = 64;
 const sf::Vector2f OBJECT_SIZE = { SPRITE_GAME_SIZE / RAW_SPRITE_SIZE, SPRITE_GAME_SIZE / RAW_SPRITE_SIZE };
+const int SpriteSheetSize = 3;
+
+
+//PLAYER
+const int PLAYER_SPEED = 16;

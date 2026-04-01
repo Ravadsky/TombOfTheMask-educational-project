@@ -10,11 +10,15 @@ private:
     sf::Sprite ObjectSprite;
 
 public:
-    SpriteComponent(int&& index);
+    SpriteComponent(int&& index, sf::Vector2f position);
     void BeginPlay() override;
     void Update() override;
     void Draw() override;
 
-    void SetPosition(sf::Vector2f Position);
+    void SetPosition(sf::Vector2f position);
+
+    void SetRotation(float Angle);
+    void Flip(bool flip);
+
 };
 

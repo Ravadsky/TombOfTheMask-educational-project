@@ -60,6 +60,15 @@
     <ClCompile Include="LevelSubsystem.cpp">
       <Filter>Subsystems</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSubsystem.cpp">
+      <Filter>Subsystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputSubsystem.h">
@@ -94,6 +103,18 @@
     </ClInclude>
     <ClInclude Include="LevelSubsystem.h">
       <Filter>Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSubsystem.h">
+      <Filter>Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionLibrary.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

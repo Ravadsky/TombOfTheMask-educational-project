@@ -139,10 +139,13 @@
     <ClCompile Include="GlobalObjects.cpp" />
     <ClCompile Include="InputSubsystem.cpp" />
     <ClCompile Include="LevelSubsystem.cpp" />
+    <ClCompile Include="PhysicsSubsystem.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RenderSubsystem.cpp" />
     <ClCompile Include="ResourceSubsystem.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="UObject.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -150,12 +153,16 @@
     <ClInclude Include="CoreMinimal.h" />
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="FunctionLibrary.h" />
     <ClInclude Include="InputSubsystem.h" />
     <ClInclude Include="LevelSubsystem.h" />
+    <ClInclude Include="PhysicsSubsystem.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RenderSubsystem.h" />
     <ClInclude Include="ResourceSubsystem.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="UObject.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
