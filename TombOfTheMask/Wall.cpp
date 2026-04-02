@@ -1,13 +1,15 @@
 #include "Wall.h"
 
-Wall::Wall(sf::Vector2f position) : Actor(ActorType::Wall, position)
+Wall::Wall(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Wall, position, rotationAngle)
 {
+	Collision = CollisionPreset::Block;
+
 }
 
 void Wall::Update()
 {
 }
 
-void Wall::OnCollision(Actor* OtherActor)
+void Wall::OnCollision(std::weak_ptr<Actor> OtherActor)
 {
 }

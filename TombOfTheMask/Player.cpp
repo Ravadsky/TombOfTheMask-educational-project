@@ -1,25 +1,51 @@
 #include "Player.h"
+#include "PhysicsSubsystem.h"
 
-Player::Player(sf::Vector2f position) : Actor(ActorType::Player, position)
+Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
 	canTick = true;
 
+	Collision = CollisionPreset::Block;
 	CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2 };
-	
+
 }
 
 void Player::Update()
 {
-
-	UpdateLocation({ PlayerDirection.x * PLAYER_SPEED, PlayerDirection.y * PLAYER_SPEED });
+	UpdateLocation(PlayerDirection * (float)PLAYER_SPEED);
 }
 
-void Player::OnCollision(Actor* OtherActor)
+void Player::BeginPlay()
 {
-	UpdateLocation({ -PlayerDirection.x * PLAYER_SPEED, -PlayerDirection.y * PLAYER_SPEED });
+	GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
+}
 
-	PlayerDirection = { 0.f, 0.f };
-	CanAction = true;
+void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
+{
+	if (auto other = OtherActor.lock())
+	{
+		if (other.get() != this)
+		{
+			auto preset = other->GetCollisionPreset();
+			switch (preset)
+			{
+			case CollisionPreset::Block:
+				UpdateLocation({ -PlayerDirection.x * PLAYER_SPEED, -PlayerDirection.y * PLAYER_SPEED });
+				PlayerDirection = { 0.f, 0.f };
+				CanAction = true;
+				break;
+			case CollisionPreset::Overlap:
+
+				break;
+			case CollisionPreset::Ignore:
+
+				break;
+			}
+
+		}
+
+	}
+
 }
 
 void Player::SetDirection(MoveDirection Direction)
@@ -72,4 +98,24 @@ sf::FloatRect Player::GetCollisionBox()
 	float TempTop = ActorLocation.y - SPRITE_GAME_SIZE / 4 + (PlayerDirection.y * SPRITE_GAME_SIZE / 4);
 
 	return { TempLeft, TempTop, TempWidth, TempHeight };
+}
+
+void Player::AddPoint()
+{
+	++PointCount;
+}
+
+int Player::GetPointCount()
+{
+	return PointCount;
+}
+
+void Player::AddStar()
+{
+	++StarCount;
+}
+
+int Player::GetStarCount()
+{
+	return StarCount;
 }

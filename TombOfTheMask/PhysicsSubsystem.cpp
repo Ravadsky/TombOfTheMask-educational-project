@@ -1,6 +1,7 @@
 #include "PhysicsSubsystem.h"
 #include "LevelSubsystem.h"
 #include "Player.h"
+#include "FunctionLibrary.h"
 
 PhysicsSubsystem::PhysicsSubsystem()
 {
@@ -12,18 +13,31 @@ void PhysicsSubsystem::BeginPlay()
 
 void PhysicsSubsystem::Update()
 {
-	auto _player = GLevelSubsystem->CurrentPlayer;
+	DeltaTimer = GameClock.restart();
+	DeltaTime = DeltaTimer.asSeconds();
 
-	for (auto _actor : GLevelSubsystem->ActorsOnLevel)
+	ClearVectorForExpiredPtr(TriggerActors);
+
+	for (auto actor : GLevelSubsystem->ActorsOnLevel)
 	{
-		if (dynamic_cast<Player*>(_actor)) continue;
-
-		if (_player->GetCollisionBox().intersects(_actor->GetCollisionBox()))
+		for (auto otherActor : TriggerActors)
 		{
-			_player->OnCollision(_actor);
-		}
+			if (auto _otherActor = otherActor.lock())
+			{
+				if (actor->GetCollisionBox().intersects(_otherActor->GetCollisionBox()))
+				{
+					_otherActor->OnCollision(actor);
+					actor->OnCollision(_otherActor);
+				}
+			}
 
+		}
 	}
+}
+
+float PhysicsSubsystem::GetElapsedTime()
+{
+	return DeltaTime;
 }
 
 

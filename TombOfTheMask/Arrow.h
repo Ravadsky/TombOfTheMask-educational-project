@@ -1,14 +1,15 @@
 #pragma once
 #include "Actor.h"
-class Wall :
+class Arrow :
     public Actor
 {
-private:
-
 public:
-    Wall(sf::Vector2f position, float rotationAngle);
+    Arrow(sf::Vector2f position);
+    ~Arrow();
+    Arrow(sf::Vector2f position, float rotationAngle);
 
     void Update() override;
+    void BeginPlay() override;
     void OnCollision(std::weak_ptr<Actor> OtherActor) override;
 };
 

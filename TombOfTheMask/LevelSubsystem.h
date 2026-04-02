@@ -11,12 +11,19 @@ class LevelSubsystem :
 private:
 
 public:
-    std::vector<Actor*> ActorsOnLevel;
+    std::vector<std::shared_ptr<Actor>> ActorsOnLevel;
 
-    Player* CurrentPlayer;
+    std::weak_ptr<Player> CurrentPlayer;
 
     LevelSubsystem();
     void BeginPlay() override;
     void Update() override;
+
+    void StartLevel();
+    void RestartLevel();
+
+    void CreateBackground();
+    void CreateStaticObjects();
+    void CreateDynamicObjects();
 };
 

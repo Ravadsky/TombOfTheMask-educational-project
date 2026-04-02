@@ -3,6 +3,7 @@
 #include "ResourceSubsystem.h"
 #include "RenderSubsystem.h"
 #include "PhysicsSubsystem.h"
+#include "GarbageCollector.h"
 
 sf::RenderWindow* GWindow;
 
@@ -11,3 +12,4 @@ ResourceSubsystem* GResourceSubsystem;
 RenderSubsystem* GRenderSubsystem;
 LevelSubsystem* GLevelSubsystem;
 PhysicsSubsystem* GPhysicsSubsystem;
+GarbageCollector* GGarbageCollector;

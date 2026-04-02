@@ -1,20 +1,16 @@
 #include "Actor.h"
 #include "LevelSubsystem.h"
+#include "FunctionLibrary.h"
 
-Actor::Actor(ActorType Type, sf::Vector2f position)
+Actor::Actor(ActorType Type, sf::Vector2f position, float rotationAngle)
 {
-	GLevelSubsystem->ActorsOnLevel.push_back(this);
-
 	ActorLocation = position;
 	CollisionBox = { position.x - SPRITE_GAME_SIZE / 2, position.y - SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
 
-	ActorSprite = new SpriteComponent(static_cast<int>(Type), position);
-}
+	ActorSprite = std::make_unique<SpriteComponent>(static_cast<int>(Type), position);
 
-Actor::~Actor()
-{
-	auto ItemIterator = std::find(GLevelSubsystem->ActorsOnLevel.begin(), GLevelSubsystem->ActorsOnLevel.end(), this);
-	GLevelSubsystem->ActorsOnLevel.erase(ItemIterator);
+	ActorRotation = rotationAngle;
+	ActorSprite->SetRotation(rotationAngle);
 }
 
 void Actor::BeginPlay()
@@ -35,3 +31,14 @@ sf::FloatRect Actor::GetCollisionBox()
 {
 	return CollisionBox;
 }
+
+CollisionPreset Actor::GetCollisionPreset()
+{
+	return Collision;
+}
+
+void Actor::MarkToKill()
+{
+	GGarbageCollector->ActorsToKill.push_back(shared_from_this());
+}
+

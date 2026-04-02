@@ -5,7 +5,7 @@ SpriteComponent::SpriteComponent(int&& index, sf::Vector2f position) : Drawable(
 {
 	ObjectSprite.setTexture(GResourceSubsystem->SpriteSheet);
 	ObjectSprite.setOrigin({ RAW_SPRITE_SIZE / 2, RAW_SPRITE_SIZE / 2 });
-	ObjectSprite.setScale(OBJECT_SIZE);
+	ObjectSprite.setScale(PIXEL_RATIO);
 	ObjectSprite.setPosition(position);
 
 	int indexRow = index % SpriteSheetSize;
@@ -39,7 +39,7 @@ void SpriteComponent::SetRotation(float Angle)
 
 void SpriteComponent::Flip(bool flip)
 {
-	if (flip)	ObjectSprite.setScale(-OBJECT_SIZE.x , OBJECT_SIZE.y);
-	else ObjectSprite.setScale(OBJECT_SIZE.x, OBJECT_SIZE.y);
+	if (flip)	ObjectSprite.setScale(-PIXEL_RATIO.x , PIXEL_RATIO.y);
+	else ObjectSprite.setScale(PIXEL_RATIO.x, PIXEL_RATIO.y);
 
 }

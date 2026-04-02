@@ -4,6 +4,7 @@
 #include "RenderSubsystem.h"
 #include "LevelSubsystem.h"
 #include "PhysicsSubsystem.h"
+#include "GarbageCollector.h"
 
 Engine::Engine(sf::RenderWindow& window)
 {
@@ -13,6 +14,7 @@ Engine::Engine(sf::RenderWindow& window)
 	GRenderSubsystem = new RenderSubsystem();
 	GLevelSubsystem = new LevelSubsystem();
 	GPhysicsSubsystem = new PhysicsSubsystem();
+	GGarbageCollector = new GarbageCollector();
 }
 
 void Engine::BeginPlay()
@@ -34,5 +36,7 @@ void Engine::Update()
 	GPhysicsSubsystem->Update();
 
 	GRenderSubsystem->Update();
+
+	GGarbageCollector->Update();
 
 }

@@ -15,26 +15,18 @@ void InputSubsystem::Update()
 	sf::Event event;
 	while (GWindow->pollEvent(event))
 	{
-
 		if (event.type == sf::Event::Closed)
 			GWindow->close();
-
-		if (event.key.code == sf::Keyboard::W)
-		{
-			GLevelSubsystem->CurrentPlayer->SetDirection(MoveDirection::Up);
-		}
-		if (event.key.code == sf::Keyboard::S)
-		{
-			GLevelSubsystem->CurrentPlayer->SetDirection(MoveDirection::Down);
-		}
-		if (event.key.code == sf::Keyboard::A)
-		{
-			GLevelSubsystem->CurrentPlayer->SetDirection(MoveDirection::Left);
-		}
-		if (event.key.code == sf::Keyboard::D)
-		{
-			GLevelSubsystem->CurrentPlayer->SetDirection(MoveDirection::Right);
-		}
-
 	}
+
+	if (auto player = GLevelSubsystem->CurrentPlayer.lock())
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) player->SetDirection(MoveDirection::Up);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) player->SetDirection(MoveDirection::Down);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) player->SetDirection(MoveDirection::Left);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) player->SetDirection(MoveDirection::Right);
+	}
+
+
+
 }	

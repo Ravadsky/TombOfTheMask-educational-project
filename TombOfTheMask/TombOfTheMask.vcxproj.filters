@@ -69,6 +69,30 @@
     <ClCompile Include="PhysicsSubsystem.cpp">
       <Filter>Subsystems</Filter>
     </ClCompile>
+    <ClCompile Include="Spikes.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundWall.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GarbageCollector.cpp">
+      <Filter>Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStart.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Archer.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputSubsystem.h">
@@ -115,6 +139,30 @@
     </ClInclude>
     <ClInclude Include="FunctionLibrary.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Spikes.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="BackgroundWall.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GarbageCollector.h">
+      <Filter>Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStart.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Archer.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>ActorSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
