@@ -14,12 +14,16 @@ Archer::Archer(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Ar
 
 void Archer::Update()
 {
-	timer += GPhysicsSubsystem->GetElapsedTime();
-	if (timer >= 2)
+	if (GPhysicsSubsystem != nullptr)
 	{
-		timer -= 2;
-		SpawnActor<Arrow>(CellPosition + RotateVector({1.f, 0.f}, ActorRotation), ActorRotation);
+		timer += GPhysicsSubsystem->GetElapsedTime();
+		if (timer >= 2)
+		{
+			timer -= 2;
+			SpawnActor<Arrow>(CellPosition + RotateVector({ 1.f, 0.f }, ActorRotation), ActorRotation);
+		}
 	}
+
 }
 
 void Archer::OnCollision(std::weak_ptr<Actor> OtherActor)

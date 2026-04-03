@@ -1,8 +1,6 @@
 #include "CoreMinimal.h"
 #include "Engine.h"
-#include "InputSubsystem.h"
-#include "RenderSubsystem.h"
-#include "Actor.h"
+#include "LevelEditor.h"
 
 int main()
 {
@@ -10,14 +8,31 @@ int main()
 	window.setFramerateLimit(MAX_FPS);
 	window.setVerticalSyncEnabled(true);
 
-	Engine GameEngine(window);
-	
-	GameEngine.BeginPlay();
+	const bool LevelEditorMode = false;
 
-	while (window.isOpen())
+	if (LevelEditorMode)
 	{
-		GameEngine.Update();
-	}		
+		LevelEditor GameLevelEditor(window);
+		GameLevelEditor.BeginPlay();
+
+		while (window.isOpen())
+		{
+			GameLevelEditor.Update();
+		}
+	}
+	else
+	{
+		Engine GameEngine(window);
+		GameEngine.BeginPlay();
+
+		while (window.isOpen())
+		{
+			GameEngine.Update();
+		}
+	}
+	
+
+	
 
 	return 0;
 }

@@ -10,7 +10,6 @@ const int WINDOW_HEIGHT = 720;
 const int MAX_FPS = 60;
 const sf::Vector2f CAMERA_PIVOT = { WINDOW_WIGHT / 2, WINDOW_HEIGHT / 2 };
 
-
 //Resources
 const std::string RESOURCES_PATH = "Resources/";
 const int RAW_SPRITE_SIZE = 8;

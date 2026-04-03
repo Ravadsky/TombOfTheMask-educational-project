@@ -8,9 +8,8 @@
 #include <memory>
 #include <typeinfo>
 
-
 template<typename T>
-inline std::shared_ptr<T> SpawnActor(sf::Vector2f cellPosition, float rotationAngle = 0.f)
+inline std::weak_ptr<T> SpawnActor(sf::Vector2f cellPosition, float rotationAngle = 0.f)
 {
 	static_assert(std::is_base_of < Actor, T > ::value, "Class is not child of Actor");
 

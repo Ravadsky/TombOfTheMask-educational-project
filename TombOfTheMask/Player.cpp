@@ -1,13 +1,16 @@
 #include "Player.h"
-#include "PhysicsSubsystem.h"
+//#include "PhysicsSubsystem.h"
+#include "LevelSubsystem.h"
 
 Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
 	canTick = true;
-
+	triggerCollision = true;
 	Collision = CollisionPreset::Block;
+
 	CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2 };
 
+	ActorSprite->SetDrawType(DrawType::Dynamic);
 }
 
 void Player::Update()
@@ -17,7 +20,7 @@ void Player::Update()
 
 void Player::BeginPlay()
 {
-	GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
+	GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
 }
 
 void Player::OnCollision(std::weak_ptr<Actor> OtherActor)

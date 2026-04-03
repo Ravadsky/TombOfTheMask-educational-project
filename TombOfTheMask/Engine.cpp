@@ -23,6 +23,8 @@ void Engine::BeginPlay()
 
 	GLevelSubsystem->BeginPlay();
 
+	GPhysicsSubsystem->BeginPlay();
+
 	GRenderSubsystem->BeginPlay();
 }
 

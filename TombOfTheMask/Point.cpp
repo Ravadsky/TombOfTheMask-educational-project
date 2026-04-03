@@ -6,6 +6,7 @@
 Point::Point(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Point, position, rotationAngle)
 {
 	Collision = CollisionPreset::Overlap;
+	ActorSprite->SetDrawType(DrawType::Dynamic);
 
 }
 

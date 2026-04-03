@@ -43,3 +43,8 @@ void SpriteComponent::Flip(bool flip)
 	else ObjectSprite.setScale(PIXEL_RATIO.x, PIXEL_RATIO.y);
 
 }
+
+void SpriteComponent::SetDrawType(DrawType type)
+{
+	Type = type;
+}

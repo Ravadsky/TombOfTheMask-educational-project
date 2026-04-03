@@ -25,6 +25,9 @@
     <Filter Include="ActorSystem">
       <UniqueIdentifier>{a644a540-b53d-4ec7-b414-5c60a809d79d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LevelEditor">
+      <UniqueIdentifier>{b1a29c84-43bd-48d8-8fde-43a5869f9b8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputSubsystem.cpp">
@@ -91,6 +94,24 @@
       <Filter>ActorSystem</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="CornerWall.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditor.cpp">
+      <Filter>LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorObject.cpp">
+      <Filter>LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStartBlock.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEndBlock.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEnd.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,6 +183,24 @@
       <Filter>ActorSystem</Filter>
     </ClInclude>
     <ClInclude Include="Arrow.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="CornerWall.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditor.h">
+      <Filter>LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorObject.h">
+      <Filter>LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStartBlock.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEndBlock.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEnd.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
   </ItemGroup>

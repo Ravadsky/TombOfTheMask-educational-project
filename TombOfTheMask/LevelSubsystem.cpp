@@ -1,18 +1,40 @@
 #include "LevelSubsystem.h"
 #include "FunctionLibrary.h"
+#include <fstream>
+#include <sstream>
 
 #include "Player.h"
 #include "Wall.h"
 #include "Spikes.h"
 #include "Point.h"
 #include "Star.h"
+#include "Arrow.h"
 #include "BackgroundWall.h"
 #include "PlayerStart.h"
 #include "Archer.h"
+#include "CornerWall.h"
+#include "EditorObject.h"
+#include "PlayerStartBlock.h"
+#include "PlayerEndBlock.h"
+#include "PlayerEnd.h"
+
 
 LevelSubsystem::LevelSubsystem()
 {
-
+	ActorsID[0] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Player>(pos, rotation); };
+	ActorsID[1] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Wall>(pos, rotation); };
+	ActorsID[2] = [](sf::Vector2f pos, float rotation) {return SpawnActor<CornerWall>(pos, rotation); };
+	ActorsID[3] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Spikes>(pos, rotation); };
+	ActorsID[4] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Archer>(pos, rotation); };
+	ActorsID[5] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Arrow>(pos, rotation); };
+	ActorsID[6] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Point>(pos, rotation); };
+	ActorsID[7] = [](sf::Vector2f pos, float rotation) {return SpawnActor<Star>(pos, rotation); };
+	ActorsID[8] = [](sf::Vector2f pos, float rotation) {return SpawnActor<PlayerStart>(pos, rotation); };
+	ActorsID[9] = [](sf::Vector2f pos, float rotation) {return SpawnActor<PlayerStartBlock>(pos, rotation); };
+	ActorsID[10] = [](sf::Vector2f pos, float rotation) {return SpawnActor<PlayerEnd>(pos, rotation); };
+	ActorsID[11] = [](sf::Vector2f pos, float rotation) {return SpawnActor<PlayerEndBlock>(pos, rotation); };
+	ActorsID[12] = [](sf::Vector2f pos, float rotation) {return SpawnActor<BackgroundWall>(pos, rotation); };
+	ActorsID[15] = [](sf::Vector2f pos, float rotation) {return SpawnActor<EditorObject>(pos, rotation); };
 }
 
 void LevelSubsystem::BeginPlay()
@@ -30,7 +52,6 @@ void LevelSubsystem::Update()
 
 void LevelSubsystem::StartLevel()
 {
-	CreateBackground();
 	CreateStaticObjects();
 	CreateDynamicObjects();
 }
@@ -46,48 +67,30 @@ void LevelSubsystem::RestartLevel()
 
 }
 
-void LevelSubsystem::CreateBackground()
-{
-	for (int i = 1; i < 6; ++i)
-	{
-		for (int j = 1; j < 6; ++j)
-		{
-			SpawnActor<BackgroundWall>({ (float)i, (float)j });
-		}
-	}
-}
-
 void LevelSubsystem::CreateStaticObjects()
 {
-	SpawnActor<Wall>({ 1.f,1.f });
-	SpawnActor<Wall>({ 1.f,2.f });
-	SpawnActor<Spikes>({ 1.f,3.f });
-	SpawnActor<Archer>({ 1.f,4.f });
-	SpawnActor<Wall>({ 1.f,5.f });
+	std::ifstream file(RESOURCES_PATH + "Levels/" + "Level1.txt");
+	std::string line;
+	while (std::getline(file, line))
+	{
+		std::istringstream stream(line);
+		int xPos, yPos, Rotation, ActorID;
+		char commaSeparator;
 
-	SpawnActor<Wall>({ 5.f,1.f });
-	SpawnActor<Wall>({ 5.f,2.f });
-	SpawnActor<Wall>({ 5.f,3.f });
-	SpawnActor<Wall>({ 5.f,4.f });
-	SpawnActor<Wall>({ 5.f,5.f });
+		stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
+		
+		CreateObject({ (float)xPos, (float)yPos }, (float)Rotation, ActorID);
+	}
 
-	SpawnActor<Wall>({ 2.f,1.f });
-	SpawnActor<Wall>({ 3.f,1.f });
-	SpawnActor<Wall>({ 4.f,1.f });
-
-	SpawnActor<Wall>({ 2.f,5.f });
-	SpawnActor<Wall>({ 4.f,5.f });
-
-	SpawnActor<Wall>({ 2.f,2.f });
-
-	SpawnActor<PlayerStart>({ 3.f,3.f });
 }
 
 void LevelSubsystem::CreateDynamicObjects()
 {
-	CurrentPlayer = SpawnActor<Player>({ 3.f, 3.f }, 0.f);
 
-	SpawnActor<Point>({ 4.f,4.f });
-	SpawnActor<Star>({ 4.f,3.f });
 
+}
+
+std::weak_ptr<Actor> LevelSubsystem::CreateObject(sf::Vector2f pos, float rotation, int ID)
+{
+	return ActorsID[ID](pos, rotation);
 }
