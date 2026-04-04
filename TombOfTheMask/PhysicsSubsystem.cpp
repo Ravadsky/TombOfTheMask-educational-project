@@ -9,10 +9,6 @@ PhysicsSubsystem::PhysicsSubsystem()
 
 void PhysicsSubsystem::BeginPlay()
 {
-	for (auto actor : GLevelSubsystem->ActorsOnLevel)
-	{
-		if (actor->CanTriggerCollision()) TriggerActors.emplace_back(actor);
-	}
 }
 
 void PhysicsSubsystem::Update()

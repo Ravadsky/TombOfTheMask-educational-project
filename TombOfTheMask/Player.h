@@ -46,5 +46,7 @@ public:
     void AddStar();
     int GetStarCount();
 
+    void GetDamage();
+
 };
 

@@ -8,20 +8,6 @@ int main()
 	window.setFramerateLimit(MAX_FPS);
 	window.setVerticalSyncEnabled(true);
 
-	const bool LevelEditorMode = false;
-
-	if (LevelEditorMode)
-	{
-		LevelEditor GameLevelEditor(window);
-		GameLevelEditor.BeginPlay();
-
-		while (window.isOpen())
-		{
-			GameLevelEditor.Update();
-		}
-	}
-	else
-	{
 		Engine GameEngine(window);
 		GameEngine.BeginPlay();
 
@@ -29,10 +15,23 @@ int main()
 		{
 			GameEngine.Update();
 		}
-	}
 	
+	return 0;
+}
 
-	
+int mainDevelopment()
+{
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
+	window.setFramerateLimit(MAX_FPS);
+	window.setVerticalSyncEnabled(true);
+
+		LevelEditor GameLevelEditor(window);
+		GameLevelEditor.BeginPlay();
+
+		while (window.isOpen())
+		{
+			GameLevelEditor.Update();
+		}
 
 	return 0;
 }

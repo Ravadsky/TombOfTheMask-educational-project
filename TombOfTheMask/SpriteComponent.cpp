@@ -6,8 +6,8 @@ SpriteComponent::SpriteComponent(int&& index, sf::Vector2f position) : Drawable(
 	ObjectSprite.setTexture(GResourceSubsystem->SpriteSheet);
 	ObjectSprite.setOrigin({ RAW_SPRITE_SIZE / 2, RAW_SPRITE_SIZE / 2 });
 	ObjectSprite.setScale(PIXEL_RATIO);
-	ObjectSprite.setPosition(position);
-
+	WorldPosition = position;
+	
 	int indexRow = index % SpriteSheetSize;
 	int indexColumn = index / SpriteSheetSize;
 	ObjectSprite.setTextureRect({ indexRow * RAW_SPRITE_SIZE, indexColumn * RAW_SPRITE_SIZE, RAW_SPRITE_SIZE, RAW_SPRITE_SIZE });
@@ -22,14 +22,20 @@ void SpriteComponent::Update()
 {
 }
 
-void SpriteComponent::Draw()
+void SpriteComponent::Draw(sf::Vector2f position)
 {
+	ObjectSprite.setPosition(WorldPosition - position);
 	GWindow->draw(ObjectSprite);
 }
 
 void SpriteComponent::SetPosition(sf::Vector2f position)
 {
-	ObjectSprite.setPosition(position);
+	WorldPosition = position;
+}
+
+void SpriteComponent::SetColor(sf::Color color)
+{
+	ObjectSprite.setColor(color);
 }
 
 void SpriteComponent::SetRotation(float Angle)

@@ -10,6 +10,7 @@ class SpriteComponent :
 {
 private:
     sf::Sprite ObjectSprite;
+    sf::Vector2f WorldPosition{ 0.f, 0.f };
 
 public:
 
@@ -17,10 +18,10 @@ public:
 
     void BeginPlay() override;
     void Update() override;
-    void Draw() override;
+    void Draw(sf::Vector2f position) override;
 
     void SetPosition(sf::Vector2f position);
-
+    void SetColor(sf::Color color);
     void SetRotation(float Angle);
     void Flip(bool flip);
 

@@ -1,7 +1,7 @@
 #include "Arrow.h"
 #include "FunctionLibrary.h"
 #include "PhysicsSubsystem.h"
-
+#include "LevelSubsystem.h"
 #include "Wall.h"
 #include "Player.h"
 
@@ -14,7 +14,6 @@ Arrow::~Arrow()
 Arrow::Arrow(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Arrow, position, rotationAngle)
 {
 	canTick = true;
-	triggerCollision = true;
 	Collision = CollisionPreset::Block;
 	ActorSprite->SetDrawType(DrawType::Dynamic);
 
@@ -29,7 +28,6 @@ void Arrow::Update()
 
 void Arrow::BeginPlay()
 {
-	//необходимо, потому что стрела появляется позже, чем система физики сканирует все объекты на "может триггерить коллизии"
 	GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
 }
 
@@ -43,8 +41,8 @@ void Arrow::OnCollision(std::weak_ptr<Actor> OtherActor)
 			switch (preset)
 			{
 			case CollisionPreset::Block:
-				if (isClassOf<Player>(other))  GWindow->close();
-				MarkToKill();
+				if (isClassOf<Player>(other)) CastTo<Player>(other)->GetDamage();
+				else MarkToKill();
 				break;
 			case CollisionPreset::Overlap:
 

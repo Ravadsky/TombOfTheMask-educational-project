@@ -1,11 +1,11 @@
 #include "Player.h"
-//#include "PhysicsSubsystem.h"
 #include "LevelSubsystem.h"
+#include "RenderSubsystem.h"
+#include "PhysicsSubsystem.h"
 
 Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
 	canTick = true;
-	triggerCollision = true;
 	Collision = CollisionPreset::Block;
 
 	CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2 };
@@ -21,6 +21,8 @@ void Player::Update()
 void Player::BeginPlay()
 {
 	GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
+	GRenderSubsystem->SetCameraPosition(&ActorLocation);
+	GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
 }
 
 void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
@@ -121,4 +123,11 @@ void Player::AddStar()
 int Player::GetStarCount()
 {
 	return StarCount;
+}
+
+void Player::GetDamage()
+{
+	ActorSprite->SetColor(sf::Color::Red);
+	GLevelSubsystem->needToStartLevel = true;
+	CanAction = false;
 }

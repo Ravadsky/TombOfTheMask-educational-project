@@ -4,6 +4,7 @@
 #include "LevelSubsystem.h"
 #include <numbers>
 #include "GarbageCollector.h"
+#include "PhysicsSubsystem.h"
 #include <algorithm>
 #include <memory>
 #include <typeinfo>
@@ -43,4 +44,33 @@ template<typename T, typename K>
 inline bool isClassOf(const std::shared_ptr<K>& object)
 {
 	return object && std::dynamic_pointer_cast<T>(object) != nullptr;
+}
+
+template<typename T, typename K>
+inline std::shared_ptr<T> CastTo(const std::shared_ptr<K>& object)
+{
+	return std::dynamic_pointer_cast<T>(object);
+}
+
+template<typename T>
+inline bool Timer(float time)
+{
+	static float intern_time = 0.f;
+	intern_time += GPhysicsSubsystem->GetElapsedTime();
+	if (intern_time >= time)
+	{
+		intern_time -= time;
+		return true;
+	}
+	return false;
+}
+
+
+
+template<typename T>
+inline T Clamp(T& Object, T min, T max)
+{
+	if (min > Object) return min;
+	if (Object > max) return max;
+		return Object;
 }

@@ -41,7 +41,6 @@ private:
 
 protected:
     bool canTick = false;
-    bool triggerCollision = false;
 
     std::unique_ptr<SpriteComponent> ActorSprite;
     sf::Vector2f ActorLocation{ 0.f, 0.f };
@@ -59,7 +58,6 @@ public:
     virtual void OnCollision(std::weak_ptr<Actor> OtherActor) = 0;
 
     bool CanTick();
-    bool CanTriggerCollision();
     void MarkToKill();
 
     sf::Vector2f Getlocation();

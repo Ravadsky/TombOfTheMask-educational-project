@@ -13,7 +13,7 @@ class Drawable
 public:
 	DrawType Type = DrawType::Static;
 
-	virtual void Draw() = 0;
+	virtual void Draw(sf::Vector2f position) = 0;
 
 	Drawable();
 	~Drawable();

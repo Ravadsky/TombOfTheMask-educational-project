@@ -19,7 +19,7 @@ void RenderSubsystem::Update()
 
 	for (auto Object : StaticObjects)
 	{
-		Object->Draw();
+		Object->Draw(*CameraPosition - CAMERA_PIVOT);
 	}
 
 	auto DynamicObjects = ObjectsToDraw
@@ -27,7 +27,7 @@ void RenderSubsystem::Update()
 
 	for (auto Object : DynamicObjects)
 	{
-		Object->Draw();
+		Object->Draw(*CameraPosition - CAMERA_PIVOT);
 	}
 
 	auto WidgetObjects = ObjectsToDraw
@@ -35,8 +35,13 @@ void RenderSubsystem::Update()
 
 	for (auto Object : WidgetObjects)
 	{
-		Object->Draw();
+		Object->Draw(*CameraPosition - CAMERA_PIVOT);
 	}
 
 	GWindow->display();
+}
+
+void RenderSubsystem::SetCameraPosition(sf::Vector2f* position)
+{
+	CameraPosition = position;
 }

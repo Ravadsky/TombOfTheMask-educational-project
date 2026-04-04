@@ -22,11 +22,6 @@ bool Actor::CanTick()
 	return canTick;
 }
 
-bool Actor::CanTriggerCollision()
-{
-	return triggerCollision;
-}
-
 sf::Vector2f Actor::Getlocation()
 {
 	return ActorLocation;
