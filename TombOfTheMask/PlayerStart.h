@@ -1,12 +1,10 @@
 #pragma once
 #include "Actor.h"
-class PlayerStart :
-    public Actor
+class PlayerStart : public Actor
 {
-public:
+  public:
     PlayerStart(sf::Vector2f position, float rotationAngle);
 
     void Update() override;
     void OnCollision(std::weak_ptr<Actor> OtherActor) override;
 };
-

@@ -4,15 +4,14 @@
 
 class Actor;
 
-class PhysicsSubsystem :
-    public UObject
+class PhysicsSubsystem : public UObject
 {
-private:
+  private:
     sf::Clock GameClock;
     sf::Time DeltaTimer;
     float DeltaTime = 0.f;
 
-public:
+  public:
     std::vector<std::weak_ptr<Actor>> TriggerActors;
 
     PhysicsSubsystem();
@@ -21,4 +20,3 @@ public:
 
     float GetElapsedTime();
 };
-

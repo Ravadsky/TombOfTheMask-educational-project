@@ -1,9 +1,8 @@
 #pragma once
 #include "Actor.h"
-class EditorObject :
-    public Actor
+class EditorObject : public Actor
 {
-public:
+  public:
     EditorObject(sf::Vector2f position, float rotationAngle);
 
     void Update() override;

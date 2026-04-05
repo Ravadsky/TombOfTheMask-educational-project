@@ -4,15 +4,13 @@
 
 class Actor;
 
-class GarbageCollector :
-    public UObject
+class GarbageCollector : public UObject
 {
-public:
-	std::vector<std::weak_ptr<Actor>> ActorsToKill;
+  public:
+    std::vector<std::weak_ptr<Actor>> ActorsToKill;
 
-	GarbageCollector();
+    GarbageCollector();
 
-	void BeginPlay() override;
-	void Update() override;
+    void BeginPlay() override;
+    void Update() override;
 };
-

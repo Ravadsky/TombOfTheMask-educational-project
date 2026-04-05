@@ -1,22 +1,19 @@
 #pragma once
+#include "Drawable.h"
 #include "UObject.h"
 #include <vector>
-#include "Drawable.h"
 
-class RenderSubsystem :
-    public UObject
+class RenderSubsystem : public UObject
 {
-private:
+  private:
+    sf::Vector2f *CameraPosition;
 
-    sf::Vector2f* CameraPosition;
-
-public:
-    std::vector<Drawable*> ObjectsToDraw;
+  public:
+    std::vector<Drawable *> ObjectsToDraw;
 
     RenderSubsystem();
     void BeginPlay() override;
     void Update() override;
 
-    void SetCameraPosition(sf::Vector2f * position);
+    void SetCameraPosition(sf::Vector2f *position);
 };
-

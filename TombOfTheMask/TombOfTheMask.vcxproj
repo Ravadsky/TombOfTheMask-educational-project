@@ -159,8 +159,10 @@
     <ClCompile Include="Spikes.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Star.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="UObject.cpp" />
     <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -190,8 +192,10 @@
     <ClInclude Include="Spikes.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Star.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="UObject.h" />
     <ClInclude Include="Wall.h" />
+    <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

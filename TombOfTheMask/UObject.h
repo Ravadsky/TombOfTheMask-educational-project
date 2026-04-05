@@ -1,12 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
 
-
 class UObject
 {
-public:
-	virtual void BeginPlay() = 0;
+  protected:
+    bool canTick = false;
 
-	virtual void Update() = 0;
+  public:
+    virtual void BeginPlay() = 0;
+
+    virtual void Update() = 0;
+
+    bool CanTick();
 };
-

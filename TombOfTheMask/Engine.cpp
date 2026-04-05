@@ -1,44 +1,43 @@
 #include "Engine.h"
+#include "GarbageCollector.h"
 #include "InputSubsystem.h"
-#include "ResourceSubsystem.h"
-#include "RenderSubsystem.h"
 #include "LevelSubsystem.h"
 #include "PhysicsSubsystem.h"
-#include "GarbageCollector.h"
+#include "RenderSubsystem.h"
+#include "ResourceSubsystem.h"
 
-Engine::Engine(sf::RenderWindow& window)
+Engine::Engine(sf::RenderWindow &window)
 {
-	GWindow = &window;
-	GInputSubsystem = new InputSubsystem();
-	GResourceSubsystem = new ResourceSubsystem();
-	GRenderSubsystem = new RenderSubsystem();
-	GLevelSubsystem = new LevelSubsystem();
-	GPhysicsSubsystem = new PhysicsSubsystem();
-	GGarbageCollector = new GarbageCollector();
+    GWindow = &window;
+    GInputSubsystem = new InputSubsystem();
+    GResourceSubsystem = new ResourceSubsystem();
+    GRenderSubsystem = new RenderSubsystem();
+    GLevelSubsystem = new LevelSubsystem();
+    GPhysicsSubsystem = new PhysicsSubsystem();
+    GGarbageCollector = new GarbageCollector();
 }
 
 void Engine::BeginPlay()
 {
-	GInputSubsystem->BeginPlay();
+    GInputSubsystem->BeginPlay();
 
-	GLevelSubsystem->BeginPlay();
+    GLevelSubsystem->BeginPlay();
 
-	GPhysicsSubsystem->BeginPlay();
+    GPhysicsSubsystem->BeginPlay();
 
-	GRenderSubsystem->BeginPlay();
+    GRenderSubsystem->BeginPlay();
 }
 
 void Engine::Update()
 {
 
-	GInputSubsystem->Update();
+    GInputSubsystem->Update();
 
-	GLevelSubsystem->Update();
+    GLevelSubsystem->Update();
 
-	GPhysicsSubsystem->Update();
+    GPhysicsSubsystem->Update();
 
-	GRenderSubsystem->Update();
+    GRenderSubsystem->Update();
 
-	GGarbageCollector->Update();
-
+    GGarbageCollector->Update();
 }

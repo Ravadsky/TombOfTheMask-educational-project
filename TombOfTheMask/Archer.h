@@ -1,17 +1,15 @@
 #pragma once
 #include "Actor.h"
-class Archer :
-    public Actor
+class Archer : public Actor
 {
-private:
+  private:
     float timer = 0.f;
     sf::Vector2f CellPosition;
 
-public:
+  public:
     Archer(sf::Vector2f position);
     Archer(sf::Vector2f position, float rotationAngle);
 
     void Update() override;
     void OnCollision(std::weak_ptr<Actor> OtherActor) override;
 };
-

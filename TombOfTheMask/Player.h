@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "Widget.h"
 
 enum class MoveDirection
 {
@@ -16,19 +17,20 @@ enum class PlayerState
     Idle,
 };
 
-class Player :
-    public Actor
+class Player : public Actor
 {
-private:
-    sf::Vector2f PlayerDirection{ 0.f, 0.f };
-    bool CanAction{ true };
-    PlayerState State{ PlayerState::Idle };
-    sf::Vector2f PrevLocation;
+  private:
+    sf::Vector2f PlayerDirection{0.f, 0.f};
+    bool CanAction{true};
+    PlayerState State{PlayerState::Idle};
 
     int PointCount = 0;
-    int StarCount = 0;    
+    int StarCount = 0;
 
-public:
+    std::unique_ptr<Widget> PointCountWidget;
+    std::unique_ptr<Widget> StarCountWidget;
+
+  public:
     Player(sf::Vector2f position, float rotationAngle);
 
     void Update() override;
@@ -47,6 +49,4 @@ public:
     int GetStarCount();
 
     void GetDamage();
-
 };
-

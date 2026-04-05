@@ -4,11 +4,11 @@
 
 Drawable::Drawable()
 {
-	GRenderSubsystem->ObjectsToDraw.push_back(this);
+    GRenderSubsystem->ObjectsToDraw.push_back(this);
 }
 
 Drawable::~Drawable()
 {
-	auto ItemIterator = std::find(GRenderSubsystem->ObjectsToDraw.begin(), GRenderSubsystem->ObjectsToDraw.end(), this);
-	GRenderSubsystem->ObjectsToDraw.erase(ItemIterator);
+    auto ItemIterator = std::find(GRenderSubsystem->ObjectsToDraw.begin(), GRenderSubsystem->ObjectsToDraw.end(), this);
+    GRenderSubsystem->ObjectsToDraw.erase(ItemIterator);
 }

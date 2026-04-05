@@ -4,34 +4,35 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
-	window.setFramerateLimit(MAX_FPS);
-	window.setVerticalSyncEnabled(true);
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
+    window.setFramerateLimit(MAX_FPS);
+    window.setVerticalSyncEnabled(true);
 
-		Engine GameEngine(window);
-		GameEngine.BeginPlay();
+    Engine GameEngine(window);
+    GameEngine.BeginPlay();
 
-		while (window.isOpen())
-		{
-			GameEngine.Update();
-		}
-	
-	return 0;
+    while (window.isOpen())
+    {
+        GameEngine.Update();
+    }
+
+    return 0;
 }
 
-int mainDevelopment()
+int main1()
 {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
-	window.setFramerateLimit(MAX_FPS);
-	window.setVerticalSyncEnabled(true);
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
 
-		LevelEditor GameLevelEditor(window);
-		GameLevelEditor.BeginPlay();
+    window.setFramerateLimit(MAX_FPS);
+    window.setVerticalSyncEnabled(true);
 
-		while (window.isOpen())
-		{
-			GameLevelEditor.Update();
-		}
+    LevelEditor GameLevelEditor(window);
+    GameLevelEditor.BeginPlay();
 
-	return 0;
+    while (window.isOpen())
+    {
+        GameLevelEditor.Update();
+    }
+
+    return 0;
 }

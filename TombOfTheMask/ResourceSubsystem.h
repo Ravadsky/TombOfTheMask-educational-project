@@ -3,12 +3,11 @@
 
 class ResourceSubsystem : public UObject
 {
-public:
-	sf::Texture SpriteSheet;
-	sf::Font GameFont;
+  public:
+    sf::Texture SpriteSheet;
+    sf::Font GameFont;
 
-	ResourceSubsystem();
-	void BeginPlay() override;
-	void Update() override;
+    ResourceSubsystem();
+    void BeginPlay() override;
+    void Update() override;
 };
-

@@ -19,14 +19,14 @@
     <Filter Include="Core">
       <UniqueIdentifier>{bb0ca5ca-12b0-4101-99e8-fc54e46114e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interfaces">
-      <UniqueIdentifier>{41920e1e-55b9-4790-b3ea-cbc6222fadbc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ActorSystem">
       <UniqueIdentifier>{a644a540-b53d-4ec7-b414-5c60a809d79d}</UniqueIdentifier>
     </Filter>
     <Filter Include="LevelEditor">
       <UniqueIdentifier>{b1a29c84-43bd-48d8-8fde-43a5869f9b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WidgetsSystem">
+      <UniqueIdentifier>{aee5d096-a880-4ce7-928c-10dcf0360726}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,16 +48,10 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="RenderSubsystem.cpp">
       <Filter>Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
     <ClCompile Include="LevelSubsystem.cpp">
@@ -114,6 +108,18 @@
     <ClCompile Include="PlayerEnd.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>WidgetsSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>WidgetsSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputSubsystem.h">
@@ -134,16 +140,10 @@
     <ClInclude Include="Engine.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="RenderSubsystem.h">
       <Filter>Subsystems</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
-      <Filter>ActorSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
     <ClInclude Include="LevelSubsystem.h">
@@ -202,6 +202,18 @@
     </ClInclude>
     <ClInclude Include="PlayerEnd.h">
       <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>WidgetsSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>ActorSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>WidgetsSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

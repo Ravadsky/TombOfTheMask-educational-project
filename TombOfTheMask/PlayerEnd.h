@@ -1,11 +1,9 @@
 #pragma once
 #include "Actor.h"
-class PlayerEnd :
-    public Actor
+class PlayerEnd : public Actor
 {
-private:
-
-public:
+  private:
+  public:
     PlayerEnd(sf::Vector2f position, float rotationAngle);
 
     void Update() override;

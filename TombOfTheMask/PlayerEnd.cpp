@@ -2,8 +2,7 @@
 
 PlayerEnd::PlayerEnd(sf::Vector2f position, float rotationAngle) : Actor(ActorType::PlayerEnd, position, rotationAngle)
 {
-	Collision = CollisionPreset::Overlap;
-
+    Collision = CollisionPreset::Overlap;
 }
 
 void PlayerEnd::Update()

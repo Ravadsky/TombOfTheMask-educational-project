@@ -3,8 +3,8 @@
 
 ResourceSubsystem::ResourceSubsystem()
 {
-	assert(SpriteSheet.loadFromFile(RESOURCES_PATH + "Sprites.png"));
-	assert(GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + "Font.otf"));
+    assert(SpriteSheet.loadFromFile(RESOURCES_PATH + "Sprites.png"));
+    assert(GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + "Font.otf"));
 }
 
 void ResourceSubsystem::BeginPlay()
@@ -14,4 +14,3 @@ void ResourceSubsystem::BeginPlay()
 void ResourceSubsystem::Update()
 {
 }
-

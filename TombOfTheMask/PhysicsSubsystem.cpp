@@ -1,7 +1,7 @@
 #include "PhysicsSubsystem.h"
+#include "FunctionLibrary.h"
 #include "LevelSubsystem.h"
 #include "Player.h"
-#include "FunctionLibrary.h"
 
 PhysicsSubsystem::PhysicsSubsystem()
 {
@@ -13,31 +13,28 @@ void PhysicsSubsystem::BeginPlay()
 
 void PhysicsSubsystem::Update()
 {
-	DeltaTimer = GameClock.restart();
-	DeltaTime = DeltaTimer.asSeconds();
+    DeltaTimer = GameClock.restart();
+    DeltaTime = DeltaTimer.asSeconds();
 
-	ClearVectorForExpiredPtr(TriggerActors);
+    ClearVectorForExpiredPtr(TriggerActors);
 
-	for (auto actor : GLevelSubsystem->ActorsOnLevel)
-	{
-		for (auto otherActor : TriggerActors)
-		{
-			if (auto _otherActor = otherActor.lock())
-			{
-				if (actor->GetCollisionBox().intersects(_otherActor->GetCollisionBox()))
-				{
-					_otherActor->OnCollision(actor);
-					actor->OnCollision(_otherActor);
-				}
-			}
-
-		}
-	}
+    for (auto actor : GLevelSubsystem->ActorsOnLevel)
+    {
+        for (auto otherActor : TriggerActors)
+        {
+            if (auto _otherActor = otherActor.lock())
+            {
+                if (actor->GetCollisionBox().intersects(_otherActor->GetCollisionBox()))
+                {
+                    _otherActor->OnCollision(actor);
+                    actor->OnCollision(_otherActor);
+                }
+            }
+        }
+    }
 }
 
 float PhysicsSubsystem::GetElapsedTime()
 {
-	return DeltaTime;
+    return DeltaTime;
 }
-
-
