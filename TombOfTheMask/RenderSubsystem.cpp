@@ -2,13 +2,7 @@
 #include "SpriteComponent.h"
 #include <ranges>
 
-RenderSubsystem::RenderSubsystem()
-{
-}
-
-void RenderSubsystem::BeginPlay()
-{
-}
+RenderSubsystem::RenderSubsystem() {}
 
 void RenderSubsystem::Update()
 {
@@ -44,4 +38,9 @@ void RenderSubsystem::Update()
 void RenderSubsystem::SetCameraPosition(sf::Vector2f *position)
 {
     CameraPosition = position;
+}
+
+void RenderSubsystem::ClearObjectsToDraw()
+{
+    ObjectsToDraw.clear();
 }

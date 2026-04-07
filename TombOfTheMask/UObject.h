@@ -7,9 +7,9 @@ class UObject
     bool canTick = false;
 
   public:
-    virtual void BeginPlay() = 0;
+    virtual void BeginPlay();
 
-    virtual void Update() = 0;
+    virtual void Update();
 
     bool CanTick();
 };

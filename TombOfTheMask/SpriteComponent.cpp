@@ -14,15 +14,16 @@ SpriteComponent::SpriteComponent(int &&index, sf::Vector2f position) : Drawable(
         {indexRow * RAW_SPRITE_SIZE, indexColumn * RAW_SPRITE_SIZE, RAW_SPRITE_SIZE, RAW_SPRITE_SIZE});
 }
 
-SpriteComponent::SpriteComponent(sf::Texture& texture, sf::Vector2f position)
+SpriteComponent::SpriteComponent(sf::Texture &texture, sf::Vector2f position)
 {
     ObjectSprite.setTexture(texture);
-    ObjectSprite.setOrigin({RAW_SPRITE_SIZE / 2, RAW_SPRITE_SIZE / 2});
     ObjectSprite.setScale(PIXEL_RATIO);
     WorldPosition = position;
+
+    sf::FloatRect bounds = ObjectSprite.getLocalBounds();
+    ObjectSprite.setOrigin(std::floor(bounds.left + bounds.width / 2.0f),
+                           std::floor(bounds.top + bounds.height / 2.0f));
 }
-
-
 
 void SpriteComponent::BeginPlay()
 {
@@ -64,4 +65,9 @@ void SpriteComponent::Flip(bool flip)
 void SpriteComponent::SetDrawType(DrawType type)
 {
     Type = type;
+}
+
+sf::FloatRect SpriteComponent::GetBounds()
+{
+    return ObjectSprite.getGlobalBounds();
 }

@@ -10,5 +10,6 @@ Drawable::Drawable()
 Drawable::~Drawable()
 {
     auto ItemIterator = std::find(GRenderSubsystem->ObjectsToDraw.begin(), GRenderSubsystem->ObjectsToDraw.end(), this);
-    GRenderSubsystem->ObjectsToDraw.erase(ItemIterator);
+    if (ItemIterator != GRenderSubsystem->ObjectsToDraw.end())
+        GRenderSubsystem->ObjectsToDraw.erase(ItemIterator);
 }

@@ -1,4 +1,5 @@
 #include "CoreMinimal.h"
+#include "Engine.h"
 #include "GarbageCollector.h"
 #include "InputSubsystem.h"
 #include "PhysicsSubsystem.h"
@@ -13,3 +14,4 @@ RenderSubsystem *GRenderSubsystem;
 LevelSubsystem *GLevelSubsystem;
 PhysicsSubsystem *GPhysicsSubsystem;
 GarbageCollector *GGarbageCollector;
+Engine *GEngine;

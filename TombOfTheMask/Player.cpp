@@ -26,7 +26,7 @@ void Player::BeginPlay()
 {
     GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
     GRenderSubsystem->SetCameraPosition(&ActorLocation);
-    GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
+    if (GPhysicsSubsystem) GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
 
     std::string PointText = std::to_string(PointCount) + " / " + std::to_string(GLevelSubsystem->PointCountOnLevel);
     PointCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 64), "Point", PointText);

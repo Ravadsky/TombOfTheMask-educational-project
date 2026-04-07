@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "UObject.h"
 #include <string>
+#include "GameState.h"
 
 struct ActorInfo
 {
@@ -11,9 +12,12 @@ struct ActorInfo
     int rotation = 0;
 };
 
-class LevelEditor : public UObject
+class LevelEditor : public GameState
 {
   private:
+    std::unique_ptr<LevelSubsystem> LevelSS;
+    std::unique_ptr<RenderSubsystem> RenderSS;
+
     int CurrentObjectIndex = 1;
     int CurrentRotationAngle = 0;
     std::string CurrentLevelName = "level1.txt";
@@ -28,8 +32,14 @@ class LevelEditor : public UObject
     ActorInfo ActorsInfo[MAX_LEVEL_SIZE][MAX_LEVEL_SIZE];
 
   public:
-    LevelEditor(sf::RenderWindow &window);
-
+    LevelEditor();
     void BeginPlay() override;
     void Update() override;
+
+    void SaveLevel();
+    void LoadLevel();
+
+    void MoveCamera();
+    void SelectObjectIndex();
+    void SelectObjectRotation();
 };

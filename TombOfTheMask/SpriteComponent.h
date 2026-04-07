@@ -22,4 +22,7 @@ class SpriteComponent : public UObject, public Drawable
     void Flip(bool flip);
 
     void SetDrawType(DrawType type);
+
+    sf::FloatRect GetBounds();
+
 };

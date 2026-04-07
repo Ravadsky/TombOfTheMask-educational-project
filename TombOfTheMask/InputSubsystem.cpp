@@ -1,12 +1,9 @@
 #include "InputSubsystem.h"
+#include "Engine.h"
 #include "LevelSubsystem.h"
+#include "MainMenu.h"
 #include "Player.h"
-
 InputSubsystem::InputSubsystem()
-{
-}
-
-void InputSubsystem::BeginPlay()
 {
 }
 
@@ -30,4 +27,7 @@ void InputSubsystem::Update()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             player->SetDirection(MoveDirection::Right);
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        GEngine->SwitchState<MainMenu>();
 }

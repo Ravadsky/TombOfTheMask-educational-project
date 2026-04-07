@@ -10,7 +10,6 @@ class TextBox : public UObject, public Drawable
 
   public:
     TextBox(std::string text, sf::Vector2f pos);
-
     void BeginPlay() override;
     void Update() override;
     void Draw(sf::Vector2f position = {0.f, 0.f}) override;

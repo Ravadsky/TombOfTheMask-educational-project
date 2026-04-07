@@ -22,11 +22,17 @@
     <Filter Include="ActorSystem">
       <UniqueIdentifier>{a644a540-b53d-4ec7-b414-5c60a809d79d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="LevelEditor">
-      <UniqueIdentifier>{b1a29c84-43bd-48d8-8fde-43a5869f9b8e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WidgetsSystem">
       <UniqueIdentifier>{aee5d096-a880-4ce7-928c-10dcf0360726}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStates">
+      <UniqueIdentifier>{7096ccbb-c670-4921-af28-f50983feab24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStates\Abstract">
+      <UniqueIdentifier>{3b39ff87-b6c8-442b-a491-1b52ec5ff7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WidgetsSystem\Drawable">
+      <UniqueIdentifier>{361d17c8-0fbe-4aa3-aa56-99cad5efef99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -93,12 +99,6 @@
     <ClCompile Include="CornerWall.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
-    <ClCompile Include="LevelEditor.cpp">
-      <Filter>LevelEditor</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorObject.cpp">
-      <Filter>LevelEditor</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerStartBlock.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
@@ -111,14 +111,32 @@
     <ClCompile Include="Widget.cpp">
       <Filter>WidgetsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="TextBox.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Button.cpp">
+      <Filter>WidgetsSystem</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelInstance.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorObject.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>GameStates\Abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditor.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
     <ClCompile Include="Drawable.cpp">
-      <Filter>WidgetsSystem</Filter>
+      <Filter>WidgetsSystem\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>WidgetsSystem\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>WidgetsSystem\Drawable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,12 +206,6 @@
     <ClInclude Include="CornerWall.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
-    <ClInclude Include="LevelEditor.h">
-      <Filter>LevelEditor</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorObject.h">
-      <Filter>LevelEditor</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerStartBlock.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
@@ -206,14 +218,32 @@
     <ClInclude Include="Widget.h">
       <Filter>WidgetsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="TextBox.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Button.h">
+      <Filter>WidgetsSystem</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
+    <ClInclude Include="MainMenu.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelInstance.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorObject.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>GameStates\Abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditor.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
     <ClInclude Include="Drawable.h">
-      <Filter>WidgetsSystem</Filter>
+      <Filter>WidgetsSystem\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>WidgetsSystem\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>WidgetsSystem\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

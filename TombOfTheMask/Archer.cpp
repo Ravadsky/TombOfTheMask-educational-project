@@ -20,7 +20,12 @@ void Archer::Update()
     {
         if (Timer<Archer>(2.f))
         {
-            SpawnActor<Arrow>(CellPosition + RotateVector({1.f, 0.f}, ActorRotation), ActorRotation);
+            std::weak_ptr<Arrow> arrowPtr =
+                SpawnActor<Arrow>(CellPosition + RotateVector({1.f, 0.f}, ActorRotation), ActorRotation);
+            if (auto _arrow = arrowPtr.lock())
+            {
+                _arrow->BeginPlay();
+            }
         }
     }
 }

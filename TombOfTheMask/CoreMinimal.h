@@ -10,8 +10,10 @@ class RenderSubsystem;
 class LevelSubsystem;
 class PhysicsSubsystem;
 class GarbageCollector;
+class Engine;
 
 extern sf::RenderWindow *GWindow;
+extern Engine *GEngine;
 extern InputSubsystem *GInputSubsystem;
 extern ResourceSubsystem *GResourceSubsystem;
 extern RenderSubsystem *GRenderSubsystem;

@@ -1,43 +1,43 @@
 #include "Engine.h"
+#include "GameState.h"
 #include "GarbageCollector.h"
 #include "InputSubsystem.h"
+#include "LevelInstance.h"
 #include "LevelSubsystem.h"
 #include "PhysicsSubsystem.h"
 #include "RenderSubsystem.h"
 #include "ResourceSubsystem.h"
+#include "MainMenu.h"
 
-Engine::Engine(sf::RenderWindow &window)
+Engine::Engine()
 {
-    GWindow = &window;
-    GInputSubsystem = new InputSubsystem();
+    // инициализировать глобальные ресурсы
     GResourceSubsystem = new ResourceSubsystem();
-    GRenderSubsystem = new RenderSubsystem();
-    GLevelSubsystem = new LevelSubsystem();
-    GPhysicsSubsystem = new PhysicsSubsystem();
+    // GRenderSubsystem = new RenderSubsystem();
     GGarbageCollector = new GarbageCollector();
-}
 
-void Engine::BeginPlay()
-{
-    GInputSubsystem->BeginPlay();
-
-    GLevelSubsystem->BeginPlay();
-
-    GPhysicsSubsystem->BeginPlay();
-
-    GRenderSubsystem->BeginPlay();
+    SwitchState<MainMenu>();
 }
 
 void Engine::Update()
 {
+    if (needToSwitchState)
+    {
+        CurrentGameState = PendingState();
+        PendingState = nullptr;
 
-    GInputSubsystem->Update();
+        CurrentGameState->BeginPlay();
 
-    GLevelSubsystem->Update();
+        needToSwitchState = false;
+    }
 
-    GPhysicsSubsystem->Update();
-
+    if (CurrentGameState)
+    {
+        // Обновление текущего игрового окна
+        CurrentGameState->Update();
+    }
+    // Отрисовка объектов (в том числе интерфейсов) на экран
     GRenderSubsystem->Update();
-
+    // удаление объектов в конце кадра
     GGarbageCollector->Update();
 }

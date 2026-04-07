@@ -17,7 +17,6 @@ void PhysicsSubsystem::Update()
     DeltaTime = DeltaTimer.asSeconds();
 
     ClearVectorForExpiredPtr(TriggerActors);
-
     for (auto actor : GLevelSubsystem->ActorsOnLevel)
     {
         for (auto otherActor : TriggerActors)

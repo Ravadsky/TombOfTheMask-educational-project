@@ -6,14 +6,15 @@
 class RenderSubsystem : public UObject
 {
   private:
-    sf::Vector2f *CameraPosition;
+    sf::Vector2f *CameraPosition = nullptr;
 
   public:
     std::vector<Drawable *> ObjectsToDraw;
 
     RenderSubsystem();
-    void BeginPlay() override;
     void Update() override;
 
     void SetCameraPosition(sf::Vector2f *position);
+
+    void ClearObjectsToDraw();
 };

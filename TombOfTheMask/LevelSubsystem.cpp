@@ -1,5 +1,6 @@
 #include "LevelSubsystem.h"
 #include "FunctionLibrary.h"
+#include "ResourceSubsystem.h"
 #include <fstream>
 #include <sstream>
 
@@ -20,25 +21,10 @@
 
 LevelSubsystem::LevelSubsystem()
 {
-    AddBindActorID<Player>(0);
-    AddBindActorID<Wall>(1);
-    AddBindActorID<CornerWall>(2);
-    AddBindActorID<Spikes>(3);
-    AddBindActorID<Archer>(4);
-    AddBindActorID<Arrow>(5);
-    AddBindActorID<Point>(6);
-    AddBindActorID<Star>(7);
-    AddBindActorID<PlayerStart>(8);
-    AddBindActorID<PlayerStartBlock>(9);
-    AddBindActorID<PlayerEnd>(10);
-    AddBindActorID<PlayerEndBlock>(11);
-    AddBindActorID<BackgroundWall>(12);
-    AddBindActorID<EditorObject>(15);
 }
 
 void LevelSubsystem::BeginPlay()
 {
-    CheckStartingLevel();
 }
 
 void LevelSubsystem::Update()
@@ -54,7 +40,7 @@ void LevelSubsystem::Update()
 
 void LevelSubsystem::CheckStartingLevel()
 {
-    static bool LevelIsCleared = true;
+    static bool LevelIsCleared = false;
 
     if (LevelIsCleared)
     {
@@ -69,6 +55,10 @@ void LevelSubsystem::CheckStartingLevel()
             stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
 
             CreateObject({(float)xPos, (float)yPos}, (float)Rotation, ActorID);
+            if (ActorID == 6 or ActorID == 7)
+            {
+                CreateObject({(float)xPos, (float)yPos}, 0, 12);
+            }
         }
 
         PointCountOnLevel = GetCountOfActorsOf<Point>();
@@ -99,5 +89,5 @@ void LevelSubsystem::CheckStartingLevel()
 
 std::weak_ptr<Actor> LevelSubsystem::CreateObject(sf::Vector2f pos, float rotation, int ID)
 {
-    return ActorsID[ID](pos, rotation);
+    return GResourceSubsystem->ActorsID[ID](pos, rotation);
 }
