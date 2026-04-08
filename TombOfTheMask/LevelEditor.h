@@ -16,10 +16,8 @@ class LevelEditor : public GameState
 {
   private:
     std::unique_ptr<LevelSubsystem> LevelSS;
-    std::unique_ptr<RenderSubsystem> RenderSS;
 
     int CurrentObjectIndex = 1;
-    int CurrentRotationAngle = 0;
     std::string CurrentLevelName = "level1.txt";
 
     sf::Vector2f CameraOffset = {MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE, MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE};

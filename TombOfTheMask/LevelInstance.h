@@ -11,7 +11,6 @@ class LevelInstance : public GameState
     std::unique_ptr<LevelSubsystem> LevelSS;
     std::unique_ptr<PhysicsSubsystem> PhysicsSS;
     std::unique_ptr<InputSubsystem> InputSS;
-    std::unique_ptr<RenderSubsystem> RenderSS;
 
   public:
     LevelInstance();

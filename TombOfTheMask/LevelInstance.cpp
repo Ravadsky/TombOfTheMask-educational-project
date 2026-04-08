@@ -2,6 +2,7 @@
 #include "InputSubsystem.h"
 #include "PhysicsSubsystem.h"
 #include "RenderSubsystem.h"
+#include "AudioSubsystem.h"
 
 LevelInstance::LevelInstance()
 {
@@ -14,8 +15,7 @@ LevelInstance::LevelInstance()
     InputSS = std::make_unique<InputSubsystem>();
     GInputSubsystem = InputSS.get();
 
-    RenderSS = std::make_unique<RenderSubsystem>();
-    GRenderSubsystem = RenderSS.get();
+    GAudioSubsystem->StartNewMusic("level_music");
 }
 
 void LevelInstance::Update()

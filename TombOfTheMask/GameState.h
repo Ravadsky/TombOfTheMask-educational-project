@@ -3,4 +3,6 @@
 
 class GameState : public UObject
 {
+  public:
+    virtual ~GameState() = default;
 };

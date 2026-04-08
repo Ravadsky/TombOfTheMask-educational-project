@@ -2,6 +2,7 @@
 #include "Arrow.h"
 #include "FunctionLibrary.h"
 #include "PhysicsSubsystem.h"
+#include "AudioSubsystem.h"
 
 Archer::Archer(sf::Vector2f position) : Archer(position, 0.f)
 {
@@ -26,6 +27,7 @@ void Archer::Update()
             {
                 _arrow->BeginPlay();
             }
+            GAudioSubsystem->CreateNewSound("archer_sound");
         }
     }
 }

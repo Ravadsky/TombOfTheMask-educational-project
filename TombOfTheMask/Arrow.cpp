@@ -16,7 +16,9 @@ Arrow::~Arrow()
 Arrow::Arrow(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Arrow, position, rotationAngle)
 {
     canTick = true;
+
     Collision = CollisionPreset::Block;
+
     ActorSprite->SetDrawType(DrawType::Dynamic);
 }
 
@@ -44,14 +46,11 @@ void Arrow::OnCollision(std::weak_ptr<Actor> OtherActor)
             {
             case CollisionPreset::Block:
                 if (isClassOf<Player>(other))
+                {
                     CastTo<Player>(other)->GetDamage();
-                else
-                    MarkToKill();
-                break;
-            case CollisionPreset::Overlap:
+                }
 
-                break;
-            case CollisionPreset::Ignore:
+                MarkToKill();
 
                 break;
             }

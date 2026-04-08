@@ -29,5 +29,7 @@ void InputSubsystem::Update()
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
         GEngine->SwitchState<MainMenu>();
+    }
 }

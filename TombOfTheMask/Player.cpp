@@ -1,10 +1,12 @@
 #include "Player.h"
+#include "AudioSubsystem.h"
 #include "FunctionLibrary.h"
 #include "LevelSubsystem.h"
 #include "PhysicsSubsystem.h"
 #include "Point.h"
 #include "RenderSubsystem.h"
 #include "Widget.h"
+#include "Arrow.h"
 
 Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
@@ -26,14 +28,14 @@ void Player::BeginPlay()
 {
     GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
     GRenderSubsystem->SetCameraPosition(&ActorLocation);
-    if (GPhysicsSubsystem) GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
+    if (GPhysicsSubsystem)
+        GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
 
     std::string PointText = std::to_string(PointCount) + " / " + std::to_string(GLevelSubsystem->PointCountOnLevel);
     PointCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 64), "Point", PointText);
 
     std::string StarText = std::to_string(StarCount) + " / " + std::to_string(GLevelSubsystem->StarCountOnLevel);
     StarCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 128), "Star", StarText);
-
 }
 
 void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
@@ -48,7 +50,10 @@ void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
             case CollisionPreset::Block:
                 UpdateLocation({-PlayerDirection.x * PLAYER_SPEED, -PlayerDirection.y * PLAYER_SPEED});
                 PlayerDirection = {0.f, 0.f};
-                CanAction = true;
+                if (isClassOf<Arrow>(other))
+                    CanAction = false;
+                else
+                    CanAction = true;
                 break;
             case CollisionPreset::Overlap:
 
@@ -120,6 +125,7 @@ void Player::AddPoint()
     ++PointCount;
     std::string PointText = std::to_string(PointCount) + " / " + std::to_string(GLevelSubsystem->PointCountOnLevel);
     PointCountWidget->UpdateState(PointText);
+    GAudioSubsystem->CreateNewSound("point_sound");
 }
 
 int Player::GetPointCount()
@@ -132,6 +138,7 @@ void Player::AddStar()
     ++StarCount;
     std::string StarText = std::to_string(StarCount) + " / " + std::to_string(GLevelSubsystem->StarCountOnLevel);
     StarCountWidget->UpdateState(StarText);
+    GAudioSubsystem->CreateNewSound("point_sound");
 }
 
 int Player::GetStarCount()
@@ -142,6 +149,7 @@ int Player::GetStarCount()
 void Player::GetDamage()
 {
     ActorSprite->SetColor(sf::Color::Red);
+    GAudioSubsystem->CreateNewSound("death_sound");
     GLevelSubsystem->needToStartLevel = true;
     CanAction = false;
 }

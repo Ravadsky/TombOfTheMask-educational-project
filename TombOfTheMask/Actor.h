@@ -46,6 +46,7 @@ class Actor : public UObject, public std::enable_shared_from_this<Actor>
 
   public:
     Actor(ActorType Type, sf::Vector2f position, float rotationAngle);
+    virtual ~Actor() = default;
 
     void BeginPlay() override;
     virtual void Update() = 0;

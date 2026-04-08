@@ -11,6 +11,7 @@ class LevelSubsystem;
 class PhysicsSubsystem;
 class GarbageCollector;
 class Engine;
+class AudioSubsystem;
 
 extern sf::RenderWindow *GWindow;
 extern Engine *GEngine;
@@ -20,3 +21,4 @@ extern RenderSubsystem *GRenderSubsystem;
 extern LevelSubsystem *GLevelSubsystem;
 extern PhysicsSubsystem *GPhysicsSubsystem;
 extern GarbageCollector *GGarbageCollector;
+extern AudioSubsystem *GAudioSubsystem;

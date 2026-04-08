@@ -1,3 +1,4 @@
+#include "AudioSubsystem.h"
 #include "CoreMinimal.h"
 #include "Engine.h"
 #include "GarbageCollector.h"
@@ -15,3 +16,4 @@ LevelSubsystem *GLevelSubsystem;
 PhysicsSubsystem *GPhysicsSubsystem;
 GarbageCollector *GGarbageCollector;
 Engine *GEngine;
+AudioSubsystem *GAudioSubsystem;

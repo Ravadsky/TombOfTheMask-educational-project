@@ -1,6 +1,7 @@
 #include "LevelEditor.h"
 #include "EditorObject.h"
 
+#include "AudioSubsystem.h"
 #include "FunctionLibrary.h"
 #include "GarbageCollector.h"
 #include "LevelSubsystem.h"
@@ -19,8 +20,7 @@ LevelEditor::LevelEditor()
     LevelSS = std::make_unique<LevelSubsystem>();
     GLevelSubsystem = LevelSS.get();
 
-    RenderSS = std::make_unique<RenderSubsystem>();
-    GRenderSubsystem = RenderSS.get();
+    GAudioSubsystem->StartNewMusic("level_music");
 }
 
 void LevelEditor::BeginPlay()
@@ -50,44 +50,62 @@ void LevelEditor::Update()
     MoveCamera();
     // Выбор какой тип объекта устанавливать на ЛКМ
     SelectObjectIndex();
-    // Выбор с каким поворотом устанавливать на ЛКМ
-    SelectObjectRotation();
+ 
     // Обработка нажатий ЛКМ / ПКМ
-    if (sf::Event::MouseButtonPressed)
+
+    // Рассчет позиции мыши
+    int xMousePos =
+        (sf::Mouse::getPosition(*GWindow).x + (int)CameraOffset.x - (int)CAMERA_PIVOT.x + SPRITE_GAME_SIZE / 2) /
+        SPRITE_GAME_SIZE;
+    int yMousePos =
+        (sf::Mouse::getPosition(*GWindow).y + (int)CameraOffset.y - (int)CAMERA_PIVOT.y + SPRITE_GAME_SIZE / 2) /
+        SPRITE_GAME_SIZE;
+
+    // Ограничение позиций мыши по игровому полю
+    if (xMousePos < 0 or xMousePos >= MAX_LEVEL_SIZE)
+        xMousePos = -1;
+    if (yMousePos < 0 or yMousePos >= MAX_LEVEL_SIZE)
+        yMousePos = -1;
+
+    // Установить новый объект в клетку
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        // Рассчет позиции мыши
-        int xMousePos =
-            (event.mouseButton.x + (int)CameraOffset.x - (int)CAMERA_PIVOT.x + SPRITE_GAME_SIZE / 2) / SPRITE_GAME_SIZE;
-        int yMousePos =
-            (event.mouseButton.y + (int)CameraOffset.y - (int)CAMERA_PIVOT.y + SPRITE_GAME_SIZE / 2) / SPRITE_GAME_SIZE;
-
-        // Ограничение позиций мыши по игровому полю
-        if (xMousePos < 0 or xMousePos >= MAX_LEVEL_SIZE)
-            xMousePos = -1;
-        if (yMousePos < 0 or yMousePos >= MAX_LEVEL_SIZE)
-            yMousePos = -1;
-
-        // Установить новый объект в клетку
-        if (event.mouseButton.button == sf::Mouse::Left)
+        if (xMousePos != -1 and yMousePos != -1 and ActorsInfo[xMousePos][yMousePos].ActorID == -1)
         {
-            if (xMousePos != -1 and yMousePos != -1 and ActorsInfo[xMousePos][yMousePos].ActorID == -1)
-            {
-                ActorsInfo[xMousePos][yMousePos] = {CurrentObjectIndex, xMousePos, yMousePos, CurrentRotationAngle};
-                Actors[xMousePos][yMousePos] = GResourceSubsystem->ActorsID[CurrentObjectIndex](
-                    {(float)xMousePos, (float)yMousePos}, (float)CurrentRotationAngle);
-            }
-        }
-        // Удалить объект из клетки
-        if (event.mouseButton.button == sf::Mouse::Right)
-        {
-            if (xMousePos != -1 and yMousePos != -1)
-            {
-                ActorsInfo[xMousePos][yMousePos] = {-1, 0, 0, 0};
-                if (auto actor = Actors[xMousePos][yMousePos].lock())
-                    actor->MarkToKill();
-            }
+            ActorsInfo[xMousePos][yMousePos] = {CurrentObjectIndex, xMousePos, yMousePos, 0};
+            Actors[xMousePos][yMousePos] = GResourceSubsystem->ActorsID[CurrentObjectIndex](
+                {(float)xMousePos, (float)yMousePos}, 0.f);
         }
     }
+    // Удалить объект из клетки
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        if (xMousePos != -1 and yMousePos != -1)
+        {
+            ActorsInfo[xMousePos][yMousePos] = {-1, 0, 0, 0};
+            if (auto actor = Actors[xMousePos][yMousePos].lock())
+                actor->MarkToKill();
+        }
+    }
+    // Поворот объекта
+    if (sf::Event::MouseButtonPressed and event.mouseButton.button == sf::Mouse::Middle)
+    {
+        if (xMousePos != -1 and yMousePos != -1 and ActorsInfo[xMousePos][yMousePos].ActorID != -1)
+        {
+            ActorsInfo[xMousePos][yMousePos] = {
+                ActorsInfo[xMousePos][yMousePos].ActorID, ActorsInfo[xMousePos][yMousePos].xPos,
+                ActorsInfo[xMousePos][yMousePos].yPos, ActorsInfo[xMousePos][yMousePos].rotation + 90};
+
+            if (auto actor = Actors[xMousePos][yMousePos].lock())
+            {
+                actor->MarkToKill();
+            }
+
+            Actors[xMousePos][yMousePos] = GResourceSubsystem->ActorsID[ActorsInfo[xMousePos][yMousePos].ActorID](
+                {(float)xMousePos, (float)yMousePos}, (float)ActorsInfo[xMousePos][yMousePos].rotation);
+        }
+    }
+
     // Сохранение игрового уровня на Enter
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
@@ -193,17 +211,4 @@ void LevelEditor::SelectObjectIndex()
         CurrentObjectIndex = 11;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Equal))
         CurrentObjectIndex = 12;
-}
-
-void LevelEditor::SelectObjectRotation()
-{
-    // Выбор - с каким поворотом ставить объект
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        CurrentRotationAngle = 180;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        CurrentRotationAngle = 270;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        CurrentRotationAngle = 90;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        CurrentRotationAngle = 0;
 }

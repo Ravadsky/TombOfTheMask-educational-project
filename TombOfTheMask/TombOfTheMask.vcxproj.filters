@@ -138,6 +138,12 @@
     <ClCompile Include="TextBox.cpp">
       <Filter>WidgetsSystem\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="AudioSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSample.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputSubsystem.h">
@@ -244,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="TextBox.h">
       <Filter>WidgetsSystem\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSample.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

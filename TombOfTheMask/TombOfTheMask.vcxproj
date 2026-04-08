@@ -136,6 +136,8 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="AudioSample.cpp" />
+    <ClCompile Include="AudioSubsystem.cpp" />
     <ClCompile Include="BackgroundWall.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CornerWall.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Archer.h" />
     <ClInclude Include="Arrow.h" />
+    <ClInclude Include="AudioSample.h" />
+    <ClInclude Include="AudioSubsystem.h" />
     <ClInclude Include="BackgroundWall.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Config.h" />
