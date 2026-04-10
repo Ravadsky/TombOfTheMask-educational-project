@@ -10,7 +10,7 @@ class Player;
 class LevelSubsystem : public UObject
 {
   public:
-    bool needToStartLevel = true;
+    std::string LevelName;
 
     int PointCountOnLevel, StarCountOnLevel;
 
@@ -19,11 +19,9 @@ class LevelSubsystem : public UObject
     std::weak_ptr<Player> CurrentPlayer;
 
     LevelSubsystem();
-    void BeginPlay() override;
     void Update() override;
-
-    void CheckStartingLevel();
 
     std::weak_ptr<Actor> CreateObject(sf::Vector2f pos, float rotation, int ID);
 
+    void StartLevel();
 };

@@ -4,6 +4,8 @@
 #include "LevelEditor.h"
 #include "LevelInstance.h"
 #include "RenderSubsystem.h"
+#include "LevelSelector.h"
+#include "LevelEditorSelector.h"
 
 MainMenu::MainMenu()
 {
@@ -13,10 +15,6 @@ MainMenu::MainMenu()
     ExitButton = std::make_unique<Button>("Exit", sf::Vector2f(CentralWidth, 600.f));
 
     GAudioSubsystem->StartNewMusic("menu_music");
-}
-
-void MainMenu::BeginPlay()
-{
 }
 
 void MainMenu::Update()
@@ -40,12 +38,12 @@ void MainMenu::Update()
         }
         if (StartGameButton->CheckWithCollisions(xMousePos, yMousePos))
         {
-            GEngine->SwitchState<LevelInstance>();
+            GEngine->SwitchState<LevelSelector>();
             GAudioSubsystem->CreateNewSound("button_sound");
         }
         if (EditorButton->CheckWithCollisions(xMousePos, yMousePos))
         {
-            GEngine->SwitchState<LevelEditor>();
+            GEngine->SwitchState<LevelEditorSelector>();
             GAudioSubsystem->CreateNewSound("button_sound");
         }
     }

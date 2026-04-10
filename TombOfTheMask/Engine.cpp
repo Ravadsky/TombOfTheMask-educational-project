@@ -28,6 +28,7 @@ void Engine::Update()
 {
     if (needToSwitchState)
     {
+        sf::sleep(sf::milliseconds(TimeBeetweenStates));
         CurrentGameState = PendingState();
         PendingState = nullptr;
 

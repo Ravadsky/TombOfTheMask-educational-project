@@ -21,6 +21,8 @@ LevelEditor::LevelEditor()
     GLevelSubsystem = LevelSS.get();
 
     GAudioSubsystem->StartNewMusic("level_music");
+
+    LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
 }
 
 void LevelEditor::BeginPlay()
@@ -121,7 +123,7 @@ void LevelEditor::Update()
 
 void LevelEditor::SaveLevel()
 {
-    std::ofstream file(RESOURCES_PATH + "Levels/" + CurrentLevelName);
+    std::ofstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     assert(file.is_open());
 
     file.clear();
@@ -147,7 +149,7 @@ void LevelEditor::SaveLevel()
 
 void LevelEditor::LoadLevel()
 {
-    std::ifstream file(RESOURCES_PATH + "Levels/" + CurrentLevelName);
+    std::ifstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     std::string line;
 
     while (std::getline(file, line))
@@ -155,9 +157,9 @@ void LevelEditor::LoadLevel()
         std::istringstream stream(line);
 
         int ActorID, xPos, yPos, Rotation;
-        char commaSeparator;
+        char Separator;
 
-        if (stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation)
+        if (stream >> ActorID >> Separator >> xPos >> Separator >> yPos >> Separator >> Rotation)
         {
             if (ActorID != 0)
             {

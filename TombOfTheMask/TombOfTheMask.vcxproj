@@ -150,7 +150,9 @@
     <ClCompile Include="GlobalObjects.cpp" />
     <ClCompile Include="InputSubsystem.cpp" />
     <ClCompile Include="LevelEditor.cpp" />
+    <ClCompile Include="LevelEditorSelector.cpp" />
     <ClCompile Include="LevelInstance.cpp" />
+    <ClCompile Include="LevelSelector.cpp" />
     <ClCompile Include="LevelSubsystem.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="PhysicsSubsystem.cpp" />
@@ -189,7 +191,9 @@
     <ClInclude Include="GarbageCollector.h" />
     <ClInclude Include="InputSubsystem.h" />
     <ClInclude Include="LevelEditor.h" />
+    <ClInclude Include="LevelEditorSelector.h" />
     <ClInclude Include="LevelInstance.h" />
+    <ClInclude Include="LevelSelector.h" />
     <ClInclude Include="LevelSubsystem.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="PhysicsSubsystem.h" />

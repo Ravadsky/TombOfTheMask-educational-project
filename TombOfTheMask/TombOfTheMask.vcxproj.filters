@@ -34,6 +34,9 @@
     <Filter Include="WidgetsSystem\Drawable">
       <UniqueIdentifier>{361d17c8-0fbe-4aa3-aa56-99cad5efef99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Subsystems\Audio">
+      <UniqueIdentifier>{45a466ac-5c3d-4e39-8d1e-df869cd0bedd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputSubsystem.cpp">
@@ -138,11 +141,17 @@
     <ClCompile Include="TextBox.cpp">
       <Filter>WidgetsSystem\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="LevelSelector.cpp">
+      <Filter>GameStates</Filter>
+    </ClCompile>
     <ClCompile Include="AudioSubsystem.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Subsystems\Audio</Filter>
     </ClCompile>
     <ClCompile Include="AudioSample.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Subsystems\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEditorSelector.cpp">
+      <Filter>GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,11 +260,17 @@
     <ClInclude Include="TextBox.h">
       <Filter>WidgetsSystem\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="LevelSelector.h">
+      <Filter>GameStates</Filter>
+    </ClInclude>
     <ClInclude Include="AudioSubsystem.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Subsystems\Audio</Filter>
     </ClInclude>
     <ClInclude Include="AudioSample.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Subsystems\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEditorSelector.h">
+      <Filter>GameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

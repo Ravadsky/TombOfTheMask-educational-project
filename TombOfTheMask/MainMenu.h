@@ -11,6 +11,5 @@ class MainMenu : public GameState
 
   public:
     MainMenu();
-    void BeginPlay() override;
     void Update() override;
 };

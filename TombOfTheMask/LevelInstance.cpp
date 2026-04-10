@@ -1,8 +1,9 @@
 #include "LevelInstance.h"
+#include "AudioSubsystem.h"
+#include "FunctionLibrary.h"
 #include "InputSubsystem.h"
 #include "PhysicsSubsystem.h"
 #include "RenderSubsystem.h"
-#include "AudioSubsystem.h"
 
 LevelInstance::LevelInstance()
 {
@@ -16,6 +17,8 @@ LevelInstance::LevelInstance()
     GInputSubsystem = InputSS.get();
 
     GAudioSubsystem->StartNewMusic("level_music");
+
+    GLevelSubsystem->StartLevel();
 }
 
 void LevelInstance::Update()

@@ -7,6 +7,8 @@
 #include "RenderSubsystem.h"
 #include "Widget.h"
 #include "Arrow.h"
+#include "Engine.h"
+#include "LevelInstance.h"
 
 Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
@@ -54,12 +56,6 @@ void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
                     CanAction = false;
                 else
                     CanAction = true;
-                break;
-            case CollisionPreset::Overlap:
-
-                break;
-            case CollisionPreset::Ignore:
-
                 break;
             }
         }
@@ -150,6 +146,6 @@ void Player::GetDamage()
 {
     ActorSprite->SetColor(sf::Color::Red);
     GAudioSubsystem->CreateNewSound("death_sound");
-    GLevelSubsystem->needToStartLevel = true;
     CanAction = false;
+    GEngine->SwitchState<LevelInstance>();
 }

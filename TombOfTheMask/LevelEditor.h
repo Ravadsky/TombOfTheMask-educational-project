@@ -18,7 +18,7 @@ class LevelEditor : public GameState
     std::unique_ptr<LevelSubsystem> LevelSS;
 
     int CurrentObjectIndex = 1;
-    std::string CurrentLevelName = "level1.txt";
+    std::string LevelName;
 
     sf::Vector2f CameraOffset = {MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE, MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE};
     const sf::Vector2f MinCameraPos = {CAMERA_PIVOT - sf::Vector2f(SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2)};

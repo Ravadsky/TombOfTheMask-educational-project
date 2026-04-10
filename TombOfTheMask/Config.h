@@ -8,6 +8,7 @@ const int WINDOW_WIGHT = 1080;
 const int WINDOW_HEIGHT = 720;
 const int MAX_FPS = 60;
 const sf::Vector2f CAMERA_PIVOT = {WINDOW_WIGHT / 2, WINDOW_HEIGHT / 2};
+const int TimeBeetweenStates = 200;
 
 // Resources
 const std::string RESOURCES_PATH = "Resources/";

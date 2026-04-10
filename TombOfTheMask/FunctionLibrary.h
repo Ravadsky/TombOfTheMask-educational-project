@@ -4,7 +4,9 @@
 #include "GarbageCollector.h"
 #include "LevelSubsystem.h"
 #include "PhysicsSubsystem.h"
+#include "assert.h"
 #include <algorithm>
+#include <fstream>
 #include <memory>
 #include <numbers>
 #include <typeinfo>
@@ -74,4 +76,45 @@ template <typename T> inline T Clamp(T &Object, T min, T max)
     if (Object > max)
         return max;
     return Object;
+}
+
+inline void ChangeDataParamater(std::string key, int NewParamater)
+{
+    std::ifstream fileIn(RESOURCES_PATH + "PlayerData.txt");
+    assert(fileIn.is_open());
+
+    std::vector<std::string> lines;
+    std::string line;
+    bool keyIsFounded = false;
+    while (std::getline(fileIn, line))
+    {
+        if (line.find(key) == 0)
+        {
+            line = key + std::to_string(NewParamater);
+            keyIsFounded = true;
+        }
+        lines.push_back(line);
+    }
+    fileIn.close();
+
+    if (!keyIsFounded)
+        lines.push_back(key + std::to_string(NewParamater));
+
+    std::ofstream fileOut(RESOURCES_PATH + "PlayerData.txt");
+    for (auto &line : lines)
+        fileOut << line << '\n';
+}
+
+inline int GetDataParameter(std::string key)
+{
+    std::ifstream fileIn(RESOURCES_PATH + "PlayerData.txt");
+
+    std::string line;
+    while (std::getline(fileIn, line))
+    {
+        if (line.find(key) == 0)
+            return std::stoi(line.substr(key.length()));
+    }
+    // обработка, если key - ошибка
+    return -1;
 }
