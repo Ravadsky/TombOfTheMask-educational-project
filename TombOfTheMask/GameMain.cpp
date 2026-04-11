@@ -1,8 +1,5 @@
 #include "CoreMinimal.h"
 #include "Engine.h"
-#include "LevelEditor.h"
-#include "LevelInstance.h"
-#include "MainMenu.h"
 
 int main()
 {

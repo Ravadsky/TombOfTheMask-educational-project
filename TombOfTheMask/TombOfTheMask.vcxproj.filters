@@ -37,240 +37,270 @@
     <Filter Include="Subsystems\Audio">
       <UniqueIdentifier>{45a466ac-5c3d-4e39-8d1e-df869cd0bedd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Functions">
+      <UniqueIdentifier>{c3e1b52c-1402-40ca-a6d5-3c9b31c3a0b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputSubsystem.cpp">
-      <Filter>Subsystems</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceSubsystem.cpp">
-      <Filter>Subsystems</Filter>
-    </ClCompile>
-    <ClCompile Include="UObject.cpp">
+    <ClCompile Include="Core\UObject.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalObjects.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Actors\Actor.cpp">
+      <Filter>ActorSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Engine.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\Archer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\Arrow.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\BackgroundWall.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\CornerWall.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\EditorObject.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\Player.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\PlayerEnd.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\PlayerEndBlock.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\PlayerStart.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\PlayerStartBlock.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\Point.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\Wall.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GlobalObjects.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\AudioSample.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\AudioSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\GarbageCollector.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\InputSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\GameState.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\LevelEditor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\LevelEditorSelector.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\LevelInstance.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStates\LevelSelector.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Button.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Drawable.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\LevelInfo.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameMain.cpp">
-      <Filter>Core</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Engine.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="Subsystems\LevelSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="RenderSubsystem.cpp">
-      <Filter>Subsystems</Filter>
+    <ClCompile Include="Subsystems\PhysicsSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="Subsystems\RenderSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="LevelSubsystem.cpp">
-      <Filter>Subsystems</Filter>
+    <ClCompile Include="Subsystems\ResourceSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="Widgets\SpriteComponent.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="Widgets\TextBox.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsSubsystem.cpp">
-      <Filter>Subsystems</Filter>
+    <ClCompile Include="Widgets\Widget.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Spikes.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="GameStates\MainMenu.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="Actors\Spikes.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Star.cpp">
-      <Filter>ActorSystem</Filter>
+    <ClCompile Include="Actors\Star.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="BackgroundWall.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="GarbageCollector.cpp">
-      <Filter>Subsystems</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStart.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Archer.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="CornerWall.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStartBlock.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerEndBlock.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerEnd.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget.cpp">
-      <Filter>WidgetsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>WidgetsSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelInstance.cpp">
-      <Filter>GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="EditorObject.cpp">
-      <Filter>ActorSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>GameStates\Abstract</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelEditor.cpp">
-      <Filter>GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>WidgetsSystem\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>WidgetsSystem\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="TextBox.cpp">
-      <Filter>WidgetsSystem\Drawable</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelSelector.cpp">
-      <Filter>GameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioSubsystem.cpp">
-      <Filter>Subsystems\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioSample.cpp">
-      <Filter>Subsystems\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelEditorSelector.cpp">
-      <Filter>GameStates</Filter>
+    <ClCompile Include="Widgets\CheckBox.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InputSubsystem.h">
-      <Filter>Subsystems</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceSubsystem.h">
-      <Filter>Subsystems</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
+    <ClInclude Include="Core\UObject.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="UObject.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="CoreMinimal.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSubsystem.h">
-      <Filter>Subsystems</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
+    <ClInclude Include="Actors\Actor.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
-    <ClInclude Include="LevelSubsystem.h">
-      <Filter>Subsystems</Filter>
+    <ClInclude Include="Actors\Archer.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\Arrow.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\BackgroundWall.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsSubsystem.h">
-      <Filter>Subsystems</Filter>
+    <ClInclude Include="Actors\CornerWall.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionLibrary.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Actors\EditorObject.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Spikes.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\Player.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\PlayerEnd.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Star.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\PlayerEndBlock.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BackgroundWall.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\PlayerStart.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="GarbageCollector.h">
-      <Filter>Subsystems</Filter>
+    <ClInclude Include="Actors\PlayerStartBlock.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStart.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\Point.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Archer.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Actors\Wall.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Core\DataFunctions.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CornerWall.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Core\ActorFunctions.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStartBlock.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Core\Config.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerEndBlock.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Core\CoreMinimal.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerEnd.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="Core\Engine.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Widget.h">
-      <Filter>WidgetsSystem</Filter>
+    <ClInclude Include="Subsystems\InputSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>WidgetsSystem</Filter>
+    <ClInclude Include="Subsystems\AudioSample.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>GameStates</Filter>
+    <ClInclude Include="Subsystems\AudioSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="LevelInstance.h">
-      <Filter>GameStates</Filter>
+    <ClInclude Include="Subsystems\GarbageCollector.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="EditorObject.h">
-      <Filter>ActorSystem</Filter>
+    <ClInclude Include="GameStates\GameState.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>GameStates\Abstract</Filter>
+    <ClInclude Include="GameStates\LevelEditor.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="LevelEditor.h">
-      <Filter>GameStates</Filter>
+    <ClInclude Include="GameStates\LevelEditorSelector.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>WidgetsSystem\Drawable</Filter>
+    <ClInclude Include="GameStates\LevelInstance.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
-      <Filter>WidgetsSystem\Drawable</Filter>
+    <ClInclude Include="GameStates\LevelSelector.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TextBox.h">
-      <Filter>WidgetsSystem\Drawable</Filter>
+    <ClInclude Include="Widgets\LevelInfo.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="LevelSelector.h">
-      <Filter>GameStates</Filter>
+    <ClInclude Include="Widgets\Button.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="AudioSubsystem.h">
-      <Filter>Subsystems\Audio</Filter>
+    <ClInclude Include="Widgets\Drawable.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="AudioSample.h">
-      <Filter>Subsystems\Audio</Filter>
+    <ClInclude Include="Subsystems\LevelSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="LevelEditorSelector.h">
-      <Filter>GameStates</Filter>
+    <ClInclude Include="GameStates\MainMenu.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Core\MathFunctions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\PhysicsSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\RenderSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\ResourceSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Actors\Spikes.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\SpriteComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Actors\Star.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\TextBox.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\VectorFunctions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Widget.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\CheckBox.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="openal32.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="openal32.lib" />
   </ItemGroup>
 </Project>
