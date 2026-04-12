@@ -3,4 +3,8 @@
 void GameState::BeginPlay()
 {
 }
+
+void GameState::Update()
+{
+}
                           

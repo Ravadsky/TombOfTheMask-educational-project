@@ -49,10 +49,7 @@ void LevelSubsystem::StartLevel()
     }
 
     PointCountOnLevel = GetCountOfActorsOf<Point>();
-    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxpoints:", PointCountOnLevel);
-
     StarCountOnLevel = GetCountOfActorsOf<Star>();
-    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxstars:", StarCountOnLevel);
 
     for (auto _actor : ActorsOnLevel)
     {
