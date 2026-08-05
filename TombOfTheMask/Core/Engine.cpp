@@ -1,49 +1,53 @@
 #include "Engine.h"
+#include "GameStates/GameState.h"
 
-#include "AudioSubsystem.h"
-#include "GarbageCollector.h"
-#include "RenderSubsystem.h"
-#include "ResourceSubsystem.h"
+#include "Subsystems/GameSubsystems/AudioSubsystem.h"
+#include "Subsystems/GameSubsystems/GarbageCollector.h"
+#include "Subsystems/GameSubsystems/RenderSubsystem.h"
+#include "Subsystems/GameSubsystems/ResourceSubsystem.h"
 
-#include "MainMenu.h"
-
-Engine::Engine()
+GEngine::GEngine()
 {
-    // инициализировать глобальные ресурсы
+    // init game instance subsystems
     GResourceSubsystem = new ResourceSubsystem();
-    // инициализировать глобальные ресурсы
     GAudioSubsystem = new AudioSubsystem();
-    // GRenderSubsystem = new RenderSubsystem();
     GGarbageCollector = new GarbageCollector();
-
     GRenderSubsystem = new RenderSubsystem();
 
+    /// start game state from main menu
     SwitchState<MainMenu>();
 }
 
-void Engine::Update()
+GEngine::~GEngine()
 {
-    // Обновление игрового окна в начале кадра
+    delete GResourceSubsystem;
+    delete GAudioSubsystem;
+    delete GGarbageCollector;
+    delete GGarbageCollector;
+}
+
+void GEngine::Update()
+{
     if (needToSwitchState)
-    {
-        sf::sleep(sf::milliseconds(TimeBeetweenStates));
-        CurrentGameState = PendingState();
-        PendingState = nullptr;
-
-        CurrentGameState->BeginPlay();
-
-        needToSwitchState = false;
-    }
+        SwitchGameState();
 
     if (CurrentGameState)
-    {
-        // Обновление текущего игрового окна
         CurrentGameState->Update();
-    }
-    // Отрисовка объектов (в том числе интерфейсов) на экран
+
+    // update visual and audio after logic
     GRenderSubsystem->Update();
-    // Обработка аудио-сэмплов
     GAudioSubsystem->Update();
-    // удаление объектов в конце кадра
+
+    // collect garbage after all
     GGarbageCollector->Update();
+}
+
+void GEngine::SwitchGameState()
+{
+    sf::sleep(sf::milliseconds(TimeBeetweenStates));
+    CurrentGameState = PendingState();
+    CurrentGameState->BeginPlay();
+
+    PendingState = nullptr;
+    needToSwitchState = false;
 }

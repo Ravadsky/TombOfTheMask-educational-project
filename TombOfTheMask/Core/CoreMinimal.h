@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <memory>
 
-class Engine;
+class GEngine;
 class InputSubsystem;
 class ResourceSubsystem;
 class RenderSubsystem;
@@ -14,7 +14,7 @@ class PhysicsSubsystem;
 class GarbageCollector;
 class AudioSubsystem;
 
-extern Engine *GEngine;
+extern GEngine *GetEngine;
 extern sf::RenderWindow *GWindow;
 extern InputSubsystem *GInputSubsystem;
 extern ResourceSubsystem *GResourceSubsystem;

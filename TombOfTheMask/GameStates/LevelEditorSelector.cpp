@@ -51,7 +51,7 @@ void LevelEditorSelector::Update()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            GEngine->SwitchState<MainMenu>();
+            GetEngine->SwitchState<MainMenu>();
         }
     }
 }
@@ -60,6 +60,6 @@ void LevelEditorSelector::ChooseLevel(int index)
 {
     GAudioSubsystem->CreateNewSound("button_sound");
 
-    GEngine->SwitchState<LevelEditor>();
+    GetEngine->SwitchState<LevelEditor>();
     ChangeDataParamater("CurrentLevel:", index);
 }

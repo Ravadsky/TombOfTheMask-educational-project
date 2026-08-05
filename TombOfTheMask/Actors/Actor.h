@@ -1,7 +1,7 @@
 #pragma once
-#include "UObject.h"
+#include "Core/UObject.h"
 
-#include "SpriteComponent.h"
+#include "Components/SpriteComponent.h"
 
 enum class ActorType : int
 {

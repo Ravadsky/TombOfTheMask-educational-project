@@ -12,7 +12,7 @@ Archer::Archer(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Ar
 {
     CellPosition = position / (float)SPRITE_GAME_SIZE;
     Collision = CollisionPreset::Block;
-    canTick = true;
+    bCanTick = true;
 }
 
 void Archer::Update()

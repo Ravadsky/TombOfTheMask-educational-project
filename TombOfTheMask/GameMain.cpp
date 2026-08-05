@@ -8,11 +8,11 @@ int main()
     window.setVerticalSyncEnabled(true);
     GWindow = &window;
 
-    GEngine = new Engine();
+    GetEngine = new GEngine();
 
     while (window.isOpen())
     {
-        GEngine->Update();
+        GetEngine->Update();
     }
 
     return 0;

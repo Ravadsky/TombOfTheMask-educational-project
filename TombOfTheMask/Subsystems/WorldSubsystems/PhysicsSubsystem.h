@@ -1,7 +1,7 @@
 #pragma once
-#include "UObject.h"
+#include "Core/UObject.h"
 
-#include "VectorFunctions.h"
+#include "Core/FunctionLibrary/UtilityFunctions.h"
 
 class Actor;
 

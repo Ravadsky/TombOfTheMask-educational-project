@@ -37,7 +37,7 @@ void PlayerEnd::OnCollision(std::weak_ptr<Actor> OtherActor)
             {
                 ChangeDataParamater(key, CastTo<Player>(other)->GetPointCount());
             }
-            GEngine->SwitchState<LevelSelector>();
+            GetEngine->SwitchState<LevelSelector>();
         }
     }
 }

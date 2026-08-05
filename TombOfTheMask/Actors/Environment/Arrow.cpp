@@ -8,7 +8,7 @@
 
 Arrow::Arrow(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Arrow, position, rotationAngle)
 {
-    canTick = true;
+    bCanTick = true;
 
     Collision = CollisionPreset::Overlap;
 

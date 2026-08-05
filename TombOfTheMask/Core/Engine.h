@@ -1,27 +1,28 @@
 #pragma once
 #include "UObject.h"
-
 #include <functional>
 
 class GameState;
 
-class Engine : public UObject
+class GEngine : public UObject
 {
-  private:
-    std::unique_ptr<GameState> CurrentGameState;
-    bool needToSwitchState = false;
-
-    // Запомнить в какое окно переключить игру в начале кадра
-    std::function<std::unique_ptr<GameState>()> PendingState;
-
-  public:
-    Engine();
+public:
+    GEngine();
+    ~GEngine();
 
     virtual void Update() override;
 
-    template <typename T> inline void SwitchState()
+    template <typename T>
+    inline void MarkToSwitchState()
     {
         needToSwitchState = true;
         PendingState = []() -> std::unique_ptr<GameState> { return std::make_unique<T>(); };
     }
+
+private:
+    void SwitchGameState();
+
+    bool needToSwitchState = false;
+    std::unique_ptr<GameState> CurrentGameState;
+    std::function<std::unique_ptr<GameState>()> PendingState;
 };

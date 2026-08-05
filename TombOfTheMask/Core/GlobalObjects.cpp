@@ -1,11 +1,11 @@
-#include "AudioSubsystem.h"
 #include "CoreMinimal.h"
 #include "Engine.h"
-#include "GarbageCollector.h"
-#include "InputSubsystem.h"
-#include "PhysicsSubsystem.h"
-#include "RenderSubsystem.h"
-#include "ResourceSubsystem.h"
+#include "Subsystems/GameSubsystems/AudioSubsystem.h"
+#include "Subsystems/GameSubsystems/GarbageCollector.h"
+#include "Subsystems/WorldSubsystems/InputSubsystem.h"
+#include "Subsystems/WorldSubsystems/PhysicsSubsystem.h"
+#include "Subsystems/GameSubsystems/RenderSubsystem.h"
+#include "Subsystems/GameSubsystems/ResourceSubsystem.h"
 
 sf::RenderWindow *GWindow;
 
@@ -15,5 +15,5 @@ RenderSubsystem *GRenderSubsystem;
 LevelSubsystem *GLevelSubsystem;
 PhysicsSubsystem *GPhysicsSubsystem;
 GarbageCollector *GGarbageCollector;
-Engine *GEngine;
+GEngine *GetEngine;
 AudioSubsystem *GAudioSubsystem;

@@ -3,20 +3,20 @@ SoundValue:1
 
 CurrentLevel:1
 
-Level1:0
-Level1.stars:0
+Level1:1
+Level1.stars:3
 Level1.maxstars:3
-Level1.points:0
+Level1.points:8
 Level1.maxpoints:8
 
-Level2:0
-Level2.stars:0
+Level2:1
+Level2.stars:3
 Level2.maxstars:3
-Level2.points:0
+Level2.points:10
 Level2.maxpoints:10
 
-Level3:0
-Level3.stars:0
+Level3:1
+Level3.stars:3
 Level3.maxstars:3
-Level3.points:0
+Level3.points:12
 Level3.maxpoints:12

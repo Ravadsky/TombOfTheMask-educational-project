@@ -73,7 +73,7 @@ void LevelSelector::Update()
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            GEngine->SwitchState<MainMenu>();
+            GetEngine->SwitchState<MainMenu>();
         }
     }
 }
@@ -82,7 +82,7 @@ void LevelSelector::ChooseLevel(int index)
 {
     GAudioSubsystem->CreateNewSound("button_sound");
 
-    GEngine->SwitchState<LevelInstance>();
+    GetEngine->SwitchState<LevelInstance>();
     ChangeDataParamater("CurrentLevel:", index);
 }
 

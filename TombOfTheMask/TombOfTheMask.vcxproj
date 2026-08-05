@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SFML\SFML-2.5.1\include;%(AdditionalIncludeDirectories); $(ProjectDir)Actors; $(ProjectDir)Core; $(ProjectDir)GameStates; $(ProjectDir)Subsystems; $(ProjectDir)Widgets</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SFML\SFML-2.5.1\include;%(AdditionalIncludeDirectories);$(ProjectDir)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
@@ -133,21 +133,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\ActorComponent.cpp" />
     <ClCompile Include="Actors\Actor.cpp" />
-    <ClCompile Include="Actors\Archer.cpp" />
-    <ClCompile Include="Actors\Arrow.cpp" />
-    <ClCompile Include="Actors\BackgroundWall.cpp" />
-    <ClCompile Include="Actors\CornerWall.cpp" />
-    <ClCompile Include="Actors\EditorObject.cpp" />
+    <ClCompile Include="Actors\Environment\Archer.cpp" />
+    <ClCompile Include="Actors\Environment\Arrow.cpp" />
+    <ClCompile Include="Actors\Environment\BackgroundWall.cpp" />
+    <ClCompile Include="Actors\Environment\CornerWall.cpp" />
+    <ClCompile Include="Actors\Environment\EditorObject.cpp" />
     <ClCompile Include="Actors\Player.cpp" />
-    <ClCompile Include="Actors\PlayerEnd.cpp" />
-    <ClCompile Include="Actors\PlayerEndBlock.cpp" />
-    <ClCompile Include="Actors\PlayerStart.cpp" />
-    <ClCompile Include="Actors\PlayerStartBlock.cpp" />
+    <ClCompile Include="Actors\Environment\PlayerEnd.cpp" />
+    <ClCompile Include="Actors\Environment\PlayerEndBlock.cpp" />
+    <ClCompile Include="Actors\Environment\PlayerStart.cpp" />
+    <ClCompile Include="Actors\Environment\PlayerStartBlock.cpp" />
     <ClCompile Include="Actors\Point.cpp" />
-    <ClCompile Include="Actors\Spikes.cpp" />
+    <ClCompile Include="Actors\Environment\Spikes.cpp" />
     <ClCompile Include="Actors\Star.cpp" />
-    <ClCompile Include="Actors\Wall.cpp" />
+    <ClCompile Include="Actors\Environment\Wall.cpp" />
+    <ClCompile Include="Subsystems\GameSubsystems\GameSubsystem.cpp" />
     <ClCompile Include="Widgets\CheckBox.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\GlobalObjects.cpp" />
@@ -158,67 +160,69 @@
     <ClCompile Include="GameStates\LevelInstance.cpp" />
     <ClCompile Include="GameStates\LevelSelector.cpp" />
     <ClCompile Include="GameStates\MainMenu.cpp" />
-    <ClCompile Include="Subsystems\AudioSample.cpp" />
-    <ClCompile Include="Subsystems\AudioSubsystem.cpp" />
-    <ClCompile Include="Subsystems\GarbageCollector.cpp" />
-    <ClCompile Include="Subsystems\InputSubsystem.cpp" />
-    <ClCompile Include="Core\UObject.cpp" />
-    <ClCompile Include="Subsystems\LevelSubsystem.cpp" />
-    <ClCompile Include="Subsystems\PhysicsSubsystem.cpp" />
-    <ClCompile Include="Subsystems\RenderSubsystem.cpp" />
-    <ClCompile Include="Subsystems\ResourceSubsystem.cpp" />
+    <ClCompile Include="Audio\AudioSample.cpp" />
+    <ClCompile Include="Subsystems\GameSubsystems\AudioSubsystem.cpp" />
+    <ClCompile Include="Subsystems\GameSubsystems\GarbageCollector.cpp" />
+    <ClCompile Include="Subsystems\WorldSubsystems\InputSubsystem.cpp" />
+    <ClCompile Include="Subsystems\WorldSubsystems\LevelSubsystem.cpp" />
+    <ClCompile Include="Subsystems\WorldSubsystems\PhysicsSubsystem.cpp" />
+    <ClCompile Include="Subsystems\GameSubsystems\RenderSubsystem.cpp" />
+    <ClCompile Include="Subsystems\GameSubsystems\ResourceSubsystem.cpp" />
     <ClCompile Include="Widgets\Button.cpp" />
     <ClCompile Include="Widgets\Drawable.cpp" />
     <ClCompile Include="Widgets\LevelInfo.cpp" />
-    <ClCompile Include="Widgets\SpriteComponent.cpp" />
+    <ClCompile Include="Components\SpriteComponent.cpp" />
     <ClCompile Include="Widgets\TextBox.cpp" />
     <ClCompile Include="Widgets\Widget.cpp" />
+    <ClCompile Include="Core\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\ActorComponent.h" />
     <ClInclude Include="Actors\Actor.h" />
-    <ClInclude Include="Actors\Archer.h" />
-    <ClInclude Include="Actors\Arrow.h" />
-    <ClInclude Include="Actors\BackgroundWall.h" />
-    <ClInclude Include="Actors\CornerWall.h" />
-    <ClInclude Include="Actors\EditorObject.h" />
+    <ClInclude Include="Actors\Environment\Archer.h" />
+    <ClInclude Include="Actors\Environment\Arrow.h" />
+    <ClInclude Include="Actors\Environment\BackgroundWall.h" />
+    <ClInclude Include="Actors\Environment\CornerWall.h" />
+    <ClInclude Include="Actors\Environment\EditorObject.h" />
     <ClInclude Include="Actors\Player.h" />
-    <ClInclude Include="Actors\PlayerEnd.h" />
-    <ClInclude Include="Actors\PlayerEndBlock.h" />
-    <ClInclude Include="Actors\PlayerStart.h" />
-    <ClInclude Include="Actors\PlayerStartBlock.h" />
+    <ClInclude Include="Actors\Environment\PlayerEnd.h" />
+    <ClInclude Include="Actors\Environment\PlayerEndBlock.h" />
+    <ClInclude Include="Actors\Environment\PlayerStart.h" />
+    <ClInclude Include="Actors\Environment\PlayerStartBlock.h" />
     <ClInclude Include="Actors\Point.h" />
-    <ClInclude Include="Actors\Spikes.h" />
+    <ClInclude Include="Actors\Environment\Spikes.h" />
     <ClInclude Include="Actors\Star.h" />
-    <ClInclude Include="Actors\Wall.h" />
+    <ClInclude Include="Actors\Environment\Wall.h" />
+    <ClInclude Include="Subsystems\GameSubsystems\GameSubsystem.h" />
     <ClInclude Include="Widgets\CheckBox.h" />
-    <ClInclude Include="Core\ActorFunctions.h" />
+    <ClInclude Include="Core\FunctionLibrary\ActorFunctions.h" />
     <ClInclude Include="Core\Config.h" />
     <ClInclude Include="Core\CoreMinimal.h" />
-    <ClInclude Include="Core\DataFunctions.h" />
+    <ClInclude Include="Core\FunctionLibrary\DataFunctions.h" />
     <ClInclude Include="Core\Engine.h" />
-    <ClInclude Include="Core\MathFunctions.h" />
-    <ClInclude Include="Core\VectorFunctions.h" />
+    <ClInclude Include="Core\FunctionLibrary\UtilityFunctions.h" />
     <ClInclude Include="GameStates\GameState.h" />
     <ClInclude Include="GameStates\LevelEditor.h" />
     <ClInclude Include="GameStates\LevelEditorSelector.h" />
     <ClInclude Include="GameStates\LevelInstance.h" />
     <ClInclude Include="GameStates\LevelSelector.h" />
     <ClInclude Include="GameStates\MainMenu.h" />
-    <ClInclude Include="Subsystems\AudioSample.h" />
-    <ClInclude Include="Subsystems\AudioSubsystem.h" />
-    <ClInclude Include="Subsystems\GarbageCollector.h" />
-    <ClInclude Include="Subsystems\InputSubsystem.h" />
-    <ClInclude Include="Subsystems\LevelSubsystem.h" />
-    <ClInclude Include="Subsystems\PhysicsSubsystem.h" />
-    <ClInclude Include="Subsystems\RenderSubsystem.h" />
-    <ClInclude Include="Subsystems\ResourceSubsystem.h" />
+    <ClInclude Include="Audio\AudioSample.h" />
+    <ClInclude Include="Subsystems\GameSubsystems\AudioSubsystem.h" />
+    <ClInclude Include="Subsystems\GameSubsystems\GarbageCollector.h" />
+    <ClInclude Include="Subsystems\WorldSubsystems\InputSubsystem.h" />
+    <ClInclude Include="Subsystems\WorldSubsystems\LevelSubsystem.h" />
+    <ClInclude Include="Subsystems\WorldSubsystems\PhysicsSubsystem.h" />
+    <ClInclude Include="Subsystems\GameSubsystems\RenderSubsystem.h" />
+    <ClInclude Include="Subsystems\GameSubsystems\ResourceSubsystem.h" />
     <ClInclude Include="Core\UObject.h" />
     <ClInclude Include="Widgets\Button.h" />
     <ClInclude Include="Widgets\Drawable.h" />
     <ClInclude Include="Widgets\LevelInfo.h" />
-    <ClInclude Include="Widgets\SpriteComponent.h" />
+    <ClInclude Include="Components\SpriteComponent.h" />
     <ClInclude Include="Widgets\TextBox.h" />
     <ClInclude Include="Widgets\Widget.h" />
+    <ClInclude Include="Core\World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll" />

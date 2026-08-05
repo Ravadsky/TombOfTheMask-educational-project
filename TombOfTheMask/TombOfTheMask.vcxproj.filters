@@ -42,64 +42,61 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Core\UObject.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Actors\Actor.cpp">
       <Filter>ActorSystem</Filter>
     </ClCompile>
     <ClCompile Include="Core\Engine.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Archer.cpp">
+    <ClCompile Include="Actors\Environment\Archer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Arrow.cpp">
+    <ClCompile Include="Actors\Environment\Arrow.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\BackgroundWall.cpp">
+    <ClCompile Include="Actors\Environment\BackgroundWall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\CornerWall.cpp">
+    <ClCompile Include="Actors\Environment\CornerWall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\EditorObject.cpp">
+    <ClCompile Include="Actors\Environment\EditorObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Actors\Player.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\PlayerEnd.cpp">
+    <ClCompile Include="Actors\Environment\PlayerEnd.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\PlayerEndBlock.cpp">
+    <ClCompile Include="Actors\Environment\PlayerEndBlock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\PlayerStart.cpp">
+    <ClCompile Include="Actors\Environment\PlayerStart.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\PlayerStartBlock.cpp">
+    <ClCompile Include="Actors\Environment\PlayerStartBlock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Actors\Point.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Wall.cpp">
+    <ClCompile Include="Actors\Environment\Wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Core\GlobalObjects.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\AudioSample.cpp">
+    <ClCompile Include="Audio\AudioSample.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\AudioSubsystem.cpp">
+    <ClCompile Include="Subsystems\GameSubsystems\AudioSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GarbageCollector.cpp">
+    <ClCompile Include="Subsystems\GameSubsystems\GarbageCollector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\InputSubsystem.cpp">
+    <ClCompile Include="Subsystems\WorldSubsystems\InputSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStates\GameState.cpp">
@@ -129,19 +126,19 @@
     <ClCompile Include="GameMain.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\LevelSubsystem.cpp">
+    <ClCompile Include="Subsystems\WorldSubsystems\LevelSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\PhysicsSubsystem.cpp">
+    <ClCompile Include="Subsystems\WorldSubsystems\PhysicsSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\RenderSubsystem.cpp">
+    <ClCompile Include="Subsystems\GameSubsystems\RenderSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\ResourceSubsystem.cpp">
+    <ClCompile Include="Subsystems\GameSubsystems\ResourceSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Widgets\SpriteComponent.cpp">
+    <ClCompile Include="Components\SpriteComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Widgets\TextBox.cpp">
@@ -153,13 +150,22 @@
     <ClCompile Include="GameStates\MainMenu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Spikes.cpp">
+    <ClCompile Include="Actors\Environment\Spikes.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Actors\Star.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Widgets\CheckBox.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Subsystems\GameSubsystems\GameSubsystem.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\World.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ActorComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,46 +176,46 @@
     <ClInclude Include="Actors\Actor.h">
       <Filter>ActorSystem</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Archer.h">
+    <ClInclude Include="Actors\Environment\Archer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Arrow.h">
+    <ClInclude Include="Actors\Environment\Arrow.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\BackgroundWall.h">
+    <ClInclude Include="Actors\Environment\BackgroundWall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\CornerWall.h">
+    <ClInclude Include="Actors\Environment\CornerWall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\EditorObject.h">
+    <ClInclude Include="Actors\Environment\EditorObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Actors\Player.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\PlayerEnd.h">
+    <ClInclude Include="Actors\Environment\PlayerEnd.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\PlayerEndBlock.h">
+    <ClInclude Include="Actors\Environment\PlayerEndBlock.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\PlayerStart.h">
+    <ClInclude Include="Actors\Environment\PlayerStart.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\PlayerStartBlock.h">
+    <ClInclude Include="Actors\Environment\PlayerStartBlock.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Actors\Point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Wall.h">
+    <ClInclude Include="Actors\Environment\Wall.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Core\DataFunctions.h">
+    <ClInclude Include="Core\FunctionLibrary\DataFunctions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Core\ActorFunctions.h">
+    <ClInclude Include="Core\FunctionLibrary\ActorFunctions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core\Config.h">
@@ -221,16 +227,16 @@
     <ClInclude Include="Core\Engine.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\InputSubsystem.h">
+    <ClInclude Include="Subsystems\WorldSubsystems\InputSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\AudioSample.h">
+    <ClInclude Include="Audio\AudioSample.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\AudioSubsystem.h">
+    <ClInclude Include="Subsystems\GameSubsystems\AudioSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GarbageCollector.h">
+    <ClInclude Include="Subsystems\GameSubsystems\GarbageCollector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GameStates\GameState.h">
@@ -257,28 +263,28 @@
     <ClInclude Include="Widgets\Drawable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\LevelSubsystem.h">
+    <ClInclude Include="Subsystems\WorldSubsystems\LevelSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GameStates\MainMenu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Core\MathFunctions.h">
+    <ClInclude Include="Core\FunctionLibrary\UtilityFunctions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\PhysicsSubsystem.h">
+    <ClInclude Include="Subsystems\WorldSubsystems\PhysicsSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\RenderSubsystem.h">
+    <ClInclude Include="Subsystems\GameSubsystems\RenderSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\ResourceSubsystem.h">
+    <ClInclude Include="Subsystems\GameSubsystems\ResourceSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Spikes.h">
+    <ClInclude Include="Actors\Environment\Spikes.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Widgets\SpriteComponent.h">
+    <ClInclude Include="Components\SpriteComponent.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Actors\Star.h">
@@ -287,13 +293,19 @@
     <ClInclude Include="Widgets\TextBox.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Core\VectorFunctions.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Widgets\Widget.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Widgets\CheckBox.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Subsystems\GameSubsystems\GameSubsystem.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\World.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ActorComponent.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

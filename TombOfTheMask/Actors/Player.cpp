@@ -13,7 +13,7 @@
 
 Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
-    canTick = true;
+    bCanTick = true;
     Collision = CollisionPreset::Block;
 
     CollisionBox = {position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2,
@@ -149,5 +149,5 @@ void Player::GetDamage()
     ActorSprite->SetColor(sf::Color::Red);
     GAudioSubsystem->CreateNewSound("death_sound");
     CanAction = false;
-    GEngine->SwitchState<LevelInstance>();
+    GetEngine->SwitchState<LevelInstance>();
 }

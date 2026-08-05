@@ -2,11 +2,12 @@
 
 #include "AudioSubsystem.h"
 #include "Button.h"
-#include "Engine.h"
-#include "LevelEditorSelector.h"
-#include "LevelSelector.h"
 #include "CheckBox.h"
 #include "DataFunctions.h"
+
+#include "LevelSelector.h"
+#include "LevelEditorSelector.h"
+#include "Engine.h"
 
 MainMenu::MainMenu()
 {
@@ -49,12 +50,12 @@ void MainMenu::Update()
             }
             if (StartGameButton->CheckWithCollisions(xMousePos, yMousePos))
             {
-                GEngine->SwitchState<LevelSelector>();
+                GetEngine->SwitchState<LevelSelector>();
                 GAudioSubsystem->CreateNewSound("button_sound");
             }
             if (EditorButton->CheckWithCollisions(xMousePos, yMousePos))
             {
-                GEngine->SwitchState<LevelEditorSelector>();
+                GetEngine->SwitchState<LevelEditorSelector>();
                 GAudioSubsystem->CreateNewSound("button_sound");
             }
             // Проверка чек-боксов звуков и музыки

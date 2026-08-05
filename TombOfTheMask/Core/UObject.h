@@ -3,13 +3,13 @@
 
 class UObject
 {
-  protected:
-    bool canTick = false;
+protected:
+    bool bCanTick = false;
 
-  public:
-    virtual void BeginPlay();
+public:
+    virtual void BeginPlay() {};
 
-    virtual void Update();
+    virtual void Update() {};
 
-    bool CanTick();
+    inline bool CanTick() const { return bCanTick; }
 };

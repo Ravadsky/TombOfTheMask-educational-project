@@ -113,7 +113,7 @@ void LevelEditor::Update()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
             SaveLevel();
-            GEngine->SwitchState<LevelEditorSelector>();
+            GetEngine->SwitchState<LevelEditorSelector>();
         }
     }
 }

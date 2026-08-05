@@ -40,11 +40,11 @@ void LevelSubsystem::StartLevel()
 
         stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
 
-        CreateObject({(float)xPos, (float)yPos}, (float)Rotation, ActorID);
+        CreateObject({ (float)xPos, (float)yPos }, (float)Rotation, ActorID);
 
         if (ActorID == 6 or ActorID == 7)
         {
-            CreateObject({(float)xPos, (float)yPos}, 0, 12);
+            CreateObject({ (float)xPos, (float)yPos }, 0, 12);
         }
     }
 
