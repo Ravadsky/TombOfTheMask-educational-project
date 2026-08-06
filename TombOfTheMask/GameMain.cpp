@@ -1,18 +1,17 @@
-#include "CoreMinimal.h"
-#include "Engine.h"
+#include "Core/CoreMinimal.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
-    window.setFramerateLimit(MAX_FPS);
-    window.setVerticalSyncEnabled(true);
-    GWindow = &window;
+    sf::RenderWindow gameWindow(GAME_VIDEOMODE, GAME_NAME);
+    gameWindow.setFramerateLimit(MAX_FPS);
+    gameWindow.setVerticalSyncEnabled(true);
+    Window = &gameWindow;
 
-    GetEngine = new GEngine();
+    Engine = new GEngine();
 
-    while (window.isOpen())
+    while (Window->isOpen())
     {
-        GetEngine->Update();
+        Engine->Update();
     }
 
     return 0;

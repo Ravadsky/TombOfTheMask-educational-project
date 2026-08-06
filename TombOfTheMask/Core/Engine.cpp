@@ -1,45 +1,58 @@
-#include "Engine.h"
+#include "CoreMinimal.h"
+
 #include "GameStates/GameState.h"
+#include "GameStates/MainMenu.h"
 
 #include "Subsystems/GameSubsystems/AudioSubsystem.h"
 #include "Subsystems/GameSubsystems/GarbageCollector.h"
 #include "Subsystems/GameSubsystems/RenderSubsystem.h"
 #include "Subsystems/GameSubsystems/ResourceSubsystem.h"
 
+sf::RenderWindow* GWindow;
+GEngine* Engine;
+
 GEngine::GEngine()
 {
     // init game instance subsystems
-    GResourceSubsystem = new ResourceSubsystem();
-    GAudioSubsystem = new AudioSubsystem();
-    GGarbageCollector = new GarbageCollector();
-    GRenderSubsystem = new RenderSubsystem();
+    resourceSubsystem = std::make_unique<UResourceSubsystem>();
+    renderSubsystem = std::make_unique<URenderSubsystem>();
+    audioSubsystem = std::make_unique<UAudioSubsystem>();
+    garbageCollector = std::make_unique<UGarbageCollector>();
 
     /// start game state from main menu
-    SwitchState<MainMenu>();
+    MarkToSwitchState<MainMenu>();
 }
 
-GEngine::~GEngine()
-{
-    delete GResourceSubsystem;
-    delete GAudioSubsystem;
-    delete GGarbageCollector;
-    delete GGarbageCollector;
-}
+GEngine::~GEngine() {}
 
 void GEngine::Update()
 {
     if (needToSwitchState)
         SwitchGameState();
 
+    resourceSubsystem->Update();
+
     if (CurrentGameState)
         CurrentGameState->Update();
 
     // update visual and audio after logic
-    GRenderSubsystem->Update();
-    GAudioSubsystem->Update();
+    renderSubsystem->Update();
+    audioSubsystem->Update();
 
     // collect garbage after all
-    GGarbageCollector->Update();
+    garbageCollector->Update();
+}
+
+void GEngine::RegisterObject(UObject* object)
+{
+    AllObjects.push_back(object);
+}
+
+void GEngine::UnregisterObject(UObject* object)
+{
+    auto objectIterator = std::find(AllObjects.begin(), AllObjects.end(), object);
+    if (objectIterator != AllObjects.end())
+        AllObjects.erase(objectIterator);
 }
 
 void GEngine::SwitchGameState()

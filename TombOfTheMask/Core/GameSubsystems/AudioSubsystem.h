@@ -1,22 +1,21 @@
 #pragma once
-#include "UObject.h"
-
-#include "VectorFunctions.h"
+#include "GameSubsystem.h"
 
 class AudioSample;
 
-class AudioSubsystem : public UObject
+class UAudioSubsystem : public UGameSubsystem
 {
-  private:
+private:
     sf::Music BackgroundMusic;
     std::vector<std::unique_ptr<AudioSample>> SoundSamples;
 
     float MusicValue;
     float SoundValue;
 
-  public:
-    AudioSubsystem();
+public:
+    UAudioSubsystem();
 
+    virtual void BeginPlay() override;
     virtual void Update() override;
 
     void StartNewMusic(std::string MusicFileName);

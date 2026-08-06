@@ -2,24 +2,15 @@
 #include "Config.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "UObject.h"
+#include "Engine.h"
 #include <assert.h>
 #include <memory>
 
-class GEngine;
-class InputSubsystem;
-class ResourceSubsystem;
-class RenderSubsystem;
-class LevelSubsystem;
-class PhysicsSubsystem;
-class GarbageCollector;
-class AudioSubsystem;
+extern GEngine *Engine;
+extern sf::RenderWindow *Window;
 
-extern GEngine *GetEngine;
-extern sf::RenderWindow *GWindow;
-extern InputSubsystem *GInputSubsystem;
-extern ResourceSubsystem *GResourceSubsystem;
-extern RenderSubsystem *GRenderSubsystem;
-extern LevelSubsystem *GLevelSubsystem;
-extern PhysicsSubsystem *GPhysicsSubsystem;
-extern GarbageCollector *GGarbageCollector;
-extern AudioSubsystem *GAudioSubsystem;
+#define GetResourceSubsystem() Engine->GetResourceSubsystem()
+#define GetRenderSubsystem() Engine->GetRenderSubsystem()
+#define GetAudioSubsystem() Engine->GetAudioSubsystem()
+#define GetGarbageCollector() Engine->GetGarbageCollector()

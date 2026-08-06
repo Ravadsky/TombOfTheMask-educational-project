@@ -84,16 +84,13 @@
     <ClCompile Include="Actors\Environment\Wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Core\GlobalObjects.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Audio\AudioSample.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GameSubsystems\AudioSubsystem.cpp">
+    <ClCompile Include="Core\GameSubsystems\AudioSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GameSubsystems\GarbageCollector.cpp">
+    <ClCompile Include="Core\GameSubsystems\GarbageCollector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Subsystems\WorldSubsystems\InputSubsystem.cpp">
@@ -132,10 +129,10 @@
     <ClCompile Include="Subsystems\WorldSubsystems\PhysicsSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GameSubsystems\RenderSubsystem.cpp">
+    <ClCompile Include="Core\GameSubsystems\RenderSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GameSubsystems\ResourceSubsystem.cpp">
+    <ClCompile Include="Core\GameSubsystems\ResourceSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Components\SpriteComponent.cpp">
@@ -159,13 +156,16 @@
     <ClCompile Include="Widgets\CheckBox.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Subsystems\GameSubsystems\GameSubsystem.cpp">
+    <ClCompile Include="Core\GameSubsystems\GameSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Core\World.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Components\ActorComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,10 +233,10 @@
     <ClInclude Include="Audio\AudioSample.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GameSubsystems\AudioSubsystem.h">
+    <ClInclude Include="Core\GameSubsystems\AudioSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GameSubsystems\GarbageCollector.h">
+    <ClInclude Include="Core\GameSubsystems\GarbageCollector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GameStates\GameState.h">
@@ -275,10 +275,10 @@
     <ClInclude Include="Subsystems\WorldSubsystems\PhysicsSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GameSubsystems\RenderSubsystem.h">
+    <ClInclude Include="Core\GameSubsystems\RenderSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GameSubsystems\ResourceSubsystem.h">
+    <ClInclude Include="Core\GameSubsystems\ResourceSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Actors\Environment\Spikes.h">
@@ -299,7 +299,7 @@
     <ClInclude Include="Widgets\CheckBox.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Subsystems\GameSubsystems\GameSubsystem.h">
+    <ClInclude Include="Core\GameSubsystems\GameSubsystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core\World.h">

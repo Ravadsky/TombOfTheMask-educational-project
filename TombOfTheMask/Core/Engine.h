@@ -1,16 +1,21 @@
 #pragma once
-#include "UObject.h"
 #include <functional>
+#include <vector>
 
 class GameState;
 
-class GEngine : public UObject
+class URenderSubsystem;
+class UResourceSubsystem;
+class UAudioSubsystem;
+class UGarbageCollector;
+
+class GEngine
 {
 public:
     GEngine();
     ~GEngine();
 
-    virtual void Update() override;
+    void Update();
 
     template <typename T>
     inline void MarkToSwitchState()
@@ -19,10 +24,25 @@ public:
         PendingState = []() -> std::unique_ptr<GameState> { return std::make_unique<T>(); };
     }
 
+    inline URenderSubsystem* GetRenderSubsystem() const { return renderSubsystem.get(); };
+    inline UResourceSubsystem* GetResourceSubsystem() const { return resourceSubsystem.get(); };
+    inline UAudioSubsystem* GetAudioSubsystem() const { return audioSubsystem.get(); };
+    inline UGarbageCollector* GetGarbageCollector() const { return garbageCollector.get(); };
+
+    void RegisterObject(UObject* object);
+    void UnregisterObject(UObject* object);
+
 private:
     void SwitchGameState();
 
     bool needToSwitchState = false;
     std::unique_ptr<GameState> CurrentGameState;
     std::function<std::unique_ptr<GameState>()> PendingState;
+
+    std::unique_ptr<URenderSubsystem> renderSubsystem;
+    std::unique_ptr<UResourceSubsystem> resourceSubsystem;
+    std::unique_ptr<UAudioSubsystem> audioSubsystem;
+    std::unique_ptr<UGarbageCollector> garbageCollector;
+
+    std::vector<UObject*> AllObjects;
 };

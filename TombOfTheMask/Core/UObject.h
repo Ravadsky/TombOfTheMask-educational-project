@@ -7,9 +7,13 @@ protected:
     bool bCanTick = false;
 
 public:
-    virtual void BeginPlay() {};
+    UObject();
+    virtual ~UObject();
 
+    virtual void BeginPlay() {};
     virtual void Update() {};
+
+    void MarkAsGarbage();
 
     inline bool CanTick() const { return bCanTick; }
 };

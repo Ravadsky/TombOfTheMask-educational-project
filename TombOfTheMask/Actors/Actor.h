@@ -3,6 +3,8 @@
 
 #include "Components/SpriteComponent.h"
 
+class UWorld;
+
 enum class ActorType : int
 {
     // row 1
@@ -33,21 +35,25 @@ enum class CollisionPreset
 
 class Actor : public UObject, public std::enable_shared_from_this<Actor>
 {
-  protected:
+protected:
     std::unique_ptr<SpriteComponent> ActorSprite;
-    sf::Vector2f ActorLocation{0.f, 0.f};
-    float ActorRotation{0.f};
+    sf::Vector2f ActorLocation{ 0.f, 0.f };
+    float ActorRotation{ 0.f };
 
     CollisionPreset Collision = CollisionPreset::Ignore;
     sf::FloatRect CollisionBox;
 
-  public:
+    UWorld* World;
+
+public:
     Actor(ActorType Type, sf::Vector2f position, float rotationAngle);
     virtual ~Actor() = default;
 
     virtual void BeginPlay() override;
     virtual void Update() override;
     virtual void OnCollision(std::weak_ptr<Actor> OtherActor);
+
+    inline UWorld* GetWorld() const { return World; };
 
     void MarkToKill();
 

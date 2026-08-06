@@ -1,14 +1,15 @@
 #include "RenderSubsystem.h"
+#include "Core/FunctionLibrary/UtilityFunctions.h"
 
-#include "Drawable.h"
-#include "SpriteComponent.h"
+#include "Widgets/Drawable.h"
+#include "Components/SpriteComponent.h"
 #include <ranges>
 
-RenderSubsystem::RenderSubsystem() {}
+URenderSubsystem::URenderSubsystem() : UGameSubsystem() {}
 
-void RenderSubsystem::Update()
+void URenderSubsystem::Update()
 {
-    GWindow->clear(WindowColor);
+    Window->clear(WindowColor);
 
     auto StaticObjects =
         ObjectsToDraw | std::views::filter([](Drawable *Obj) { return Obj->Type == DrawType::Static; });
@@ -34,15 +35,15 @@ void RenderSubsystem::Update()
         Object->Draw();
     }
 
-    GWindow->display();
+    Window->display();
 }
 
-void RenderSubsystem::SetCameraPosition(sf::Vector2f *position)
+void URenderSubsystem::SetCameraPosition(sf::Vector2f* position)
 {
     CameraPosition = position;
 }
 
-void RenderSubsystem::ClearObjectsToDraw()
+void URenderSubsystem::ClearObjectsToDraw()
 {
     ObjectsToDraw.clear();
 }

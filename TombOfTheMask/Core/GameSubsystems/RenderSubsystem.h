@@ -1,11 +1,9 @@
 #pragma once
-#include "UObject.h"
-
-#include "VectorFunctions.h"
+#include "GameSubsystem.h"
 
 class Drawable;
 
-class RenderSubsystem : public UObject
+class URenderSubsystem : public UGameSubsystem
 {
   private:
     sf::Vector2f *CameraPosition = nullptr;
@@ -13,7 +11,7 @@ class RenderSubsystem : public UObject
   public:
     std::vector<Drawable *> ObjectsToDraw;
 
-    RenderSubsystem();
+    URenderSubsystem();
     virtual void Update() override;
 
     void SetCameraPosition(sf::Vector2f *position);
