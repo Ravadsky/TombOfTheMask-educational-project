@@ -13,6 +13,7 @@ public:
     void LoadGameFont(const std::string& filename);
 
     sf::Sprite& GetSprite(const std::string& spriteName);
+    const sf::Texture& GetTexture(const std::string& textureName);
 
 private:
     sf::Texture SpriteSheet;

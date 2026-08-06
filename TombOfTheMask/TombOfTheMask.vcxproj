@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\ColliderComponent.cpp" />
     <ClCompile Include="Components\ActorComponent.cpp" />
     <ClCompile Include="Actors\Actor.cpp" />
     <ClCompile Include="Actors\Environment\Archer.cpp" />
@@ -151,6 +152,8 @@
     <ClCompile Include="Actors\Environment\Wall.cpp" />
     <ClCompile Include="Core\UObject.cpp" />
     <ClCompile Include="Core\GameSubsystems\GameSubsystem.cpp" />
+    <ClCompile Include="Components\SceneComponent.cpp" />
+    <ClCompile Include="StaticSpriteComponent.cpp" />
     <ClCompile Include="Widgets\CheckBox.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="GameMain.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="Core\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\ColliderComponent.h" />
     <ClInclude Include="Components\ActorComponent.h" />
     <ClInclude Include="Actors\Actor.h" />
     <ClInclude Include="Actors\Environment\Archer.h" />
@@ -193,14 +197,16 @@
     <ClInclude Include="Actors\Environment\Spikes.h" />
     <ClInclude Include="Actors\Star.h" />
     <ClInclude Include="Actors\Environment\Wall.h" />
+    <ClInclude Include="Core\Delegate.h" />
     <ClInclude Include="Core\GameSubsystems\GameSubsystem.h" />
+    <ClInclude Include="Components\SceneComponent.h" />
+    <ClInclude Include="StaticSpriteComponent.h" />
     <ClInclude Include="Widgets\CheckBox.h" />
-    <ClInclude Include="Core\FunctionLibrary\ActorFunctions.h" />
     <ClInclude Include="Core\Config.h" />
     <ClInclude Include="Core\CoreMinimal.h" />
     <ClInclude Include="Core\FunctionLibrary\DataFunctions.h" />
     <ClInclude Include="Core\Engine.h" />
-    <ClInclude Include="Core\FunctionLibrary\UtilityFunctions.h" />
+    <ClInclude Include="Core\Math.h" />
     <ClInclude Include="GameStates\GameState.h" />
     <ClInclude Include="GameStates\LevelEditor.h" />
     <ClInclude Include="GameStates\LevelEditorSelector.h" />

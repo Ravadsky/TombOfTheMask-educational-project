@@ -1,43 +1,63 @@
-#include "Actor.h"
+#include "Actors/Actor.h"
+#include "Core/World.h"
 
-#include "GarbageCollector.h"
+#include "Components/SceneComponent.h"
+#include "Components/ColliderComponent.h"
+#include "Components/SpriteComponent.h"
 
-Actor::Actor(ActorType Type, sf::Vector2f position, float rotationAngle)
+
+AActor::AActor(UWorld* InWorld) : UObject()
 {
-    ActorLocation = position;
-    CollisionBox = {position.x - SPRITE_GAME_SIZE / 2, position.y - SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE,
-                    SPRITE_GAME_SIZE};
+    World = InWorld;
 
-    ActorSprite = std::make_unique<SpriteComponent>(static_cast<int>(Type), position);
+    SceneComponent = AddNewComponent<USceneComponent>();
+    RootComponent = SceneComponent;
 
-    ActorRotation = rotationAngle;
-    ActorSprite->SetRotation(rotationAngle);
+    ColliderComponent = AddNewComponent<UColliderComponent>();
+    ColliderComponent->AttachToComponent(SceneComponent);
+
+    SpriteComponent = AddNewComponent<USpriteComponent>();
 }
 
-void Actor::BeginPlay()
+AActor::~AActor()
 {
+    for (auto comp : Components)
+    {
+        delete comp;
+    }
+    Components.clear();
 }
 
-void Actor::Update()
+void AActor::BeginPlay() {}
+
+void AActor::Update(float deltaTime) {}
+
+sf::Vector2f AActor::GetActorLocation() const
 {
+    return RootComponent->GetWorldLocation();
 }
 
-void Actor::OnCollision(std::weak_ptr<Actor> OtherActor)
+void AActor::SetActorLocation(sf::Vector2f newLocation)
 {
+    RootComponent->SetWorldLocation(newLocation);
 }
-sf::Vector2f Actor::Getlocation()
+
+float AActor::GetActorRotation() const
 {
-    return ActorLocation;
+    return RootComponent->GetWorldRotation();
 }
-sf::FloatRect Actor::GetCollisionBox()
+
+void AActor::SetActorRotation(float newRotation)
 {
-    return CollisionBox;
+    RootComponent->SetWorldRotation(newRotation);
 }
-CollisionPreset Actor::GetCollisionPreset()
+
+sf::Vector2f AActor::GetActorScale() const
 {
-    return Collision;
+    return RootComponent->GetWorldScale();
 }
-void Actor::MarkToKill()
+
+void AActor::SetActorScale(sf::Vector2f newScale)
 {
-    GGarbageCollector->ActorsToKill.push_back(shared_from_this());
+    RootComponent->SetWorldScale(newScale);
 }

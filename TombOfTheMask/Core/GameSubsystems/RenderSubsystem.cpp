@@ -1,5 +1,4 @@
 #include "RenderSubsystem.h"
-#include "Core/FunctionLibrary/UtilityFunctions.h"
 
 #include "Widgets/Drawable.h"
 #include "Components/SpriteComponent.h"
@@ -7,7 +6,7 @@
 
 URenderSubsystem::URenderSubsystem() : UGameSubsystem() {}
 
-void URenderSubsystem::Update()
+void URenderSubsystem::Update(float deltaTime)
 {
     Window->clear(WindowColor);
 

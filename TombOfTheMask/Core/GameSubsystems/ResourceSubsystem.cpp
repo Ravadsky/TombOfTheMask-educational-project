@@ -52,4 +52,7 @@ sf::Sprite& UResourceSubsystem::GetSprite(const std::string& spriteName)
 {
     return StaticSprites.at(spriteName);
 }
-
+const sf::Texture& UResourceSubsystem::GetTexture(const std::string& textureName)
+{
+    return *StaticSprites.at(textureName).getTexture();
+}

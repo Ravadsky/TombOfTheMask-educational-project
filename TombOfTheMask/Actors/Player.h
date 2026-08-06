@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.h"
 
-#include "Widget.h"
+#include "Widgets/Widget.h"
 
 enum class MoveDirection
 {
@@ -17,7 +17,7 @@ enum class PlayerState
     Idle,
 };
 
-class Player : public Actor
+class APlayer : public AActor
 {
   private:
     bool CanAction{true};
@@ -32,9 +32,9 @@ class Player : public Actor
     std::unique_ptr<Widget> StarCountWidget;
 
   public:
-    Player(sf::Vector2f position, float rotationAngle);
+    APlayer(sf::Vector2f position, float rotationAngle);
 
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
     virtual void BeginPlay() override;
     virtual void OnCollision(std::weak_ptr<Actor> OtherActor) override;
 

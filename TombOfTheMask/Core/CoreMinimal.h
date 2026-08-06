@@ -6,6 +6,8 @@
 #include "Engine.h"
 #include <assert.h>
 #include <memory>
+#include "Delegate.h"
+#include "Math.h"
 
 extern GEngine *Engine;
 extern sf::RenderWindow *Window;

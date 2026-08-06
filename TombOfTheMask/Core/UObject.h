@@ -11,9 +11,21 @@ public:
     virtual ~UObject();
 
     virtual void BeginPlay() {};
-    virtual void Update() {};
+    virtual void Update(float deltaTime) {};
 
     void MarkAsGarbage();
 
     inline bool CanTick() const { return bCanTick; }
 };
+
+template <typename T, typename K>
+bool isClassOf(K* object)
+{
+    return dynamic_cast<T*>(ptr) != nullptr;
+}
+
+template <typename T, typename K>
+T* CastTo(K* object)
+{
+    return dynamic_cast<T>(object);
+}

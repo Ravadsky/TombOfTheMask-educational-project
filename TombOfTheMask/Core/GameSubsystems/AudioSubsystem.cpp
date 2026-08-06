@@ -10,7 +10,7 @@ void UAudioSubsystem::BeginPlay()
     UpdateSoundAndMusicValues();
 }
 
-void UAudioSubsystem::Update()
+void UAudioSubsystem::Update(float deltaTime)
 {
     auto isSampleEnds = [](const auto& sample) { return !sample->isContinues(); };
     SoundSamples.erase(std::remove_if(SoundSamples.begin(), SoundSamples.end(), isSampleEnds), SoundSamples.end());

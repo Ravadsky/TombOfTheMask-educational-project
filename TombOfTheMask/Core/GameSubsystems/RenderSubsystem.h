@@ -12,7 +12,7 @@ class URenderSubsystem : public UGameSubsystem
     std::vector<Drawable *> ObjectsToDraw;
 
     URenderSubsystem();
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
 
     void SetCameraPosition(sf::Vector2f *position);
 

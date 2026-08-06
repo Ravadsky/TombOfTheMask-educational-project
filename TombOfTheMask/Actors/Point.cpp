@@ -1,23 +1,25 @@
 #include "Point.h"
-
-#include "ActorFunctions.h"
 #include "Player.h"
 
-Point::Point(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Point, position, rotationAngle)
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+
+APoint::APoint(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Overlap;
-    ActorSprite->SetDrawType(DrawType::Dynamic);
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->onCollision.Add(this, &APoint::Pickup);
+
+    auto& texture = GetResourceSubsystem()->GetTexture("star");
+    SpriteComponent->SetSpriteTexture(texture);
 }
 
-void Point::OnCollision(std::weak_ptr<Actor> OtherActor)
+void APoint::Pickup(UColliderComponent* otherCollider)
 {
-
-    if (auto ActorPtr = OtherActor.lock())
+    auto actor = otherCollider->GetOwner();
+    if (isClassOf<APlayer>(actor))
     {
-        if (isClassOf<Player>(ActorPtr))
-        {
-            CastTo<Player>(ActorPtr)->AddPoint();
-            MarkToKill();
-        }
+        auto player = CastTo<APlayer>(actor);
+        player->AddPoint();
+        MarkAsGarbage();
     }
 }

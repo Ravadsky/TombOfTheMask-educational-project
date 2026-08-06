@@ -11,7 +11,7 @@
 #include "Engine.h"
 #include "LevelInstance.h"
 
-Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
+APlayer::APlayer(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
 {
     bCanTick = true;
     Collision = CollisionPreset::Block;
@@ -22,12 +22,12 @@ Player::Player(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Pl
     ActorSprite->SetDrawType(DrawType::Dynamic);
 }
 
-void Player::Update()
+void APlayer::Update()
 {
     UpdateLocation(PlayerDirection * (float)PLAYER_SPEED);
 }
 
-void Player::BeginPlay()
+void APlayer::BeginPlay()
 {
     GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
     GRenderSubsystem->SetCameraPosition(&ActorLocation);
@@ -44,7 +44,7 @@ void Player::BeginPlay()
     StarCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 128), "Star", StarText);
 }
 
-void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
+void APlayer::OnCollision(std::weak_ptr<Actor> OtherActor)
 {
     if (auto other = OtherActor.lock())
     {
@@ -66,7 +66,7 @@ void Player::OnCollision(std::weak_ptr<Actor> OtherActor)
     }
 }
 
-void Player::SetDirection(MoveDirection Direction)
+void APlayer::SetDirection(MoveDirection Direction)
 {
     if (CanAction)
         switch (Direction)
@@ -101,13 +101,13 @@ void Player::SetDirection(MoveDirection Direction)
         }
 }
 
-void Player::UpdateLocation(sf::Vector2f position)
+void APlayer::UpdateLocation(sf::Vector2f position)
 {
     ActorLocation += position;
     ActorSprite->SetPosition(ActorLocation);
 }
 
-sf::FloatRect Player::GetCollisionBox()
+sf::FloatRect APlayer::GetCollisionBox()
 {
 
     float TempWidth = SPRITE_GAME_SIZE / 2;
@@ -118,7 +118,7 @@ sf::FloatRect Player::GetCollisionBox()
     return {TempLeft, TempTop, TempWidth, TempHeight};
 }
 
-void Player::AddPoint()
+void APlayer::AddPoint()
 {
     ++PointCount;
     std::string PointText = std::to_string(PointCount) + " / " + std::to_string(GLevelSubsystem->PointCountOnLevel);
@@ -126,12 +126,12 @@ void Player::AddPoint()
     GAudioSubsystem->CreateNewSound("point_sound");
 }
 
-int Player::GetPointCount()
+int APlayer::GetPointCount()
 {
     return PointCount;
 }
 
-void Player::AddStar()
+void APlayer::AddStar()
 {
     ++StarCount;
     std::string StarText = std::to_string(StarCount) + " / " + std::to_string(GLevelSubsystem->StarCountOnLevel);
@@ -139,12 +139,12 @@ void Player::AddStar()
     GAudioSubsystem->CreateNewSound("point_sound");
 }
 
-int Player::GetStarCount()
+int APlayer::GetStarCount()
 {
     return StarCount;
 }
 
-void Player::GetDamage()
+void APlayer::GetDamage()
 {
     ActorSprite->SetColor(sf::Color::Red);
     GAudioSubsystem->CreateNewSound("death_sound");

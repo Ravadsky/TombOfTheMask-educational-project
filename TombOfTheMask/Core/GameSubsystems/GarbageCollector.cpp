@@ -2,7 +2,7 @@
 
 UGarbageCollector::UGarbageCollector() : UGameSubsystem() {} 
 
-void UGarbageCollector::Update()
+void UGarbageCollector::Update(float deltaTime)
 {
     for (auto obj : ObjectsToKill)
     {

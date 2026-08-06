@@ -4,7 +4,7 @@
 class UGarbageCollector : public UGameSubsystem
 {
 public:
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
 
     void AddObjectToKill(UObject* object);
 

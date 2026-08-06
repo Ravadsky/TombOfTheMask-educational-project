@@ -16,7 +16,7 @@ public:
     UAudioSubsystem();
 
     virtual void BeginPlay() override;
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
 
     void StartNewMusic(std::string MusicFileName);
     void CreateNewSound(std::string SoundFileName);

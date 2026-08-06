@@ -4,60 +4,77 @@
 #include "Components/SpriteComponent.h"
 
 class UWorld;
+class UActorComponent;
+class USceneComponent;
+class UColliderComponent;
+class USpriteComponent;
 
-enum class ActorType : int
+class AActor : public UObject
 {
-    // row 1
-    Player = 0,
-    Wall = 1,
-    CornerWall = 2,
-    Spikes = 3,
-    // row 2
-    Archer = 4,
-    Arrow = 5,
-    Point = 6,
-    Star = 7,
-    // row 3
-    PlayerStart = 8,
-    PlayerStartBlock = 9,
-    PlayerEnd = 10,
-    PlayerEndBlock = 11,
-    // row 4
-    BackgroundWall = 12,
-    EditorObject = 15,
-};
-enum class CollisionPreset
-{
-    Ignore,
-    Overlap,
-    Block,
-};
-
-class Actor : public UObject, public std::enable_shared_from_this<Actor>
-{
-protected:
-    std::unique_ptr<SpriteComponent> ActorSprite;
-    sf::Vector2f ActorLocation{ 0.f, 0.f };
-    float ActorRotation{ 0.f };
-
-    CollisionPreset Collision = CollisionPreset::Ignore;
-    sf::FloatRect CollisionBox;
-
+private:
     UWorld* World;
+    USceneComponent* RootComponent;
+
+    std::vector<UActorComponent*> Components;
+
+protected:
+    USceneComponent* SceneComponent;
+    UColliderComponent* ColliderComponent;
+    USpriteComponent* SpriteComponent;
 
 public:
-    Actor(ActorType Type, sf::Vector2f position, float rotationAngle);
-    virtual ~Actor() = default;
+    AActor(UWorld* InWorld);
+    virtual ~AActor() override;
 
     virtual void BeginPlay() override;
-    virtual void Update() override;
-    virtual void OnCollision(std::weak_ptr<Actor> OtherActor);
+    virtual void Update(float deltaTime) override;
 
     inline UWorld* GetWorld() const { return World; };
 
-    void MarkToKill();
+    sf::Vector2f GetActorLocation() const;
+    void SetActorLocation(sf::Vector2f newLocation);
 
-    sf::Vector2f Getlocation();
-    virtual sf::FloatRect GetCollisionBox();
-    CollisionPreset GetCollisionPreset();
+    float GetActorRotation() const;
+    void SetActorRotation(float newRotation);
+
+        sf::Vector2f GetActorScale() const;
+    void SetActorScale(sf::Vector2f newScale);
+
+    // component methods
+    template <typename componentClass>
+    componentClass* AddNewComponent()
+    {
+        static_assert(std::is_base_of_v<UActorComponent, componentClass>, "class must be derived from UActorComponent");
+
+        componentClass* newComponent = new componentClass(this);
+        Components.push_back(newComponent);
+        newComponent->BeginPlay();
+
+        return newComponent;
+    }
+
+    template <typename componentClass>
+    componentClass* GetComponentByClass()
+    {
+        static_assert(std::is_base_of_v<UActorComponent, componentClass>, "class must be derived from UActorComponent");
+
+        for (UActorComponent* comp : Components)
+        {
+            if (dynamic_cast<componentClass>(comp) != nullptr)
+                return comp
+        }
+        return nullptr;
+    }
+
+    template <typename componentClass>
+    void RemoveComponentByClass()
+    {
+        static_assert(std::is_base_of_v<UActorComponent, componentClass>, "class must be derived from UActorComponent");
+
+        for (auto iterator = Components.begin(); iterator != Components.end(); ++iterator)
+        {
+            delete *iterator;
+            Components.erase(iterator);
+        }
+    }
 };

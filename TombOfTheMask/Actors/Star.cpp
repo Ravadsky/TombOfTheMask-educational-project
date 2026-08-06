@@ -1,22 +1,26 @@
 #include "Star.h"
-
-#include "ActorFunctions.h"
 #include "Player.h"
 
-Star::Star(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Star, position, rotationAngle)
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+
+AStar::AStar(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Overlap;
-    ActorSprite->SetDrawType(DrawType::Dynamic);
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->onCollision.Add(this, &AStar::Pickup);
+
+    auto& texture = GetResourceSubsystem()->GetTexture("star");
+    SpriteComponent->SetSpriteTexture(texture);
+    
 }
 
-void Star::OnCollision(std::weak_ptr<Actor> OtherActor)
+void AStar::Pickup(UColliderComponent* otherCollider)
 {
-    if (auto ActorPtr = OtherActor.lock())
+    auto actor = otherCollider->GetOwner();
+    if (isClassOf<APlayer>(actor))
     {
-        if (isClassOf<Player>(ActorPtr))
-        {
-            CastTo<Player>(ActorPtr)->AddStar();
-            MarkToKill();
-        }
+        auto player = CastTo<APlayer>(actor);
+        player->AddStar();
+        MarkAsGarbage();
     }
 }

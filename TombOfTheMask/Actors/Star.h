@@ -1,10 +1,11 @@
 #pragma once
 #include "Actor.h"
 
-class Star : public Actor
+class AStar : public AActor
 {
-  public:
-    Star(sf::Vector2f position, float rotationAngle);
+public:
+    AStar(UWorld* InWorld);
 
-    virtual void OnCollision(std::weak_ptr<Actor> OtherActor) override;
+private:
+    void Pickup(UColliderComponent* otherCollider);
 };

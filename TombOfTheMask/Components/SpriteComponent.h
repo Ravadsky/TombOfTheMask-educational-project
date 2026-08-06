@@ -1,27 +1,28 @@
 #pragma once
-#include "Drawable.h"
-#include "UObject.h"
+#include "SceneComponent.h"
 
-class SpriteComponent : public UObject, public Drawable
+enum class ERenderLayer : int
 {
-  protected:
-    sf::Sprite ObjectSprite;
-    sf::Vector2f WorldPosition{0.f, 0.f};
+    back = 0,
+    medium = 1,
+    forward = 2,
+};
 
-  public:
-    SpriteComponent(int &&index, sf::Vector2f position);
-    SpriteComponent(sf::Texture &texture, sf::Vector2f position);
+class USpriteComponent : public USceneComponent
+{
+protected:
+    sf::Sprite sprite;
+    ERenderLayer renderLayer = ERenderLayer::medium;
 
-    virtual void Draw(sf::Vector2f position = {0.f, 0.f}) override;
+public:
+    USpriteComponent(AActor* componentOwner);
 
-    void SetPosition(sf::Vector2f position);
+    void Render();
+
+    void SetSpriteTexture(const sf::Texture& newTexture);
+
     void SetColor(sf::Color color);
-    void SetRotation(float Angle);
     void Flip(bool flip);
-    void SetNewTexture(sf::Texture &texture);
-
-    void SetDrawType(DrawType type);
 
     sf::FloatRect GetBounds();
-
 };

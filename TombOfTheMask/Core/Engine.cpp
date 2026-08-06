@@ -3,10 +3,10 @@
 #include "GameStates/GameState.h"
 #include "GameStates/MainMenu.h"
 
-#include "Subsystems/GameSubsystems/AudioSubsystem.h"
-#include "Subsystems/GameSubsystems/GarbageCollector.h"
-#include "Subsystems/GameSubsystems/RenderSubsystem.h"
-#include "Subsystems/GameSubsystems/ResourceSubsystem.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Core/GameSubsystems/GarbageCollector.h"
+#include "Core/GameSubsystems/RenderSubsystem.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
 sf::RenderWindow* GWindow;
 GEngine* Engine;
@@ -57,7 +57,7 @@ void GEngine::UnregisterObject(UObject* object)
 
 void GEngine::SwitchGameState()
 {
-    sf::sleep(sf::milliseconds(TimeBeetweenStates));
+    sf::sleep(TimeBeetweenStates);
     CurrentGameState = PendingState();
     CurrentGameState->BeginPlay();
 

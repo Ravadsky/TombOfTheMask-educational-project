@@ -1,10 +1,10 @@
 #pragma once
-#include "UObject.h"
+#include "Core/UObject.h"
 
 class GameState : public UObject
 {
-  public:
+public:
     virtual ~GameState() = default;
-    virtual void BeginPlay() override;
-    virtual void Update() override;
+    virtual void BeginPlay() override {};
+    virtual void Update(float deltaTime) override {};
 };
