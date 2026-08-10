@@ -1,10 +1,8 @@
-#include "LevelInfo.h"
+#include "LevelIcon.h"
 
-#include "DataFunctions.h"
-#include "SpriteComponent.h"
-#include "TextBox.h"
+#include "TextBlock.h"
 
-LevelInfo::LevelInfo(sf::Vector2f pos, sf::Texture &tex, int levelIndex)
+ULevelIcon::ULevelIcon(sf::Vector2f pos, sf::Texture& tex, int levelIndex)
 {
     LevelSprite = std::make_unique<SpriteComponent>(tex, pos);
     LevelSprite->SetDrawType(DrawType::Widget);

@@ -1,6 +1,9 @@
 #pragma once
-#include "UObject.h"
-#include "Actors/Actor.h"
+#include "Core/UObject.h"
+
+class AActor;
+
+class UPhysicsSubsystem;
 
 class UWorld : public UObject
 {
@@ -29,6 +32,22 @@ public:
         SpawnActor<actorClass>(worldLocation, rotation, scale);
     }
 
+    virtual void Update(float deltaTime) override;
+
+    inline UPhysicsSubsystem* GetPhysicsSubsystem() { return physicsSubsystem.get(); };
+
+    void AddActorToWorld(AActor* actor);
+    void RemoveActorFromWorld(AActor* actor);
+
 private:
     std::vector<AActor*> ActorsInWorld;
+
+    std::string LevelName;
+    int PointCountOnLevel, StarCountOnLevel;
+
+    // std::weak_ptr<Actor> CreateObject(sf::Vector2f pos, float rotation, int ID);
+
+    std::unique_ptr<UPhysicsSubsystem> physicsSubsystem;
+
+    // void StartLevel();
 };

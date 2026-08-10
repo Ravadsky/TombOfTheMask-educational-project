@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class BackgroundWall : public Actor
+class ABackgroundWall : public AActor
 {
-  public:
-    BackgroundWall(sf::Vector2f position, float rotationAngle);
+public:
+    ABackgroundWall(UWorld* InWorld);
 };

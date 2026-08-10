@@ -9,8 +9,7 @@ AStar::AStar(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
     ColliderComponent->onCollision.Add(this, &AStar::Pickup);
 
-    auto& texture = GetResourceSubsystem()->GetTexture("star");
-    SpriteComponent->SetSpriteTexture(texture);
+    SpriteComponent->SetSpriteTexture("star");
     
 }
 

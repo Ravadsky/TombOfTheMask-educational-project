@@ -30,7 +30,7 @@ class LevelEditor : public GameState
   public:
     LevelEditor();
     virtual void BeginPlay() override;
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
                                                             
     void SaveLevel();
     void LoadLevel();

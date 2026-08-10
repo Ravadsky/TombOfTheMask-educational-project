@@ -11,7 +11,7 @@ UResourceSubsystem::UResourceSubsystem()
     LoadSpriteFromSpriteSheet("corner_wall", 1, 3);
     LoadSpriteFromSpriteSheet("spikes", 1, 4);
 
-        // sprite sheet row 2
+    // sprite sheet row 2
     LoadSpriteFromSpriteSheet("archer", 2, 1);
     LoadSpriteFromSpriteSheet("arrow", 2, 2);
     LoadSpriteFromSpriteSheet("point", 2, 3);
@@ -55,4 +55,9 @@ sf::Sprite& UResourceSubsystem::GetSprite(const std::string& spriteName)
 const sf::Texture& UResourceSubsystem::GetTexture(const std::string& textureName)
 {
     return *StaticSprites.at(textureName).getTexture();
+}
+
+sf::Font& UResourceSubsystem::GetFont()
+{
+    return GameFont;
 }

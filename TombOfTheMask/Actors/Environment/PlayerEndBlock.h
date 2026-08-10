@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class PlayerEndBlock : public Actor
+class APlayerEndBlock : public AActor
 {
-  public:
-    PlayerEndBlock(sf::Vector2f position, float rotationAngle);
+public:
+    APlayerEndBlock(UWorld* InWorld);
 };

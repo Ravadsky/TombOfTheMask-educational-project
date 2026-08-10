@@ -1,10 +1,11 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class PlayerEnd : public Actor
+class APlayerEnd : public AActor
 {
-  public:
-    PlayerEnd(sf::Vector2f position, float rotationAngle);
+public:
+    APlayerEnd(UWorld* InWorld);
 
-    virtual void OnCollision(std::weak_ptr<Actor> OtherActor) override;
+private:
+    void EndLevel(UColliderComponent* otherCollider);
 };

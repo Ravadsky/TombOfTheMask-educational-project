@@ -1,12 +1,19 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
+#include "Components/MovementComponent.h"
 
-class Arrow : public Actor
+class AArrow : public AActor
 {
-  public:
-    Arrow(sf::Vector2f position, float rotationAngle);
+public:
+    AArrow(UWorld* InWorld);
 
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
     virtual void BeginPlay() override;
-    virtual void OnCollision(std::weak_ptr<Actor> OtherActor) override;
+
+    EMovementDirection InitialDirection = EMovementDirection::Down;
+
+private:
+    void DamageTarget(UColliderComponent* otherCollider);
+
+    UMovementComponent* MovementComponent;
 };

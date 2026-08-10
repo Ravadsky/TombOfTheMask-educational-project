@@ -1,26 +1,21 @@
 #include "LevelSelector.h"
 
-#include "AudioSubsystem.h"
-#include "Button.h"
-#include "DataFunctions.h"
-#include "Engine.h"
-#include "LevelInfo.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "GUI/Button.h"
+#include "Core/DataFunctions.h"
+#include "GUI/LevelIcon.h"
 #include "LevelInstance.h"
 #include "MainMenu.h"
 
-LevelSelector::LevelSelector()
+ULevelSelector::ULevelSelector()
 {
     assert(LevelTexture.loadFromFile(RESOURCES_PATH + "GUI/Level.png"));
     assert(CompletedLevelTexture.loadFromFile(RESOURCES_PATH + "GUI/CompletedLevel.png"));
     assert(LockedLevelTexture.loadFromFile(RESOURCES_PATH + "GUI/LockedLevel.png"));
 
-    assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
-    Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
-    Background->SetDrawType(DrawType::Widget);
-
     float width = WINDOW_WIGHT / 2 - 150.f;
-    sf::Vector2f ButtonPos = {width, 150.f};
-    sf::Vector2f ImageOffset = {300.f, 0.f};
+    sf::Vector2f ButtonPos = { width, 150.f };
+    sf::Vector2f ImageOffset = { 300.f, 0.f };
 
     Level1 = std::make_unique<Button>("Level 1", ButtonPos);
     Level1Sprite = std::make_unique<LevelInfo>(ButtonPos + ImageOffset, *getLevelSprite(1), 1);
@@ -33,20 +28,20 @@ LevelSelector::LevelSelector()
     Level3 = std::make_unique<Button>("Level 3", sf::Vector2f(width, 550.f));
     Level3Sprite = std::make_unique<LevelInfo>(ButtonPos + ImageOffset, *getLevelSprite(3), 3);
 
-    GAudioSubsystem->StartNewMusic("menu_music");
+    GetAudioSubsystem()->StartNewMusic("menu_music");
 }
 
-void LevelSelector::Update()
+void ULevelSelector::Update(float deltaTime)
 {
     sf::Event event;
     // Рассчет позиции мыши
-    int xMousePos = sf::Mouse::getPosition(*GWindow).x;
-    int yMousePos = sf::Mouse::getPosition(*GWindow).y;
+    int xMousePos = sf::Mouse::getPosition(*Window).x;
+    int yMousePos = sf::Mouse::getPosition(*Window).y;
 
-    while (GWindow->pollEvent(event))
+    while (Window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            GWindow->close();
+            Window->close();
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
@@ -73,20 +68,20 @@ void LevelSelector::Update()
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            GetEngine->SwitchState<MainMenu>();
+            Engine->MarkToSwitchState<MainMenu>();
         }
     }
 }
 
-void LevelSelector::ChooseLevel(int index)
+void ULevelSelector::ChooseLevel(int index)
 {
-    GAudioSubsystem->CreateNewSound("button_sound");
+    GetAudioSubsystem()->CreateNewSound("button_sound");
 
-    GetEngine->SwitchState<LevelInstance>();
+    Engine->MarkToSwitchState<LevelInstance>();
     ChangeDataParamater("CurrentLevel:", index);
 }
 
-sf::Texture *LevelSelector::getLevelSprite(int CurrentLevel)
+sf::Texture* ULevelSelector::getLevelSprite(int CurrentLevel)
 {
     int LastLevel = CurrentLevel - 1;
 

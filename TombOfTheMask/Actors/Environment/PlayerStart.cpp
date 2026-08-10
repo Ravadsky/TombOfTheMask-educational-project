@@ -1,7 +1,10 @@
 #include "PlayerStart.h"
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
-PlayerStart::PlayerStart(sf::Vector2f position, float rotationAngle)
-    : Actor(ActorType::PlayerStart, position, rotationAngle)
+APlayerStart::APlayerStart(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Ignore;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Ignore);
+
+    SpriteComponent->SetSpriteTexture("player_start");
 }

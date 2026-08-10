@@ -1,52 +1,50 @@
 #include "LevelEditor.h"
 
-#include "AudioSubsystem.h"
-#include "DataFunctions.h"
-#include "EditorObject.h"
-#include "Engine.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Core/GameSubsystems/RenderSubsystem.h" 
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "Core/DataFunctions.h"
+#include "Actors/Environment/EditorObject.h"
+#include "Actors/Point.h"
+#include "Actors/Star.h"
+#include "World/LevelSubsystem.h"
 #include "LevelEditorSelector.h"
-#include "LevelSubsystem.h"
-#include "MathFunctions.h"
-#include "RenderSubsystem.h" 
-#include "ResourceSubsystem.h"
 #include <sstream>
-#include "Point.h"
-#include "Star.h"
 
 
 LevelEditor::LevelEditor()
 {
-    LevelSS = std::make_unique<LevelSubsystem>();
-    GLevelSubsystem = LevelSS.get();
+   // LevelSS = std::make_unique<LevelSubsystem>();
+    //GLevelSubsystem = LevelSS.get();
 
-    GAudioSubsystem->StartNewMusic("level_music");
+    GetAudioSubsystem()->StartNewMusic("level_music");
 
     LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
 }
 
 void LevelEditor::BeginPlay()
 {
-    GRenderSubsystem->SetCameraPosition(&CameraOffset);
+    GetRenderSubsystem()->SetCameraPosition(&CameraOffset);
 
     // Создание фона
     for (int i = 0; i < MAX_LEVEL_SIZE; ++i)
         for (int j = 0; j < MAX_LEVEL_SIZE; ++j)
         {
-            SpawnActor<EditorObject>({(float)i, (float)j});
+           // SpawnActor<AEditorObject>({(float)i, (float)j});
         }
 
     //  Загрузка уровня
     LoadLevel();
 }
 
-void LevelEditor::Update()
+void LevelEditor::Update(float deltaTime)
 {
     // Рассчет позиции мыши
     int xMousePos =
-        (sf::Mouse::getPosition(*GWindow).x + (int)CameraOffset.x - (int)CAMERA_PIVOT.x + SPRITE_GAME_SIZE / 2) /
+        (sf::Mouse::getPosition(*Window).x + (int)CameraOffset.x - (int)CAMERA_PIVOT.x + SPRITE_GAME_SIZE / 2) /
         SPRITE_GAME_SIZE;
     int yMousePos =
-        (sf::Mouse::getPosition(*GWindow).y + (int)CameraOffset.y - (int)CAMERA_PIVOT.y + SPRITE_GAME_SIZE / 2) /
+        (sf::Mouse::getPosition(*Window).y + (int)CameraOffset.y - (int)CAMERA_PIVOT.y + SPRITE_GAME_SIZE / 2) /
         SPRITE_GAME_SIZE;
 
     // Ограничение позиций мыши по игровому полю
@@ -61,11 +59,11 @@ void LevelEditor::Update()
     SelectObjectIndex();
 
     sf::Event event;
-    while (GWindow->pollEvent(event))
+    while (Window->pollEvent(event))
     {
         // Проверка на закрытие окна
         if (event.type == sf::Event::Closed)
-            GWindow->close();
+            Window->close();
 
         // Поворот объекта
         if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
@@ -143,10 +141,10 @@ void LevelEditor::SaveLevel()
             }
         }
 
-    int PointCountOnLevel = GetCountOfActorsOf<Point>();
+    int PointCountOnLevel = GetCountOfActorsOf<APoint>();
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxpoints:", PointCountOnLevel);
 
-    int StarCountOnLevel = GetCountOfActorsOf<Star>();
+    int StarCountOnLevel = GetCountOfActorsOf<AStar>();
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxstars:", StarCountOnLevel);
 }
 

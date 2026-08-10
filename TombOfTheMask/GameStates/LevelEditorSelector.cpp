@@ -1,37 +1,36 @@
 #include "LevelEditorSelector.h"
 
-#include "AudioSubsystem.h"
-#include "Button.h"
-#include "DataFunctions.h"
-#include "Engine.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "GUI/Button.h"
+#include "Core/DataFunctions.h"
 #include "LevelEditor.h"
 #include "MainMenu.h"
 
 LevelEditorSelector::LevelEditorSelector()
 {
-    assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
-    Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
-    Background->SetDrawType(DrawType::Widget);
+    //assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
+    //Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
+    //Background->SetDrawType(DrawType::Widget);
 
     float CentralWidth = WINDOW_WIGHT / 2;
     Level1 = std::make_unique<Button>("Level 1", sf::Vector2f(CentralWidth, 200.f));
     Level2 = std::make_unique<Button>("Level 2", sf::Vector2f(CentralWidth, 400.f));
     Level3 = std::make_unique<Button>("Level 3", sf::Vector2f(CentralWidth, 600.f));
 
-    GAudioSubsystem->StartNewMusic("menu_music");
+    GetAudioSubsystem()->StartNewMusic("menu_music");
 }
 
-void LevelEditorSelector::Update()
+void LevelEditorSelector::Update(float deltaTime)
 {
     sf::Event event;
     // Рассчет позиции мыши
-    int xMousePos = sf::Mouse::getPosition(*GWindow).x;
-    int yMousePos = sf::Mouse::getPosition(*GWindow).y;
+    int xMousePos = sf::Mouse::getPosition(*Window).x;
+    int yMousePos = sf::Mouse::getPosition(*Window).y;
 
-    while (GWindow->pollEvent(event))
+    while (Window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            GWindow->close();
+            Window->close();
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
@@ -51,15 +50,15 @@ void LevelEditorSelector::Update()
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            GetEngine->SwitchState<MainMenu>();
+            Engine->MarkToSwitchState<MainMenu>();
         }
     }
 }
 
 void LevelEditorSelector::ChooseLevel(int index)
 {
-    GAudioSubsystem->CreateNewSound("button_sound");
+    GetAudioSubsystem()->CreateNewSound("button_sound");
 
-    GetEngine->SwitchState<LevelEditor>();
+    Engine->MarkToSwitchState<LevelEditor>();
     ChangeDataParamater("CurrentLevel:", index);
 }

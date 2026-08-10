@@ -12,7 +12,7 @@ class UColliderComponent : public USceneComponent
 {
 public:
     UColliderComponent(AActor* componentOwner);
-
+    virtual ~UColliderComponent() override;
     FDelegate<UColliderComponent*> onCollision;
     void OnCollision(UColliderComponent* otherCollider);
 

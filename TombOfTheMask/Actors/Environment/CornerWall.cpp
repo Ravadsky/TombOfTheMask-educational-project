@@ -1,7 +1,11 @@
 #include "CornerWall.h"
 
-CornerWall::CornerWall(sf::Vector2f position, float rotationAngle)
-    : Actor(ActorType::CornerWall, position, rotationAngle)
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+
+ACornerWall::ACornerWall(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Block;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("corner_wall");
 }

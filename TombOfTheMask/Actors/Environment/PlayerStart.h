@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class PlayerStart : public Actor
+class APlayerStart : public AActor
 {
-  public:
-    PlayerStart(sf::Vector2f position, float rotationAngle);
+public:
+    APlayerStart(UWorld* InWorld);
 };

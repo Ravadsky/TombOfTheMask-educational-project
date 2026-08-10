@@ -16,10 +16,11 @@ protected:
 
 public:
     USpriteComponent(AActor* componentOwner);
+    virtual ~USpriteComponent();
 
     void Render();
 
-    void SetSpriteTexture(const sf::Texture& newTexture);
+    void SetSpriteTexture(const std::string& textureName);
 
     void SetColor(sf::Color color);
     void Flip(bool flip);

@@ -1,20 +1,27 @@
 #pragma once
 #include "GameSubsystem.h"
 
-class Drawable;
+class USpriteComponent;
+class UUserWidget;
+class UCameraComponent;
 
 class URenderSubsystem : public UGameSubsystem
 {
-  private:
-    sf::Vector2f *CameraPosition = nullptr;
+private:
+    UCameraComponent* CurrentCameraComponent = nullptr;
 
-  public:
-    std::vector<Drawable *> ObjectsToDraw;
+public:
+    std::vector<USpriteComponent*> ActorsToDraw;
+
+    std::vector<UUserWidget*> WidgetsToDraw;
 
     URenderSubsystem();
     virtual void Update(float deltaTime) override;
 
-    void SetCameraPosition(sf::Vector2f *position);
-
-    void ClearObjectsToDraw();
+    inline void RegisterCamera(UCameraComponent* camera) { CurrentCameraComponent = camera; }
+    inline void UnregisterCamera(UCameraComponent* camera)
+    {
+        if (CurrentCameraComponent == camera)
+            CurrentCameraComponent = nullptr;
+    }
 };

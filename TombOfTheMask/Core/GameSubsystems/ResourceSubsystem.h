@@ -14,6 +14,7 @@ public:
 
     sf::Sprite& GetSprite(const std::string& spriteName);
     const sf::Texture& GetTexture(const std::string& textureName);
+    sf::Font& GetFont();
 
 private:
     sf::Texture SpriteSheet;

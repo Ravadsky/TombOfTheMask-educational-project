@@ -1,16 +1,12 @@
 #pragma once
 #include "Actor.h"
 
-#include "Widgets/Widget.h"
+#include "GUI/UserWidget.h"
 
-enum class MoveDirection
-{
-    Up,
-    Down,
-    Left,
-    Right,
-    NoDirection
-};
+class UInputComponent;
+class UMovementComponent;
+class UCameraComponent;
+
 enum class PlayerState
 {
     Moving,
@@ -19,11 +15,11 @@ enum class PlayerState
 
 class APlayer : public AActor
 {
-  private:
-    bool CanAction{true};
+private:
+    bool CanAction{ true };
 
-    sf::Vector2f PlayerDirection{0.f, 0.f};
-    PlayerState State{PlayerState::Idle};
+    sf::Vector2f PlayerDirection{ 0.f, 0.f };
+    PlayerState State{ PlayerState::Idle };
 
     int PointCount = 0;
     std::unique_ptr<Widget> PointCountWidget;
@@ -31,8 +27,12 @@ class APlayer : public AActor
     int StarCount = 0;
     std::unique_ptr<Widget> StarCountWidget;
 
-  public:
-    APlayer(sf::Vector2f position, float rotationAngle);
+    UInputComponent* InputComponent;
+    UMovementComponent* MovementComponent;
+    UCameraComponent* CameraComponent;
+
+public:
+    APlayer(UWorld* InWorld);
 
     virtual void Update(float deltaTime) override;
     virtual void BeginPlay() override;

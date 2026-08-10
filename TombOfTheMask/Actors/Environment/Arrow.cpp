@@ -1,52 +1,42 @@
 #include "Arrow.h"
 
-#include "ActorFunctions.h"
-#include "MathFunctions.h"
+#include "Actors/Player.h"
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
-#include "PhysicsSubsystem.h"
-#include "Player.h"
-
-Arrow::Arrow(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Arrow, position, rotationAngle)
+AArrow::AArrow(UWorld* InWorld) : AActor(InWorld)
 {
     bCanTick = true;
 
-    Collision = CollisionPreset::Overlap;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->onCollision.Add(this, &AArrow::DamageTarget);
 
-    ActorSprite->SetDrawType(DrawType::Dynamic);
+    MovementComponent = AddNewComponent<UMovementComponent>();
+
+    SpriteComponent->SetSpriteTexture("arrow");
 }
 
-void Arrow::Update()
+void AArrow::DamageTarget(UColliderComponent* otherCollider)
 {
-    ActorLocation += RotateVector({1.f, 0.f}, ActorRotation) * (float)PLAYER_SPEED / 2.f;
-    CollisionBox = {ActorLocation.x - SPRITE_GAME_SIZE / 4, ActorLocation.y - SPRITE_GAME_SIZE / 4,
-                    SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2};
-    ActorSprite->SetPosition(ActorLocation);
-}
-
-void Arrow::BeginPlay()
-{
-    GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
-}
-
-void Arrow::OnCollision(std::weak_ptr<Actor> OtherActor)
-{
-    if (auto other = OtherActor.lock())
+    if (otherCollider->GetCollisionPreset() == ECollisionPreset::Block)
     {
-        if (other.get() != this)
+        auto actor = otherCollider->GetOwner();
+        if (isClassOf<APlayer>(actor))
         {
-            auto preset = other->GetCollisionPreset();
-            switch (preset)
-            {
-            case CollisionPreset::Block:
-                if (isClassOf<Player>(other))
-                {
-                    CastTo<Player>(other)->GetDamage();
-                }
-
-                MarkToKill();
-
-                break;
-            }
+            auto player = CastTo<APlayer>(actor);
+            player->GetDamage();
         }
+        MarkAsGarbage();
     }
 }
+
+void AArrow::Update(float deltaTime)
+{
+    MovementComponent->Move(InitialDirection);
+
+    // CollisionBox = { ActorLocation.x - SPRITE_GAME_SIZE / 4, ActorLocation.y - SPRITE_GAME_SIZE / 4,
+    //                  SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2 };
+    // ActorSprite->SetPosition(ActorLocation);
+}
+
+void AArrow::BeginPlay() {}

@@ -21,3 +21,11 @@ inline sf::Vector2f RotateVector(sf::Vector2f baseVector, float rotationAngle)
     return sf::Vector2f(baseVector.x * cosAngle - baseVector.y * sinAngle,
                         baseVector.x * sinAngle + baseVector.y * cosAngle);
 }
+
+template <typename T>
+inline void RemoveFromVectorByRef(std::vector<T>& vector, T item)
+{
+    auto objectIterator = std::find(vector.begin(), vector.end(), item);
+    if (objectIterator != vector.end())
+        vector.erase(objectIterator);
+}

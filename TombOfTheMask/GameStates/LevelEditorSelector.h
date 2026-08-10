@@ -16,7 +16,7 @@ class LevelEditorSelector : public GameState
 
   public:
     LevelEditorSelector();
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
 
     void ChooseLevel(int index);
 };

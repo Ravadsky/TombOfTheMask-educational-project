@@ -1,42 +1,38 @@
 #include "Player.h"
 
+#include "Components/ColliderComponent.h"
+#include "Components/InputComponent.h"
+#include "Components/MovementComponent.h"
+
 #include "AudioSubsystem.h"
 #include "LevelSubsystem.h"
-#include "PhysicsSubsystem.h"
-#include "RenderSubsystem.h"
-
-#include "ActorFunctions.h"
 
 #include "Arrow.h"
-#include "Engine.h"
 #include "LevelInstance.h"
 
-APlayer::APlayer(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Player, position, rotationAngle)
-{
-    bCanTick = true;
-    Collision = CollisionPreset::Block;
-
-    CollisionBox = {position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2,
-                    SPRITE_GAME_SIZE / 2};
-
-    ActorSprite->SetDrawType(DrawType::Dynamic);
-}
-
-void APlayer::Update()
+void APlayer::Update(float deltaTime)
 {
     UpdateLocation(PlayerDirection * (float)PLAYER_SPEED);
 }
 
+APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
+{
+    bCanTick = true;
+
+    MovementComponent = AddNewComponent<UMovementComponent>();
+    InputComponent = AddNewComponent<UInputComponent>();
+    CameraComponent = AddNewComponent<UCameraComponent>();
+
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("player");
+
+    // CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2,
+    //                  SPRITE_GAME_SIZE / 2 };
+}
+
 void APlayer::BeginPlay()
 {
-    GLevelSubsystem->CurrentPlayer = std::static_pointer_cast<Player>(shared_from_this());
-    GRenderSubsystem->SetCameraPosition(&ActorLocation);
-
-    if (GPhysicsSubsystem != nullptr)
-    {
-        GPhysicsSubsystem->TriggerActors.emplace_back(shared_from_this());
-    }
-
     std::string PointText = std::to_string(PointCount) + " / " + std::to_string(GLevelSubsystem->PointCountOnLevel);
     PointCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 64), "Point", PointText);
 
@@ -53,14 +49,14 @@ void APlayer::OnCollision(std::weak_ptr<Actor> OtherActor)
             auto preset = other->GetCollisionPreset();
             switch (preset)
             {
-            case CollisionPreset::Block:
-                UpdateLocation({-PlayerDirection.x * PLAYER_SPEED, -PlayerDirection.y * PLAYER_SPEED});
-                PlayerDirection = {0.f, 0.f};
-                if (isClassOf<Arrow>(other))
-                    CanAction = false;
-                else
-                    CanAction = true;
-                break;
+                case CollisionPreset::Block:
+                    UpdateLocation({ -PlayerDirection.x * PLAYER_SPEED, -PlayerDirection.y * PLAYER_SPEED });
+                    PlayerDirection = { 0.f, 0.f };
+                    if (isClassOf<Arrow>(other))
+                        CanAction = false;
+                    else
+                        CanAction = true;
+                    break;
             }
         }
     }
@@ -71,33 +67,33 @@ void APlayer::SetDirection(MoveDirection Direction)
     if (CanAction)
         switch (Direction)
         {
-        case MoveDirection::Up:
-            PlayerDirection = {0.f, -1.f};
-            CanAction = false;
-            ActorSprite->SetRotation(90.f);
-            ActorSprite->Flip(true);
-            break;
-        case MoveDirection::Down:
-            PlayerDirection = {0.f, 1.f};
-            CanAction = false;
-            ActorSprite->SetRotation(90.f);
-            ActorSprite->Flip(false);
-            break;
-        case MoveDirection::Left:
-            PlayerDirection = {-1.f, 0.f};
-            CanAction = false;
-            ActorSprite->SetRotation(0.f);
-            ActorSprite->Flip(true);
-            break;
-        case MoveDirection::Right:
-            PlayerDirection = {1.f, 0.f};
-            CanAction = false;
-            ActorSprite->SetRotation(0.f);
-            ActorSprite->Flip(false);
+            case MoveDirection::Up:
+                PlayerDirection = { 0.f, -1.f };
+                CanAction = false;
+                ActorSprite->SetRotation(90.f);
+                ActorSprite->Flip(true);
+                break;
+            case MoveDirection::Down:
+                PlayerDirection = { 0.f, 1.f };
+                CanAction = false;
+                ActorSprite->SetRotation(90.f);
+                ActorSprite->Flip(false);
+                break;
+            case MoveDirection::Left:
+                PlayerDirection = { -1.f, 0.f };
+                CanAction = false;
+                ActorSprite->SetRotation(0.f);
+                ActorSprite->Flip(true);
+                break;
+            case MoveDirection::Right:
+                PlayerDirection = { 1.f, 0.f };
+                CanAction = false;
+                ActorSprite->SetRotation(0.f);
+                ActorSprite->Flip(false);
 
-            break;
-        case MoveDirection::NoDirection:
-            PlayerDirection = {0.f, 0.f};
+                break;
+            case MoveDirection::NoDirection:
+                PlayerDirection = { 0.f, 0.f };
         }
 }
 
@@ -115,7 +111,7 @@ sf::FloatRect APlayer::GetCollisionBox()
     float TempLeft = ActorLocation.x - SPRITE_GAME_SIZE / 4 + (PlayerDirection.x * SPRITE_GAME_SIZE / 4);
     float TempTop = ActorLocation.y - SPRITE_GAME_SIZE / 4 + (PlayerDirection.y * SPRITE_GAME_SIZE / 4);
 
-    return {TempLeft, TempTop, TempWidth, TempHeight};
+    return { TempLeft, TempTop, TempWidth, TempHeight };
 }
 
 void APlayer::AddPoint()

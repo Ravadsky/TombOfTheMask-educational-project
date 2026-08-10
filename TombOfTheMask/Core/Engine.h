@@ -45,4 +45,7 @@ private:
     std::unique_ptr<UGarbageCollector> garbageCollector;
 
     std::vector<UObject*> AllObjects;
+
+    sf::Clock GameClock;
+    float deltaTime = 0.f;
 };

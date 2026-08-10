@@ -1,10 +1,9 @@
 #include "Actors/Actor.h"
-#include "Core/World.h"
 
 #include "Components/SceneComponent.h"
 #include "Components/ColliderComponent.h"
 #include "Components/SpriteComponent.h"
-
+#include "World/World.h"
 
 AActor::AActor(UWorld* InWorld) : UObject()
 {
@@ -17,6 +16,8 @@ AActor::AActor(UWorld* InWorld) : UObject()
     ColliderComponent->AttachToComponent(SceneComponent);
 
     SpriteComponent = AddNewComponent<USpriteComponent>();
+
+    GetWorld()->AddActorToWorld(this);
 }
 
 AActor::~AActor()
@@ -26,11 +27,19 @@ AActor::~AActor()
         delete comp;
     }
     Components.clear();
+
+    GetWorld()->RemoveActorFromWorld(this);
 }
 
 void AActor::BeginPlay() {}
 
-void AActor::Update(float deltaTime) {}
+void AActor::Update(float deltaTime)
+{
+    for (auto comp : Components)
+    {
+        comp->Update(deltaTime);
+    }
+}
 
 sf::Vector2f AActor::GetActorLocation() const
 {

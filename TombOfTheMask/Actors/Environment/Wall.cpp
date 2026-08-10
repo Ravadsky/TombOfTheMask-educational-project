@@ -1,6 +1,10 @@
 #include "Wall.h"
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
-Wall::Wall(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Wall, position, rotationAngle)
+AWall::AWall(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Block;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("wall");
 }

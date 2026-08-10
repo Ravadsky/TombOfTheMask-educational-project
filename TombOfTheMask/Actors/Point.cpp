@@ -9,8 +9,7 @@ APoint::APoint(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
     ColliderComponent->onCollision.Add(this, &APoint::Pickup);
 
-    auto& texture = GetResourceSubsystem()->GetTexture("star");
-    SpriteComponent->SetSpriteTexture(texture);
+    SpriteComponent->SetSpriteTexture("star");
 }
 
 void APoint::Pickup(UColliderComponent* otherCollider)

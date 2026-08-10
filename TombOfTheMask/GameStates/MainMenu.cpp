@@ -1,80 +1,84 @@
 #include "MainMenu.h"
-
-#include "AudioSubsystem.h"
-#include "Button.h"
-#include "CheckBox.h"
-#include "DataFunctions.h"
+#include "Core/DataFunctions.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "GUI/Button.h"
+#include "GUI/CheckBox.h"
 
 #include "LevelSelector.h"
 #include "LevelEditorSelector.h"
-#include "Engine.h"
 
-MainMenu::MainMenu()
+void UMainMenu::StartGameButtonPressed()
 {
-    assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
-    Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
-    Background->SetDrawType(DrawType::Widget);
-
-    float CentralWidth = WINDOW_WIGHT / 2;
-    StartGameButton = std::make_unique<Button>("Start", sf::Vector2f(CentralWidth, 200.f));
-    EditorButton = std::make_unique<Button>("Editor", sf::Vector2f(CentralWidth, 400.f));
-    ExitButton = std::make_unique<Button>("Exit", sf::Vector2f(CentralWidth, 600.f));
-
-    SoundBox = std::make_unique<CheckBox>("SoundOn", "SoundOff", sf::Vector2f(96.f, 96.f));
-    SoundBox->SetInitState(GetDataParameter("SoundValue:"));
-
-    MusicBox = std::make_unique<CheckBox>("MusicOn", "MusicOff", sf::Vector2f(96.f, 256.f));
-    MusicBox->SetInitState(GetDataParameter("MusicValue:"));
-
-    GAudioSubsystem->StartNewMusic("menu_music");
+    Engine->MarkToSwitchState<LevelSelector>();
 }
 
-void MainMenu::Update()
+void UMainMenu::EditorButtonPressed()
+{
+    Engine->MarkToSwitchState<LevelEditorSelector>();
+}
+
+void UMainMenu::ExitButtonPressed()
+{
+    Window->close();
+}
+
+void UMainMenu::SoundBoxChanged()
+{
+    ChangeDataParamater("SoundValue:", SoundBox->ChangeState());
+    GetAudioSubsystem()->UpdateSoundAndMusicValues();
+}
+
+void UMainMenu::MusicBoxChanged()
+{
+    ChangeDataParamater("MusicValue:", MusicBox->ChangeState());
+    GetAudioSubsystem()->UpdateSoundAndMusicValues();
+}
+
+UMainMenu::UMainMenu()
+{
+    float CentralWidth = WINDOW_WIGHT / 2;
+    GetAudioSubsystem()->StartNewMusic("menu_music");
+
+    StartGameButton = std::make_unique<UButton>("Start");
+    StartGameButton->onButtonPressed.Add(this, &UMainMenu::StartGameButtonPressed);
+
+    EditorButton = std::make_unique<UButton>("Editor");
+    EditorButton->onButtonPressed.Add(this, &UMainMenu::EditorButtonPressed);
+
+    ExitButton = std::make_unique<UButton>("Exit");
+    ExitButton->onButtonPressed.Add(this, &UMainMenu::ExitButtonPressed);
+
+    SoundBox = std::make_unique<UCheckBox>("SoundOn", "SoundOff");
+    SoundBox->SetInitState(GetDataParameter("SoundValue:"));
+    SoundBox->onCheckBoxPressed.Add(this, &UMainMenu::SoundBoxChanged);
+
+    MusicBox = std::make_unique<UCheckBox>("MusicOn", "MusicOff");
+    MusicBox->SetInitState(GetDataParameter("MusicValue:"));
+    MusicBox->onCheckBoxPressed.Add(this, &UMainMenu::MusicBoxChanged);
+}
+
+void UMainMenu::Update(float deltaTime)
 {
     sf::Event event;
     // Рассчет позиции мыши
-    int xMousePos = sf::Mouse::getPosition(*GWindow).x;
-    int yMousePos = sf::Mouse::getPosition(*GWindow).y;
+    int xMousePos = sf::Mouse::getPosition(*Window).x;
+    int yMousePos = sf::Mouse::getPosition(*Window).y;
 
-    while (GWindow->pollEvent(event))
+    while (Window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
-            GWindow->close();
+            Window->close();
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             // Проверка основных функциональных кнопок
-            if (ExitButton->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                GWindow->close();
-            }
-            if (StartGameButton->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                GetEngine->SwitchState<LevelSelector>();
-                GAudioSubsystem->CreateNewSound("button_sound");
-            }
-            if (EditorButton->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                GetEngine->SwitchState<LevelEditorSelector>();
-                GAudioSubsystem->CreateNewSound("button_sound");
-            }
+            ExitButton->TriggerIfCollision(xMousePos, yMousePos);
+            EditorButton->TriggerIfCollision(xMousePos, yMousePos);
+            StartGameButton->TriggerIfCollision(xMousePos, yMousePos);
+
             // Проверка чек-боксов звуков и музыки
-            if (SoundBox->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChangeDataParamater("SoundValue:", SoundBox->ChangeState());
-                GAudioSubsystem->UpdateSoundAndMusicValues();
-                GAudioSubsystem->CreateNewSound("button_sound");
-                
-            }
-            if (MusicBox->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChangeDataParamater("MusicValue:", MusicBox->ChangeState());
-                GAudioSubsystem->UpdateSoundAndMusicValues();
-                GAudioSubsystem->CreateNewSound("button_sound");
-            }
-
-
-
+            SoundBox->TriggerIfCollision(xMousePos, yMousePos);
+            MusicBox->TriggerIfCollision(xMousePos, yMousePos);
         }
     }
 }

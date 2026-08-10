@@ -1,14 +1,14 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class Archer : public Actor
+class AArcher : public AActor
 {
   private:
     float timer = 0.f;
     sf::Vector2f CellPosition;
 
   public:
-    Archer(sf::Vector2f position, float rotationAngle);
+    AArcher(UWorld* InWorld);
 
-    virtual void Update() override;
+    virtual void Update(float deltaTime) override;
 };

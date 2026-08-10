@@ -1,43 +1,46 @@
 #include "PlayerEnd.h"
 
-#include "ActorFunctions.h"
-#include "DataFunctions.h"
+#include "Core/DataFunctions.h"
 
-#include "Engine.h"
-#include "LevelSelector.h"
-#include "Player.h"
+#include "GameStates/LevelSelector.h"
+#include "Actors/Player.h"
 
-PlayerEnd::PlayerEnd(sf::Vector2f position, float rotationAngle) : Actor(ActorType::PlayerEnd, position, rotationAngle)
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+
+APlayerEnd::APlayerEnd(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Overlap;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->onCollision.Add(this, &APlayerEnd::EndLevel);
+
+    SpriteComponent->SetSpriteTexture("player_end");
 }
 
-void PlayerEnd::OnCollision(std::weak_ptr<Actor> OtherActor)
+void APlayerEnd::EndLevel(UColliderComponent* otherCollider)
 {
-    if (auto other = OtherActor.lock())
+    auto actor = otherCollider->GetOwner();
+    if (isClassOf<APlayer>(actor))
     {
-        if (isClassOf<Player>(other))
+        auto player = CastTo<APlayer>(actor);
+        int LevelIndex = GetDataParameter("CurrentLevel:");
+
+        // Победа в уровне
+        std::string key = "Level" + std::to_string(LevelIndex) + ':';
+        ChangeDataParamater(key, 1);
+
+        // Сколько звезд собрано
+        key = "Level" + std::to_string(LevelIndex) + ".stars:";
+        if (player->GetStarCount() > GetDataParameter(key))
         {
-            int LevelIndex = GetDataParameter("CurrentLevel:");
-
-            // Победа в уровне
-            std::string key = "Level" + std::to_string(LevelIndex) + ':';
-            ChangeDataParamater(key, 1);
-
-            // Сколько звезд собрано
-            key = "Level" + std::to_string(LevelIndex) + ".stars:";
-            if (CastTo<Player>(other)->GetStarCount() > GetDataParameter(key))
-            {
-                ChangeDataParamater(key, CastTo<Player>(other)->GetStarCount());
-            }
-
-            // Сколько очков собрано
-            key = "Level" + std::to_string(LevelIndex) + ".points:";
-            if (CastTo<Player>(other)->GetPointCount() > GetDataParameter(key))
-            {
-                ChangeDataParamater(key, CastTo<Player>(other)->GetPointCount());
-            }
-            GetEngine->SwitchState<LevelSelector>();
+            ChangeDataParamater(key, player->GetStarCount());
         }
+
+        // Сколько очков собрано
+        key = "Level" + std::to_string(LevelIndex) + ".points:";
+        if (player->GetPointCount() > GetDataParameter(key))
+        {
+            ChangeDataParamater(key, player->GetPointCount());
+        }
+        Engine->MarkToSwitchState<LevelSelector>();
     }
 }

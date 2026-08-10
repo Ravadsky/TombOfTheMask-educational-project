@@ -1,7 +1,7 @@
 #include "AudioSubsystem.h"
 
 #include "Audio/AudioSample.h"
-#include "Core/FunctionLibrary/DataFunctions.h"
+#include "Core/DataFunctions.h"
 
 UAudioSubsystem::UAudioSubsystem() : UGameSubsystem() {}
 
@@ -24,7 +24,7 @@ void UAudioSubsystem::StartNewMusic(std::string MusicFileName)
     BackgroundMusic.play();
 }
 
-void UAudioSubsystem::CreateNewSound(std::string SoundFileName)
+void UAudioSubsystem::PlaySound(std::string SoundFileName)
 {
     SoundSamples.emplace_back(std::make_unique<AudioSample>(SoundFileName, SoundValue));
 }

@@ -1,37 +1,31 @@
 #include "Archer.h"
-
 #include "Arrow.h"
 
-#include "ActorFunctions.h"
-#include "MathFunctions.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "World/World.h"
 
-#include "AudioSubsystem.h"
-#include "PhysicsSubsystem.h"
-
-Archer::Archer(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Archer, position, rotationAngle)
+AArcher::AArcher(UWorld* InWorld) : AActor(InWorld)
 {
-    CellPosition = position / (float)SPRITE_GAME_SIZE;
-    Collision = CollisionPreset::Block;
     bCanTick = true;
+
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("archer");
 }
 
-void Archer::Update()
+void AArcher::Update(float deltaTime)
 {
-    if (GPhysicsSubsystem != nullptr)
+
+    timer += deltaTime;
+    if (timer > 1.6f)
     {
-        timer += GPhysicsSubsystem->GetElapsedTime();
-        if (timer > 1.6f)
-        {
-            timer -= 1.6f;
+        timer -= 1.6f;
 
-            sf::Vector2f ArrowOffset = RotateVector({1.f, 0.f}, ActorRotation);
-            std::weak_ptr<Arrow> arrowPtr = SpawnActor<Arrow>(CellPosition + ArrowOffset, ActorRotation);
+        sf::Vector2f ArrowOffset = RotateVector({ SPRITE_GAME_SIZE, 0.f }, GetActorRotation() );
 
-            if (auto _arrow = arrowPtr.lock())
-            {
-                _arrow->BeginPlay();
-            }
-            GAudioSubsystem->CreateNewSound("archer_sound");
-        }
+        GetWorld()->SpawnActor<AArrow>(GetActorLocation() + ArrowOffset, GetActorRotation(), GetActorScale());
+        GetAudioSubsystem()->PlaySound("archer_sound");
     }
 }

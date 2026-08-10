@@ -1,7 +1,8 @@
 #pragma once
-#include "Actor.h"
-class CornerWall : public Actor
+#include "Actors/Actor.h"
+
+class ACornerWall : public AActor
 {
-  public:
-    CornerWall(sf::Vector2f position, float rotationAngle);
+public:
+    ACornerWall(UWorld* InWorld);
 };

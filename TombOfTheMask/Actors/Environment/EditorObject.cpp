@@ -1,8 +1,11 @@
 #include "EditorObject.h"
 
-EditorObject::EditorObject(sf::Vector2f position, float rotationAngle)
-    : Actor(ActorType::EditorObject, position, rotationAngle)
-{
-    Collision = CollisionPreset::Ignore;
-}
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
+AEditorObject::AEditorObject(UWorld* InWorld) : AActor(InWorld)
+{
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Ignore);
+
+    SpriteComponent->SetSpriteTexture("editor_object");
+}

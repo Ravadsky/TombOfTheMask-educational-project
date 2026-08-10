@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class PlayerStartBlock : public Actor
+class APlayerStartBlock : public AActor
 {
-  public:
-    PlayerStartBlock(sf::Vector2f position, float rotationAngle);
+public:
+    APlayerStartBlock(UWorld* InWorld);
 };

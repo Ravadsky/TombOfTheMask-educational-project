@@ -1,19 +1,24 @@
 #include "Spikes.h"
 
-#include "Player.h"
-#include "ActorFunctions.h"
+#include "Actors/Player.h"
 
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
-Spikes::Spikes(sf::Vector2f position, float rotationAngle) : Actor(ActorType::Spikes, position, rotationAngle)
+ASpikes::ASpikes(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Block;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+    ColliderComponent->onCollision.Add(this, &ASpikes::DamagePlayer);
+
+    SpriteComponent->SetSpriteTexture("spikes");
 }
 
-void Spikes::OnCollision(std::weak_ptr<Actor> OtherActor)
+void ASpikes::DamagePlayer(UColliderComponent* otherCollider)
 {
-    if (auto ActorPtr = OtherActor.lock())
+    auto actor = otherCollider->GetOwner();
+    if (isClassOf<APlayer>(actor))
     {
-        if (isClassOf<Player>(ActorPtr))
-            CastTo<Player>(ActorPtr)->GetDamage();
+        auto player = CastTo<APlayer>(actor);
+        player->GetDamage();
     }
 }

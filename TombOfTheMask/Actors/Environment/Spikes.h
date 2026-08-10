@@ -1,10 +1,11 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class Spikes : public Actor
+class ASpikes : public AActor
 {
-  public:
-    Spikes(sf::Vector2f position, float rotationAngle);
+public:
+    ASpikes(UWorld* InWorld);
 
-    virtual void OnCollision(std::weak_ptr<Actor> OtherActor) override;
+    private:
+    void DamagePlayer(UColliderComponent* otherCollider);
 };

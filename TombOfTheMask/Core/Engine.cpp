@@ -27,20 +27,21 @@ GEngine::~GEngine() {}
 
 void GEngine::Update()
 {
+    deltaTime = GameClock.restart().asSeconds();
     if (needToSwitchState)
         SwitchGameState();
 
-    resourceSubsystem->Update();
+    resourceSubsystem->Update(deltaTime);
 
     if (CurrentGameState)
-        CurrentGameState->Update();
+        CurrentGameState->Update(deltaTime);
 
     // update visual and audio after logic
-    renderSubsystem->Update();
-    audioSubsystem->Update();
+    renderSubsystem->Update(deltaTime);
+    audioSubsystem->Update(deltaTime);
 
     // collect garbage after all
-    garbageCollector->Update();
+    garbageCollector->Update(deltaTime);
 }
 
 void GEngine::RegisterObject(UObject* object)

@@ -1,6 +1,5 @@
 #include "RenderSubsystem.h"
 
-#include "Widgets/Drawable.h"
 #include "Components/SpriteComponent.h"
 #include <ranges>
 
@@ -35,14 +34,4 @@ void URenderSubsystem::Update(float deltaTime)
     }
 
     Window->display();
-}
-
-void URenderSubsystem::SetCameraPosition(sf::Vector2f* position)
-{
-    CameraPosition = position;
-}
-
-void URenderSubsystem::ClearObjectsToDraw()
-{
-    ObjectsToDraw.clear();
 }

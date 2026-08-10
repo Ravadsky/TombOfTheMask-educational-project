@@ -1,7 +1,10 @@
 #include "PlayerEndBlock.h"
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
-PlayerEndBlock::PlayerEndBlock(sf::Vector2f position, float rotationAngle)
-    : Actor(ActorType::PlayerEndBlock, position, rotationAngle)
+APlayerEndBlock::APlayerEndBlock(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Block;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("player_end_block");
 }

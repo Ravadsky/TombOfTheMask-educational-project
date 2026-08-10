@@ -1,8 +1,8 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-class EditorObject : public Actor
+class AEditorObject : public AActor
 {
-  public:
-    EditorObject(sf::Vector2f position, float rotationAngle);
+public:
+    AEditorObject(UWorld* InWorld);
 };

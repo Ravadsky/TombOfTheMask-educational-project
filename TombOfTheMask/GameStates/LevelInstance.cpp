@@ -1,31 +1,15 @@
 #include "LevelInstance.h"
 
-#include "AudioSubsystem.h"
-#include "InputSubsystem.h"
-#include "LevelSubsystem.h"
-#include "PhysicsSubsystem.h"
-
 LevelInstance::LevelInstance()
 {
-    LevelSS = std::make_unique<LevelSubsystem>();
-    GLevelSubsystem = LevelSS.get();
+    // create world subsystem
+    // create world
 
-    PhysicsSS = std::make_unique<PhysicsSubsystem>();
-    GPhysicsSubsystem = PhysicsSS.get();
+    //GAudioSubsystem->StartNewMusic("level_music");
 
-    InputSS = std::make_unique<InputSubsystem>();
-    GInputSubsystem = InputSS.get();
-
-    GAudioSubsystem->StartNewMusic("level_music");
-
-    GLevelSubsystem->StartLevel();
+   // GLevelSubsystem->StartLevel();
 }
 
-void LevelInstance::Update()
+void LevelInstance::Update(float deltaTime)
 {
-    GInputSubsystem->Update();
-
-    GLevelSubsystem->Update();
-
-    GPhysicsSubsystem->Update();
 }

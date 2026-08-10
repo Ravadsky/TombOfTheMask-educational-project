@@ -19,7 +19,7 @@ public:
     virtual void Update(float deltaTime) override;
 
     void StartNewMusic(std::string MusicFileName);
-    void CreateNewSound(std::string SoundFileName);
+    void PlaySound(std::string SoundFileName);
 
     void UpdateSoundAndMusicValues();
 };

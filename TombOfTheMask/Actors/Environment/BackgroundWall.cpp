@@ -1,7 +1,11 @@
 #include "BackgroundWall.h"
 
-BackgroundWall::BackgroundWall(sf::Vector2f position, float rotationAngle)
-    : Actor(ActorType::BackgroundWall, position, rotationAngle)
+#include "Components/ColliderComponent.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+
+ABackgroundWall::ABackgroundWall(UWorld* InWorld) : AActor(InWorld)
 {
-    Collision = CollisionPreset::Ignore;
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Ignore);
+
+    SpriteComponent->SetSpriteTexture("background_wall");
 }
