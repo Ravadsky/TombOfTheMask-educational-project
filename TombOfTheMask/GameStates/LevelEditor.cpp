@@ -7,12 +7,11 @@
 #include "Actors/Environment/EditorObject.h"
 #include "Actors/Point.h"
 #include "Actors/Star.h"
-#include "World/LevelSubsystem.h"
 #include "LevelEditorSelector.h"
 #include <sstream>
 
 
-LevelEditor::LevelEditor()
+ULevelEditor::ULevelEditor()
 {
    // LevelSS = std::make_unique<LevelSubsystem>();
     //GLevelSubsystem = LevelSS.get();
@@ -22,7 +21,7 @@ LevelEditor::LevelEditor()
     LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
 }
 
-void LevelEditor::BeginPlay()
+void ULevelEditor::BeginPlay()
 {
     GetRenderSubsystem()->SetCameraPosition(&CameraOffset);
 
@@ -37,7 +36,7 @@ void LevelEditor::BeginPlay()
     LoadLevel();
 }
 
-void LevelEditor::Update(float deltaTime)
+void ULevelEditor::Update(float deltaTime)
 {
     // Рассчет позиции мыши
     int xMousePos =
@@ -116,7 +115,7 @@ void LevelEditor::Update(float deltaTime)
     }
 }
 
-void LevelEditor::SaveLevel()
+void ULevelEditor::SaveLevel()
 {
     std::ofstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     assert(file.is_open());
@@ -148,7 +147,7 @@ void LevelEditor::SaveLevel()
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxstars:", StarCountOnLevel);
 }
 
-void LevelEditor::LoadLevel()
+void ULevelEditor::LoadLevel()
 {
     std::ifstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     std::string line;
@@ -171,7 +170,7 @@ void LevelEditor::LoadLevel()
     }
 }
 
-void LevelEditor::MoveCamera()
+void ULevelEditor::MoveCamera()
 {
     // Перемещение камеры по уровню игры
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -189,7 +188,7 @@ void LevelEditor::MoveCamera()
     CameraOffset = {CameraX, CameraY};
 }
 
-void LevelEditor::SelectObjectIndex()
+void ULevelEditor::SelectObjectIndex()
 {
     // Выбор - какой объект ставить
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))

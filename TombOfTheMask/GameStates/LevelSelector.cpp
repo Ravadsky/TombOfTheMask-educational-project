@@ -7,28 +7,46 @@
 #include "LevelInstance.h"
 #include "MainMenu.h"
 
+void ULevelSelector::OnLevel1ButtonPressed()
+{
+    ChooseLevel(1);
+}
+
+void ULevelSelector::OnLevel2ButtonPressed()
+{
+    ChooseLevel(2);
+}
+
+void ULevelSelector::OnLevel3ButtonPressed()
+{
+    ChooseLevel(3);
+}
+
 ULevelSelector::ULevelSelector()
 {
     assert(LevelTexture.loadFromFile(RESOURCES_PATH + "GUI/Level.png"));
     assert(CompletedLevelTexture.loadFromFile(RESOURCES_PATH + "GUI/CompletedLevel.png"));
     assert(LockedLevelTexture.loadFromFile(RESOURCES_PATH + "GUI/LockedLevel.png"));
 
+    GetAudioSubsystem()->StartNewMusic("menu_music");
+
     float width = WINDOW_WIGHT / 2 - 150.f;
     sf::Vector2f ButtonPos = { width, 150.f };
     sf::Vector2f ImageOffset = { 300.f, 0.f };
 
-    Level1 = std::make_unique<Button>("Level 1", ButtonPos);
-    Level1Sprite = std::make_unique<LevelInfo>(ButtonPos + ImageOffset, *getLevelSprite(1), 1);
+    Level1Button = std::make_unique<UButton>("Level 1");
+    Level1Icon = std::make_unique<ULevelIcon>(ButtonPos + ImageOffset, *getLevelSprite(1), 1);
+    Level1Button->onButtonPressed.Add(this, &ULevelSelector::OnLevel1ButtonPressed);
 
     ButtonPos += sf::Vector2f(0.f, 200.f);
-    Level2 = std::make_unique<Button>("Level 2", sf::Vector2f(width, 350.f));
-    Level2Sprite = std::make_unique<LevelInfo>(ButtonPos + ImageOffset, *getLevelSprite(2), 2);
+    Level2Button = std::make_unique<UButton>("Level 2");
+    Level2Icon = std::make_unique<ULevelIcon>(ButtonPos + ImageOffset, *getLevelSprite(2), 2);
+    Level2Button->onButtonPressed.Add(this, &ULevelSelector::OnLevel2ButtonPressed);
 
     ButtonPos += sf::Vector2f(0.f, 200.f);
-    Level3 = std::make_unique<Button>("Level 3", sf::Vector2f(width, 550.f));
-    Level3Sprite = std::make_unique<LevelInfo>(ButtonPos + ImageOffset, *getLevelSprite(3), 3);
-
-    GetAudioSubsystem()->StartNewMusic("menu_music");
+    Level3Button = std::make_unique<UButton>("Level 3");
+    Level3Icon = std::make_unique<ULevelIcon>(ButtonPos + ImageOffset, *getLevelSprite(3), 3);
+    Level3Button->onButtonPressed.Add(this, &ULevelSelector::OnLevel3ButtonPressed);
 }
 
 void ULevelSelector::Update(float deltaTime)
@@ -45,37 +63,20 @@ void ULevelSelector::Update(float deltaTime)
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            if (Level1->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(1);
-            }
-            if (Level2->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                // Если прошлый уровень пройден
-                if (GetDataParameter("Level1:"))
-                {
-                    ChooseLevel(2);
-                }
-            }
-            if (Level3->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                // Если прошлый уровень пройден
-                if (GetDataParameter("Level2:"))
-                {
-                    ChooseLevel(3);
-                }
-            }
+            Level1Button->TriggerIfCollision(xMousePos, yMousePos);
+            Level2Button->TriggerIfCollision(xMousePos, yMousePos);
+            Level3Button->TriggerIfCollision(xMousePos, yMousePos);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            Engine->MarkToSwitchState<MainMenu>();
+            Engine->MarkToSwitchState<UMainMenu>();
         }
     }
 }
 
 void ULevelSelector::ChooseLevel(int index)
 {
-    GetAudioSubsystem()->CreateNewSound("button_sound");
+    GetAudioSubsystem()->PlaySound("button_sound");
 
     Engine->MarkToSwitchState<LevelInstance>();
     ChangeDataParamater("CurrentLevel:", index);

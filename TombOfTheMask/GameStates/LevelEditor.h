@@ -10,7 +10,7 @@ struct ActorInfo
     int rotation = 0;
 };
 
-class LevelEditor : public GameState
+class ULevelEditor : public UGameState
 {
   private:
     std::unique_ptr<LevelSubsystem> LevelSS;
@@ -28,7 +28,7 @@ class LevelEditor : public GameState
     ActorInfo ActorsInfo[MAX_LEVEL_SIZE][MAX_LEVEL_SIZE];
 
   public:
-    LevelEditor();
+    ULevelEditor();
     virtual void BeginPlay() override;
     virtual void Update(float deltaTime) override;
                                                             

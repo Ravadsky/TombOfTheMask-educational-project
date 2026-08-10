@@ -3,6 +3,7 @@
 
 #include "Components/ColliderComponent.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "World/World.h"
 
 APoint::APoint(UWorld* InWorld) : AActor(InWorld)
 {
@@ -17,8 +18,7 @@ void APoint::Pickup(UColliderComponent* otherCollider)
     auto actor = otherCollider->GetOwner();
     if (isClassOf<APlayer>(actor))
     {
-        auto player = CastTo<APlayer>(actor);
-        player->AddPoint();
+        GetWorld()->AddPoint();
         MarkAsGarbage();
     }
 }

@@ -22,6 +22,8 @@ public:
     void SetWorldScale(sf::Vector2f newScale);
     void SetWorldRotation(float newRotation);
 
+    void AddWorldOffset(sf::Vector2f offset);
+
     void AttachToComponent(USceneComponent* parent);
     inline USceneComponent* GetParent() const { return Parent; };
     inline std::vector<USceneComponent*>& GetChildren() { return Children; };

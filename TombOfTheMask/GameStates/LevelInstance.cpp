@@ -1,15 +1,12 @@
 #include "LevelInstance.h"
+#include "World/World.h"
 
-LevelInstance::LevelInstance()
+ULevelInstance::ULevelInstance()
 {
-    // create world subsystem
-    // create world
-
-    //GAudioSubsystem->StartNewMusic("level_music");
-
-   // GLevelSubsystem->StartLevel();
+    WorldInstance = std::make_unique<UWorld>();
+    WorldInstance->StartLevel();
 }
 
-void LevelInstance::Update(float deltaTime)
-{
+void ULevelInstance::Update(float deltaTime) {
+    WorldInstance->Update(deltaTime);
 }

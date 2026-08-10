@@ -7,14 +7,18 @@ class ULevelIcon;
 class ULevelSelector : public UGameState
 {
 private:
-    std::unique_ptr<UButton> Level1;
-    std::unique_ptr<ULevelIcon> Level1Sprite;
+    std::unique_ptr<UButton> Level1Button;
+    std::unique_ptr<ULevelIcon> Level1Icon;
+    void OnLevel1ButtonPressed();
 
-    std::unique_ptr<UButton> Level2;
-    std::unique_ptr<ULevelIcon> Level2Sprite;
+    std::unique_ptr<UButton> Level2Button;
+    std::unique_ptr<ULevelIcon> Level2Icon;
+    void OnLevel2ButtonPressed();
 
-    std::unique_ptr<UButton> Level3;
-    std::unique_ptr<ULevelIcon> Level3Sprite;
+    std::unique_ptr<UButton> Level3Button;
+    std::unique_ptr<ULevelIcon> Level3Icon;
+    void OnLevel3ButtonPressed();
+
 
     sf::Texture LevelTexture;
     sf::Texture CompletedLevelTexture;

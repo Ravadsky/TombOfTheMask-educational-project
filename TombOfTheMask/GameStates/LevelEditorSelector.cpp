@@ -6,21 +6,37 @@
 #include "LevelEditor.h"
 #include "MainMenu.h"
 
-LevelEditorSelector::LevelEditorSelector()
+void ULevelEditorSelector::OnLevel1ButtonPressed()
 {
-    //assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
-    //Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
-    //Background->SetDrawType(DrawType::Widget);
-
-    float CentralWidth = WINDOW_WIGHT / 2;
-    Level1 = std::make_unique<Button>("Level 1", sf::Vector2f(CentralWidth, 200.f));
-    Level2 = std::make_unique<Button>("Level 2", sf::Vector2f(CentralWidth, 400.f));
-    Level3 = std::make_unique<Button>("Level 3", sf::Vector2f(CentralWidth, 600.f));
-
-    GetAudioSubsystem()->StartNewMusic("menu_music");
+    ChooseLevel(1);
 }
 
-void LevelEditorSelector::Update(float deltaTime)
+void ULevelEditorSelector::OnLevel2ButtonPressed()
+{
+    ChooseLevel(2);
+}
+
+void ULevelEditorSelector::OnLevel3ButtonPressed()
+{
+    ChooseLevel(3);
+}
+
+ULevelEditorSelector::ULevelEditorSelector()
+{
+    GetAudioSubsystem()->StartNewMusic("menu_music");
+
+    float CentralWidth = WINDOW_WIGHT / 2;
+    Level1Button = std::make_unique<UButton>("Level 1");
+    Level1Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel1ButtonPressed);
+
+    Level2Button = std::make_unique<UButton>("Level 2");
+    Level2Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel2ButtonPressed);
+
+    Level3Button = std::make_unique<UButton>("Level 3");
+    Level3Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel3ButtonPressed);
+}
+
+void ULevelEditorSelector::Update(float deltaTime)
 {
     sf::Event event;
     // Рассчет позиции мыши
@@ -34,30 +50,21 @@ void LevelEditorSelector::Update(float deltaTime)
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
-            if (Level1->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(1);
-            }
-            if (Level2->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(2);
-            }
-            if (Level3->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(3);
-            }
+            Level1Button->TriggerIfCollision(xMousePos, yMousePos);
+            Level2Button->TriggerIfCollision(xMousePos, yMousePos);
+            Level3Button->TriggerIfCollision(xMousePos, yMousePos);
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         {
-            Engine->MarkToSwitchState<MainMenu>();
+            Engine->MarkToSwitchState<UMainMenu>();
         }
     }
 }
 
-void LevelEditorSelector::ChooseLevel(int index)
+void ULevelEditorSelector::ChooseLevel(int index)
 {
-    GetAudioSubsystem()->CreateNewSound("button_sound");
+    GetAudioSubsystem()->PlaySound("button_sound");
 
     Engine->MarkToSwitchState<LevelEditor>();
     ChangeDataParamater("CurrentLevel:", index);

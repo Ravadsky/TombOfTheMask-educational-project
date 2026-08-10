@@ -66,6 +66,11 @@ void USceneComponent::SetWorldRotation(float newRotation)
     rotation = newRotation;
 }
 
+void USceneComponent::AddWorldOffset(sf::Vector2f offset)
+{
+    location += offset;
+}
+
 void USceneComponent::AttachToComponent(USceneComponent* parent)
 {
     assert(parent != nullptr, "parent component no nullptr");

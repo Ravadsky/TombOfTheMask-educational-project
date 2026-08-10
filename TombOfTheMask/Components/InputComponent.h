@@ -7,4 +7,6 @@ public:
     UInputComponent(AActor* componentOwner);
 
     virtual void Update(float deltaTime) override;
+
+    bool CanAction = true;
 };

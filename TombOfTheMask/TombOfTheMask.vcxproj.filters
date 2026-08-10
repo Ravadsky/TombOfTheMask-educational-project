@@ -84,9 +84,6 @@
     <ClCompile Include="Actors\Environment\Wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Audio\AudioSample.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Core\GameSubsystems\AudioSubsystem.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -174,6 +171,9 @@
     <ClCompile Include="Components\CameraComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\LevelHUD.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\UObject.h">
@@ -225,9 +225,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core\Engine.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\AudioSample.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core\GameSubsystems\AudioSubsystem.h">
@@ -315,6 +312,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Components\CameraComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\LevelHUD.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -33,6 +33,7 @@ public:
 
     sf::Vector2f GetActorLocation() const;
     void SetActorLocation(sf::Vector2f newLocation);
+    void AddWorldOffset(sf::Vector2f offset);
 
     float GetActorRotation() const;
     void SetActorRotation(float newRotation);

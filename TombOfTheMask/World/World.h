@@ -2,7 +2,7 @@
 #include "Core/UObject.h"
 
 class AActor;
-
+class ULevelHUD;
 class UPhysicsSubsystem;
 
 class UWorld : public UObject
@@ -32,12 +32,48 @@ public:
         SpawnActor<actorClass>(worldLocation, rotation, scale);
     }
 
+    template <typename actorClass>
+    std::vector<actorClass*> GetAllActorsOfClass()
+    {
+        std::vector<actorClass*> actors;
+        for (auto actor : ActorsInWorld)
+        {
+            if (isClassOf<actorClass>(actor))
+            {
+                actors.push_back(actor);
+            }
+        }
+        return actors;
+    }
+
+    template <typename actorClass>
+    int GetActorsNumberOfClass()
+    {
+        int count = 0;
+        for (auto actor : ActorsInWorld)
+        {
+            if (isClassOf<actorClass>(actor))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    virtual void BeginPlay() override;
     virtual void Update(float deltaTime) override;
 
     inline UPhysicsSubsystem* GetPhysicsSubsystem() { return physicsSubsystem.get(); };
 
     void AddActorToWorld(AActor* actor);
     void RemoveActorFromWorld(AActor* actor);
+
+    void AddStar();
+    void AddPoint();
+    inline int GetStarCount() const { return StarCount; }
+    inline int GetPointCount() const { return PointCount; }
+
+    void StartLevel();
 
 private:
     std::vector<AActor*> ActorsInWorld;
@@ -49,5 +85,7 @@ private:
 
     std::unique_ptr<UPhysicsSubsystem> physicsSubsystem;
 
-    // void StartLevel();
+    int PointCount = 0;
+    int StarCount = 0;
+    std::unique_ptr<ULevelHUD> LevelHUD;
 };

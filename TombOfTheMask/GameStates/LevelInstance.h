@@ -1,10 +1,15 @@
 #pragma once
 #include "GameState.h"
 
-class LevelInstance : public GameState
+class UWorld;
+
+class ULevelInstance : public UGameState
 {
 public:
-    LevelInstance();
+    ULevelInstance();
 
     virtual void Update(float deltaTime) override;
+
+private:
+    std::unique_ptr<UWorld> WorldInstance;
 };

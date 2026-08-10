@@ -1,21 +1,23 @@
 #pragma once
 #include "GameState.h"
 
-class Button;
-class SpriteComponent;
+class UButton;
 
-class LevelEditorSelector : public GameState
+class ULevelEditorSelector : public UGameState
 {
-  private:
-    std::unique_ptr<SpriteComponent> Background;
-    sf::Texture BackgroundTexture;
+private:
+    std::unique_ptr<UButton> Level1Button;
+    void OnLevel1ButtonPressed();
 
-    std::unique_ptr<Button> Level1;
-    std::unique_ptr<Button> Level2;
-    std::unique_ptr<Button> Level3;
+    std::unique_ptr<UButton> Level2Button;
+    void OnLevel2ButtonPressed();
 
-  public:
-    LevelEditorSelector();
+    std::unique_ptr<UButton> Level3Button;
+    void OnLevel3ButtonPressed();
+
+
+public:
+    ULevelEditorSelector();
     virtual void Update(float deltaTime) override;
 
     void ChooseLevel(int index);

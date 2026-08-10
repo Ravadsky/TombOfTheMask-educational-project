@@ -51,6 +51,11 @@ void AActor::SetActorLocation(sf::Vector2f newLocation)
     RootComponent->SetWorldLocation(newLocation);
 }
 
+void AActor::AddWorldOffset(sf::Vector2f offset)
+{
+    RootComponent->AddWorldOffset(offset);
+}
+
 float AActor::GetActorRotation() const
 {
     return RootComponent->GetWorldRotation();

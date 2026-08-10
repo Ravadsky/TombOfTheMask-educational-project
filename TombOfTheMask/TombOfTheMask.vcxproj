@@ -164,10 +164,10 @@
     <ClCompile Include="GameStates\LevelInstance.cpp" />
     <ClCompile Include="GameStates\LevelSelector.cpp" />
     <ClCompile Include="GameStates\MainMenu.cpp" />
-    <ClCompile Include="Audio\AudioSample.cpp" />
     <ClCompile Include="Core\GameSubsystems\AudioSubsystem.cpp" />
     <ClCompile Include="Core\GameSubsystems\GarbageCollector.cpp" />
     <ClCompile Include="Components\MovementComponent.cpp" />
+    <ClCompile Include="GUI\LevelHUD.cpp" />
     <ClCompile Include="World\PhysicsSubsystem.cpp" />
     <ClCompile Include="Core\GameSubsystems\RenderSubsystem.cpp" />
     <ClCompile Include="Core\GameSubsystems\ResourceSubsystem.cpp" />
@@ -212,10 +212,10 @@
     <ClInclude Include="GameStates\LevelInstance.h" />
     <ClInclude Include="GameStates\LevelSelector.h" />
     <ClInclude Include="GameStates\MainMenu.h" />
-    <ClInclude Include="Audio\AudioSample.h" />
     <ClInclude Include="Core\GameSubsystems\AudioSubsystem.h" />
     <ClInclude Include="Core\GameSubsystems\GarbageCollector.h" />
     <ClInclude Include="Components\MovementComponent.h" />
+    <ClInclude Include="GUI\LevelHUD.h" />
     <ClInclude Include="World\PhysicsSubsystem.h" />
     <ClInclude Include="Core\GameSubsystems\RenderSubsystem.h" />
     <ClInclude Include="Core\GameSubsystems\ResourceSubsystem.h" />

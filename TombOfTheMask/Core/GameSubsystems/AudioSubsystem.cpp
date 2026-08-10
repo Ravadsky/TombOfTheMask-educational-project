@@ -1,7 +1,18 @@
 #include "AudioSubsystem.h"
-
-#include "Audio/AudioSample.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 #include "Core/DataFunctions.h"
+
+AudioSample::AudioSample(std::string SoundFileName, float value)
+{
+    sound.setBuffer(GetResourceSubsystem()->GetSoundBuffer(SoundFileName));
+    sound.setVolume(value);
+    sound.play();
+}
+
+bool AudioSample::isContinues()
+{
+    return sound.getStatus() == sf::SoundSource::Playing;
+}
 
 UAudioSubsystem::UAudioSubsystem() : UGameSubsystem() {}
 
@@ -24,9 +35,9 @@ void UAudioSubsystem::StartNewMusic(std::string MusicFileName)
     BackgroundMusic.play();
 }
 
-void UAudioSubsystem::PlaySound(std::string SoundFileName)
+void UAudioSubsystem::PlaySound(std::string soundName)
 {
-    SoundSamples.emplace_back(std::make_unique<AudioSample>(SoundFileName, SoundValue));
+    SoundSamples.emplace_back(std::make_unique<AudioSample>(soundName, SoundValue));
 }
 
 void UAudioSubsystem::UpdateSoundAndMusicValues()

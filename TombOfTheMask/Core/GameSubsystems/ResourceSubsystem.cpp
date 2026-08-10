@@ -48,6 +48,13 @@ void UResourceSubsystem::LoadGameFont(const std::string& filename)
     assert(GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + filename));
 }
 
+void UResourceSubsystem::LoadSoundBuffer(const std::string& filename, std::string soundName)
+{
+    sf::SoundBuffer newBuffer;
+    assert(newBuffer.loadFromFile(RESOURCES_PATH + "Audio/" + filename));
+    SoundBuffers[soundName] = std::move(newBuffer);
+}
+
 sf::Sprite& UResourceSubsystem::GetSprite(const std::string& spriteName)
 {
     return StaticSprites.at(spriteName);
@@ -57,7 +64,12 @@ const sf::Texture& UResourceSubsystem::GetTexture(const std::string& textureName
     return *StaticSprites.at(textureName).getTexture();
 }
 
-sf::Font& UResourceSubsystem::GetFont()
+const sf::SoundBuffer& UResourceSubsystem::GetSoundBuffer(const std::string& soundName)
+{
+    return SoundBuffers.at(soundName);
+}
+
+const sf::Font& UResourceSubsystem::GetFont()
 {
     return GameFont;
 }

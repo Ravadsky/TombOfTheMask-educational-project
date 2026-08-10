@@ -11,13 +11,16 @@ public:
 
     void LoadSpriteSheet(const std::string& filename);
     void LoadGameFont(const std::string& filename);
+    void LoadSoundBuffer(const std::string& filename, std::string soundName);
 
     sf::Sprite& GetSprite(const std::string& spriteName);
     const sf::Texture& GetTexture(const std::string& textureName);
-    sf::Font& GetFont();
+    const sf::SoundBuffer& GetSoundBuffer(const std::string& soundName);
+    const sf::Font& GetFont();
 
 private:
     sf::Texture SpriteSheet;
     sf::Font GameFont;
     std::unordered_map<std::string, sf::Sprite> StaticSprites;
+    std::unordered_map<std::string, sf::SoundBuffer> SoundBuffers;
 };
