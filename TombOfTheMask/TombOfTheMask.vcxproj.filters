@@ -126,10 +126,10 @@
     <ClCompile Include="Components\SpriteComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\TextBlock.cpp">
+    <ClCompile Include="GUI\Base\TextBlock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\UserWidget.cpp">
+    <ClCompile Include="GUI\Base\UserWidget.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStates\MainMenu.cpp">
@@ -172,6 +172,18 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GUI\LevelHUD.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\Base\Image.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\ManagerActorID.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ViewportComponent.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Actors\EditorSpectator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -278,10 +290,10 @@
     <ClInclude Include="Actors\Star.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\TextBlock.h">
+    <ClInclude Include="GUI\Base\TextBlock.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\UserWidget.h">
+    <ClInclude Include="GUI\Base\UserWidget.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GUI\CheckBox.h">
@@ -315,6 +327,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GUI\LevelHUD.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Base\Image.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Actors\ManagerActorID.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ViewportComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Actors\EditorSpectator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

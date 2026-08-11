@@ -1,27 +1,16 @@
 #include "CoreMinimal.h"
 
 #include "GameStates/GameState.h"
-#include "GameStates/MainMenu.h"
 
 #include "Core/GameSubsystems/AudioSubsystem.h"
 #include "Core/GameSubsystems/GarbageCollector.h"
 #include "Core/GameSubsystems/RenderSubsystem.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
 
-sf::RenderWindow* GWindow;
+sf::RenderWindow* Window = nullptr;
 GEngine* Engine;
 
-GEngine::GEngine()
-{
-    // init game instance subsystems
-    resourceSubsystem = std::make_unique<UResourceSubsystem>();
-    renderSubsystem = std::make_unique<URenderSubsystem>();
-    audioSubsystem = std::make_unique<UAudioSubsystem>();
-    garbageCollector = std::make_unique<UGarbageCollector>();
-
-    /// start game state from main menu
-    MarkToSwitchState<MainMenu>();
-}
+GEngine::GEngine() {}
 
 GEngine::~GEngine() {}
 
@@ -54,6 +43,15 @@ void GEngine::UnregisterObject(UObject* object)
     auto objectIterator = std::find(AllObjects.begin(), AllObjects.end(), object);
     if (objectIterator != AllObjects.end())
         AllObjects.erase(objectIterator);
+}
+
+void GEngine::RegisterSubsystems()
+{
+    // init game instance subsystems
+    resourceSubsystem = std::make_unique<UResourceSubsystem>();
+    renderSubsystem = std::make_unique<URenderSubsystem>();
+    audioSubsystem = std::make_unique<UAudioSubsystem>();
+    garbageCollector = std::make_unique<UGarbageCollector>();
 }
 
 void GEngine::SwitchGameState()

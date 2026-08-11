@@ -126,6 +126,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,6 +156,7 @@
     <ClCompile Include="Core\GameSubsystems\GameSubsystem.cpp" />
     <ClCompile Include="Components\SceneComponent.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
+    <ClCompile Include="Actors\EditorSpectator.cpp" />
     <ClCompile Include="GUI\CheckBox.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="GameMain.cpp" />
@@ -168,14 +170,17 @@
     <ClCompile Include="Core\GameSubsystems\GarbageCollector.cpp" />
     <ClCompile Include="Components\MovementComponent.cpp" />
     <ClCompile Include="GUI\LevelHUD.cpp" />
+    <ClCompile Include="GUI\Base\Image.cpp" />
+    <ClCompile Include="Actors\ManagerActorID.cpp" />
+    <ClCompile Include="Components\ViewportComponent.cpp" />
     <ClCompile Include="World\PhysicsSubsystem.cpp" />
     <ClCompile Include="Core\GameSubsystems\RenderSubsystem.cpp" />
     <ClCompile Include="Core\GameSubsystems\ResourceSubsystem.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\LevelIcon.cpp" />
     <ClCompile Include="Components\SpriteComponent.cpp" />
-    <ClCompile Include="GUI\TextBlock.cpp" />
-    <ClCompile Include="GUI\UserWidget.cpp" />
+    <ClCompile Include="GUI\Base\TextBlock.cpp" />
+    <ClCompile Include="GUI\Base\UserWidget.cpp" />
     <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +206,7 @@
     <ClInclude Include="Core\GameSubsystems\GameSubsystem.h" />
     <ClInclude Include="Components\SceneComponent.h" />
     <ClInclude Include="Components\InputComponent.h" />
+    <ClInclude Include="Actors\EditorSpectator.h" />
     <ClInclude Include="GUI\CheckBox.h" />
     <ClInclude Include="Core\CoreMinimal.h" />
     <ClInclude Include="Core\DataFunctions.h" />
@@ -216,6 +222,9 @@
     <ClInclude Include="Core\GameSubsystems\GarbageCollector.h" />
     <ClInclude Include="Components\MovementComponent.h" />
     <ClInclude Include="GUI\LevelHUD.h" />
+    <ClInclude Include="GUI\Base\Image.h" />
+    <ClInclude Include="Actors\ManagerActorID.h" />
+    <ClInclude Include="Components\ViewportComponent.h" />
     <ClInclude Include="World\PhysicsSubsystem.h" />
     <ClInclude Include="Core\GameSubsystems\RenderSubsystem.h" />
     <ClInclude Include="Core\GameSubsystems\ResourceSubsystem.h" />
@@ -223,8 +232,8 @@
     <ClInclude Include="GUI\Button.h" />
     <ClInclude Include="GUI\LevelIcon.h" />
     <ClInclude Include="Components\SpriteComponent.h" />
-    <ClInclude Include="GUI\TextBlock.h" />
-    <ClInclude Include="GUI\UserWidget.h" />
+    <ClInclude Include="GUI\Base\TextBlock.h" />
+    <ClInclude Include="GUI\Base\UserWidget.h" />
     <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>

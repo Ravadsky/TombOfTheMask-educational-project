@@ -1,30 +1,23 @@
 #include "CheckBox.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Base/TextBlock.h"
+#include "Base/Image.h"
 
-UCheckBox::UCheckBox(std::string SpriteOn, std::string SpriteOff)
+UCheckBox::UCheckBox(UUserWidget* parent) : UButton(parent)
 {
-    assert(TextureOn.loadFromFile(RESOURCES_PATH + "GUI/" + SpriteOn + ".png"));
-    assert(TextureOff.loadFromFile(RESOURCES_PATH + "GUI/" + SpriteOff + ".png"));
+    ButtonImage = std::make_unique<UImage>(this);
+    ButtonImage->SetAlignment(EHorizontalAlignment::Left, EVerticalAlignment::Top);
 
-    Sprite.setTexture(TextureOn);
-}
-
-void UCheckBox::TriggerIfCollision(int xMousePos, int yMousePos)
-{
-    sf::Vector2f MousePos = { (float)xMousePos, (float)yMousePos };
-    if (Sprite.getGlobalBounds().contains(MousePos))
-    {
-        onCheckBoxPressed.Broadcast();
-        GetAudioSubsystem()->PlaySound("button_sound");
-    }
+    ButtonText = std::make_unique<UTextBlock>(this);
+    ButtonImage->SetAlignment(EHorizontalAlignment::Left, EVerticalAlignment::Top);
 }
 
 void UCheckBox::SetInitState(bool State)
 {
     CurrentState = State;
 
-    auto& texture = CurrentState ? TextureOn : TextureOff;
-    Sprite.setTexture(texture);
+    auto& textureName = CurrentState ? TextureOn : TextureOff;
+    ButtonImage->SetTextureByName(textureName);
 }
 
 bool UCheckBox::ChangeState()
@@ -33,7 +26,8 @@ bool UCheckBox::ChangeState()
     return CurrentState;
 }
 
-void UCheckBox::Render()
+void UCheckBox::SetTextureNames(std::string textureOn, std::string textureOff)
 {
-    Window->draw(Sprite);
+    TextureOn = textureOn;
+    TextureOff = textureOff;
 }

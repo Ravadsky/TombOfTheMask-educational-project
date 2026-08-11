@@ -4,21 +4,14 @@
 class UInputComponent;
 class UMovementComponent;
 class UCameraComponent;
-class UViewportComponent;
 
-class APlayer : public AActor
+class AEditorSpectator : public AActor
 {
 public:
-    APlayer(UWorld* InWorld);
-
-    virtual void BeginPlay() override;
-    virtual void Update(float deltaTime) override;
-
-    void GetDamage();
+    AEditorSpectator(UWorld* InWorld);
 
 private:
     UInputComponent* InputComponent;
     UMovementComponent* MovementComponent;
     UCameraComponent* CameraComponent;
-    UViewportComponent* ViewportComponent;
 };

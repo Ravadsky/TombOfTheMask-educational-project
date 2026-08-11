@@ -11,6 +11,6 @@ public:
 
     inline AActor* GetOwner() { return Owner; };
 
-    protected:
+protected:
     AActor* Owner;
 };

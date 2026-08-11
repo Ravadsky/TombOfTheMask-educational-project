@@ -16,6 +16,7 @@ AActor::AActor(UWorld* InWorld) : UObject()
     ColliderComponent->AttachToComponent(SceneComponent);
 
     SpriteComponent = AddNewComponent<USpriteComponent>();
+    SpriteComponent->AttachToComponent(SceneComponent);
 
     GetWorld()->AddActorToWorld(this);
 }

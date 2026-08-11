@@ -21,11 +21,11 @@ public:
 template <typename T, typename K>
 bool isClassOf(K* object)
 {
-    return dynamic_cast<T*>(ptr) != nullptr;
+    return dynamic_cast<T*>(object) != nullptr;
 }
 
 template <typename T, typename K>
 T* CastTo(K* object)
 {
-    return dynamic_cast<T>(object);
+    return dynamic_cast<T*>(object);
 }

@@ -1,4 +1,5 @@
 #include "Core/CoreMinimal.h"
+#include "GameStates/MainMenu.h"
 
 int main()
 {
@@ -6,8 +7,10 @@ int main()
     gameWindow.setFramerateLimit(MAX_FPS);
     gameWindow.setVerticalSyncEnabled(true);
     Window = &gameWindow;
-
+    
     Engine = new GEngine();
+    Engine->RegisterSubsystems();
+    Engine->MarkToSwitchState<UMainMenu>();
 
     while (Window->isOpen())
     {

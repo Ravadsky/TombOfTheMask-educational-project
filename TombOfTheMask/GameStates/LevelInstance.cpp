@@ -7,6 +7,7 @@ ULevelInstance::ULevelInstance()
     WorldInstance->StartLevel();
 }
 
-void ULevelInstance::Update(float deltaTime) {
+void ULevelInstance::Update(float deltaTime)
+{
     WorldInstance->Update(deltaTime);
 }

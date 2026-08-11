@@ -36,7 +36,7 @@ inline const sf::Vector2f PIXEL_RATIO = { SPRITE_GAME_SIZE / RAW_SPRITE_SIZE, SP
 inline const int SpriteSheetSize = 4;
 
 // Level
-inline const int MAX_LEVEL_SIZE = 24;
+inline const int LEVEL_SIZE = 24;
 
 // PLAYER
 inline const int PLAYER_SPEED = 16;

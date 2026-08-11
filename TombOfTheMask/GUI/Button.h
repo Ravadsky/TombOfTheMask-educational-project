@@ -1,21 +1,23 @@
 #pragma once
-#include "UserWidget.h"
-#include "TextBlock.h"
+#include "Base/UserWidget.h"
+
+class UTextBlock;
+class UImage;
 
 class UButton : public UUserWidget
 {
-private:
-    sf::Sprite Sprite;
+protected:
+    std::unique_ptr<UImage> ButtonImage;
     std::unique_ptr<UTextBlock> ButtonText;
 
-    sf::Texture ButtonTexture;
-
 public:
-    UButton(std::string fileName);
+    UButton(UUserWidget* parent);
 
     void TriggerIfCollision(int xMousePos, int yMousePos);
+    void SetButtonText(std::string newText);
 
     virtual void Render() override;
 
     FDelegate<> onButtonPressed;
 };
+

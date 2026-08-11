@@ -1,5 +1,5 @@
 #include "UObject.h"
-#include "Subsystems/GameSubsystems/GarbageCollector.h"
+#include "GameSubsystems/GarbageCollector.h"
 
 UObject::UObject()
 {

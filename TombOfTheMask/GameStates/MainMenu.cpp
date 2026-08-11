@@ -1,20 +1,53 @@
 #include "MainMenu.h"
 #include "Core/DataFunctions.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
+
 #include "GUI/Button.h"
 #include "GUI/CheckBox.h"
+#include "GUI/Base/Image.h"
 
 #include "LevelSelector.h"
 #include "LevelEditorSelector.h"
 
+UMainMenu::UMainMenu()
+{
+    float CentralWidth = WINDOW_WIGHT / 2;
+
+    CanvasImage = Construct<UImage>(nullptr);
+    CanvasImage->SetTextureByName("background");
+
+    StartGameButton = ConstructButton<UButton>(CanvasImage.get(), "Start");
+    StartGameButton->onButtonPressed.Add(this, &UMainMenu::StartGameButtonPressed);
+    StartGameButton->SetScreenPosition({ 0.0f, -192.0f });
+
+    EditorButton = ConstructButton<UButton>(CanvasImage.get(), "Editor");
+    EditorButton->onButtonPressed.Add(this, &UMainMenu::EditorButtonPressed);
+
+    ExitButton = ConstructButton<UButton>(CanvasImage.get(), "Exit");
+    ExitButton->onButtonPressed.Add(this, &UMainMenu::ExitButtonPressed);
+    ExitButton->SetScreenPosition({ 0.0f, +192.0f });
+
+    SoundBox = ConstructButton<UCheckBox>(CanvasImage.get(), "");
+    SoundBox->onButtonPressed.Add(this, &UMainMenu::SoundBoxChanged);
+    SoundBox->SetTextureNames("sound_on", "sound_off");
+    SoundBox->SetInitState(GetDataParameter("SoundValue:"));
+    SoundBox->SetScreenPosition({ 64, +128 });
+
+    MusicBox = ConstructButton<UCheckBox>(CanvasImage.get(), "");
+    MusicBox->onButtonPressed.Add(this, &UMainMenu::MusicBoxChanged);
+    MusicBox->SetTextureNames("music_on", "music_off");
+    MusicBox->SetInitState(GetDataParameter("MusicValue:"));
+    MusicBox->SetScreenPosition({ 64, +256 });
+}
+
 void UMainMenu::StartGameButtonPressed()
 {
-    Engine->MarkToSwitchState<LevelSelector>();
+    Engine->MarkToSwitchState<ULevelSelector>();
 }
 
 void UMainMenu::EditorButtonPressed()
 {
-    Engine->MarkToSwitchState<LevelEditorSelector>();
+    Engine->MarkToSwitchState<ULevelEditorSelector>();
 }
 
 void UMainMenu::ExitButtonPressed()
@@ -32,53 +65,4 @@ void UMainMenu::MusicBoxChanged()
 {
     ChangeDataParamater("MusicValue:", MusicBox->ChangeState());
     GetAudioSubsystem()->UpdateSoundAndMusicValues();
-}
-
-UMainMenu::UMainMenu()
-{
-    float CentralWidth = WINDOW_WIGHT / 2;
-    GetAudioSubsystem()->StartNewMusic("menu_music");
-
-    StartGameButton = std::make_unique<UButton>("Start");
-    StartGameButton->onButtonPressed.Add(this, &UMainMenu::StartGameButtonPressed);
-
-    EditorButton = std::make_unique<UButton>("Editor");
-    EditorButton->onButtonPressed.Add(this, &UMainMenu::EditorButtonPressed);
-
-    ExitButton = std::make_unique<UButton>("Exit");
-    ExitButton->onButtonPressed.Add(this, &UMainMenu::ExitButtonPressed);
-
-    SoundBox = std::make_unique<UCheckBox>("SoundOn", "SoundOff");
-    SoundBox->SetInitState(GetDataParameter("SoundValue:"));
-    SoundBox->onCheckBoxPressed.Add(this, &UMainMenu::SoundBoxChanged);
-
-    MusicBox = std::make_unique<UCheckBox>("MusicOn", "MusicOff");
-    MusicBox->SetInitState(GetDataParameter("MusicValue:"));
-    MusicBox->onCheckBoxPressed.Add(this, &UMainMenu::MusicBoxChanged);
-}
-
-void UMainMenu::Update(float deltaTime)
-{
-    sf::Event event;
-    // Рассчет позиции мыши
-    int xMousePos = sf::Mouse::getPosition(*Window).x;
-    int yMousePos = sf::Mouse::getPosition(*Window).y;
-
-    while (Window->pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-            Window->close();
-
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            // Проверка основных функциональных кнопок
-            ExitButton->TriggerIfCollision(xMousePos, yMousePos);
-            EditorButton->TriggerIfCollision(xMousePos, yMousePos);
-            StartGameButton->TriggerIfCollision(xMousePos, yMousePos);
-
-            // Проверка чек-боксов звуков и музыки
-            SoundBox->TriggerIfCollision(xMousePos, yMousePos);
-            MusicBox->TriggerIfCollision(xMousePos, yMousePos);
-        }
-    }
 }

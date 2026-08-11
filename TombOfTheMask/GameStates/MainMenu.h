@@ -3,10 +3,16 @@
 
 class UButton;
 class UCheckBox;
+class UImage;
 
 class UMainMenu : public UGameState
 {
+public:
+    UMainMenu();
+
 private:
+    std::unique_ptr<UImage> CanvasImage;
+
     std::unique_ptr<UButton> StartGameButton;
     void StartGameButtonPressed();
 
@@ -21,9 +27,4 @@ private:
 
     std::unique_ptr<UCheckBox> MusicBox;
     void MusicBoxChanged();
-
-public:
-    UMainMenu();
-
-    virtual void Update(float deltaTime) override;
 };

@@ -2,8 +2,26 @@
 
 UResourceSubsystem::UResourceSubsystem()
 {
-    LoadGameFont("Font.otf");
+    LoadGameFont("font.otf");
     LoadSpriteSheet("Sprites.png");
+
+    LoadGUISprite("background");
+    LoadGUISprite("button");
+    LoadGUISprite("completed_level_icon");
+    LoadGUISprite("locked_level_icon");
+    LoadGUISprite("level_icon");
+    LoadGUISprite("music_off");
+    LoadGUISprite("music_on");
+    LoadGUISprite("sound_off");
+    LoadGUISprite("sound_on");
+    LoadGUISprite("star");
+    LoadGUISprite("point");
+
+    LoadSoundBuffer("archer");
+    LoadSoundBuffer("button");
+    LoadSoundBuffer("death");
+    LoadSoundBuffer("star");
+    LoadSoundBuffer("point");
 
     // sprite sheet row 1
     LoadSpriteFromSpriteSheet("player", 1, 1);
@@ -25,22 +43,27 @@ UResourceSubsystem::UResourceSubsystem()
 
     // sprite sheet row 4
     LoadSpriteFromSpriteSheet("background_wall", 4, 1);
-    LoadSpriteFromSpriteSheet("editor_object", 4, 2);
+    LoadSpriteFromSpriteSheet("editor_object", 4, 4);
 }
 
 void UResourceSubsystem::LoadSpriteFromSpriteSheet(const std::string& spriteName, int row, int column)
 {
     int left = (column - 1) * RAW_SPRITE_SIZE;
     int top = (row - 1) * RAW_SPRITE_SIZE;
-
     sf::IntRect rect(left, top, RAW_SPRITE_SIZE, RAW_SPRITE_SIZE);
-    sf::Sprite sprite(SpriteSheet, rect);
-    StaticSprites[spriteName] = sprite;
+
+    StaticSprites[spriteName].loadFromImage(SpriteSheet.copyToImage(), rect);
 }
 
 void UResourceSubsystem::LoadSpriteSheet(const std::string& filename)
 {
+
     assert(SpriteSheet.loadFromFile(RESOURCES_PATH + filename));
+}
+
+void UResourceSubsystem::LoadGUISprite(const std::string& filename)
+{
+    assert(StaticSprites[filename].loadFromFile(RESOURCES_PATH + "GUI/" + filename + ".png"));
 }
 
 void UResourceSubsystem::LoadGameFont(const std::string& filename)
@@ -48,20 +71,16 @@ void UResourceSubsystem::LoadGameFont(const std::string& filename)
     assert(GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + filename));
 }
 
-void UResourceSubsystem::LoadSoundBuffer(const std::string& filename, std::string soundName)
+void UResourceSubsystem::LoadSoundBuffer(const std::string& filename)
 {
     sf::SoundBuffer newBuffer;
-    assert(newBuffer.loadFromFile(RESOURCES_PATH + "Audio/" + filename));
-    SoundBuffers[soundName] = std::move(newBuffer);
+    assert(newBuffer.loadFromFile(RESOURCES_PATH + "Audio/" + filename + ".wav"));
+    SoundBuffers[filename] = std::move(newBuffer);
 }
 
-sf::Sprite& UResourceSubsystem::GetSprite(const std::string& spriteName)
-{
-    return StaticSprites.at(spriteName);
-}
 const sf::Texture& UResourceSubsystem::GetTexture(const std::string& textureName)
 {
-    return *StaticSprites.at(textureName).getTexture();
+    return StaticSprites.at(textureName);
 }
 
 const sf::SoundBuffer& UResourceSubsystem::GetSoundBuffer(const std::string& soundName)

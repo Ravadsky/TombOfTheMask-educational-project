@@ -2,6 +2,7 @@
 #include "Player.h"
 
 #include "Components/ColliderComponent.h"
+#include "Components/ViewportComponent.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
 #include "World/World.h"
 
@@ -18,7 +19,8 @@ void APoint::Pickup(UColliderComponent* otherCollider)
     auto actor = otherCollider->GetOwner();
     if (isClassOf<APlayer>(actor))
     {
-        GetWorld()->AddPoint();
+        auto viewport = actor->GetComponentByClass<UViewportComponent>();
+        viewport->AddPoint();
         MarkAsGarbage();
     }
 }

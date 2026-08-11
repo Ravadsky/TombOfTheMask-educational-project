@@ -39,11 +39,11 @@ USpriteComponent::~USpriteComponent()
     RemoveFromVectorByRef(GetRenderSubsystem()->ActorsToDraw, this);
 }
 
-void USpriteComponent::Render()
+void USpriteComponent::Render(sf::Vector2f cameraOrigin)
 {
     if (sprite.getTexture() != nullptr)
     {
-        // sprite.setPosition(GetCameraLocation() - location);
+        sprite.setPosition(CAMERA_PIVOT - cameraOrigin + GetWorldLocation());
         Window->draw(sprite);
     }
 }

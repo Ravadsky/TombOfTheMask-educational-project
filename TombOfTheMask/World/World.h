@@ -2,16 +2,16 @@
 #include "Core/UObject.h"
 
 class AActor;
-class ULevelHUD;
 class UPhysicsSubsystem;
+class ManagerActorID;
 
 class UWorld : public UObject
 {
 public:
-    UWorld() {};
+    UWorld();
 
     template <typename actorClass>
-    AActor* SpawnActor(const sf::Vector2f& location, const float rotation, const sf::Vector2f& scale)
+    actorClass* SpawnActor(const sf::Vector2f& location, const float rotation, const sf::Vector2f& scale = { 1, 1 })
     {
         static_assert(std::is_base_of_v<AActor, actorClass>, "class must be derived from AActor");
 
@@ -24,13 +24,17 @@ public:
     }
 
     template <typename actorClass>
-    AActor* SpawnActorOnCell(const int x_cell, const int y_cell, const float rotation, const sf::Vector2f& scale)
+    actorClass* SpawnActorOnCell(const int x_cell, const int y_cell, const float rotation,
+                             const sf::Vector2f& scale = { 1, 1 })
     {
         static_assert(std::is_base_of_v<AActor, actorClass>, "class must be derived from AActor");
 
-        sf::Vector2f worldLocation(x_cell * SPRITE_GAME_SIZE, y_cell * SPRITE_GAME_SIZE);
-        SpawnActor<actorClass>(worldLocation, rotation, scale);
+        sf::Vector2f worldLocation((float)x_cell * SPRITE_GAME_SIZE, (float)y_cell * SPRITE_GAME_SIZE);
+        return SpawnActor<actorClass>(worldLocation, rotation, scale);
     }
+
+    AActor* SpawnActorOnCellByID(const int ID, const int x_cell, const int y_cell, const float rotation,
+                                 const sf::Vector2f& scale = { 1, 1 });
 
     template <typename actorClass>
     std::vector<actorClass*> GetAllActorsOfClass()
@@ -68,11 +72,6 @@ public:
     void AddActorToWorld(AActor* actor);
     void RemoveActorFromWorld(AActor* actor);
 
-    void AddStar();
-    void AddPoint();
-    inline int GetStarCount() const { return StarCount; }
-    inline int GetPointCount() const { return PointCount; }
-
     void StartLevel();
 
 private:
@@ -81,11 +80,6 @@ private:
     std::string LevelName;
     int PointCountOnLevel, StarCountOnLevel;
 
-    // std::weak_ptr<Actor> CreateObject(sf::Vector2f pos, float rotation, int ID);
-
     std::unique_ptr<UPhysicsSubsystem> physicsSubsystem;
-
-    int PointCount = 0;
-    int StarCount = 0;
-    std::unique_ptr<ULevelHUD> LevelHUD;
+    std::unique_ptr<ManagerActorID> actorsID;
 };

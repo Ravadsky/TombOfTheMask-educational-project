@@ -1,40 +1,41 @@
 #pragma once
 #include "GameState.h"
 
-class LevelSubsystem;
-class Actor;
+class AActor;
+class UWorld;
+class AEditorSpectator;
 
-struct ActorInfo
+struct FActorInfo
 {
     int ActorID = -1;
-    int rotation = 0;
+    int currentRotation = 0;
+    AActor* currentActor = nullptr;
 };
 
 class ULevelEditor : public UGameState
 {
-  private:
-    std::unique_ptr<LevelSubsystem> LevelSS;
+private:
+    std::unique_ptr<UWorld> WorldInstance;
+    AEditorSpectator* WorldSpectator;
 
     int CurrentObjectIndex = 1;
     std::string LevelName;
 
-    sf::Vector2f CameraOffset = {MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE, MAX_LEVEL_SIZE / 2 * SPRITE_GAME_SIZE};
-    const sf::Vector2f MinCameraPos = {CAMERA_PIVOT - sf::Vector2f(SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE / 2)};
-    const sf::Vector2f MaxCameraPos = {sf::Vector2f(MAX_LEVEL_SIZE * SPRITE_GAME_SIZE - SPRITE_GAME_SIZE / 2,
-                                                    MAX_LEVEL_SIZE *SPRITE_GAME_SIZE - SPRITE_GAME_SIZE / 2) -
-                                       CAMERA_PIVOT};
+    FActorInfo LevelActors[LEVEL_SIZE][LEVEL_SIZE];
 
-    std::weak_ptr<Actor> Actors[MAX_LEVEL_SIZE][MAX_LEVEL_SIZE];
-    ActorInfo ActorsInfo[MAX_LEVEL_SIZE][MAX_LEVEL_SIZE];
+    void AddEntity();
+    void RotateEntity();
+    void RemoveEntity();
 
-  public:
+    int xCellMousePos, yCellMousePos;
+
+public:
     ULevelEditor();
     virtual void BeginPlay() override;
     virtual void Update(float deltaTime) override;
-                                                            
+
     void SaveLevel();
     void LoadLevel();
-                        
-    void MoveCamera();
+
     void SelectObjectIndex();
 };

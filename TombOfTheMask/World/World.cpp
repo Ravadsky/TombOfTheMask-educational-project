@@ -2,16 +2,34 @@
 #include "PhysicsSubsystem.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
 #include "Actors/Actor.h"
-#include "GUI/LevelHUD.h"
 #include "Core/DataFunctions.h"
+#include "Actors/ManagerActorID.h"
+#include <sstream>
 
-void UWorld::BeginPlay()
+#include "Actors/Point.h"
+#include "Actors/Star.h"
+
+UWorld::UWorld()
 {
-    LevelHUD = std::make_unique<ULevelHUD>();
+    actorsID = std::make_unique<ManagerActorID>(this);
 
-    // PointCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 64), "Point", PointText);
-    // StarCountWidget = std::make_unique<Widget>(sf::Vector2f(64, 128), "Star", StarText);
+    physicsSubsystem = std::make_unique<UPhysicsSubsystem>();
+    GetAudioSubsystem()->StartNewMusic("level_music");
 }
+
+AActor* UWorld::SpawnActorOnCellByID(const int ID, const int x_cell, const int y_cell, const float rotation,
+                                     const sf::Vector2f& scale)
+{
+    sf::Vector2f worldLocation((float)x_cell * SPRITE_GAME_SIZE, (float)y_cell * SPRITE_GAME_SIZE);
+    auto newActor = actorsID->Create(ID);
+    newActor->BeginPlay();
+    newActor->SetActorLocation(worldLocation);
+    newActor->SetActorRotation(rotation);
+    newActor->SetActorScale(scale);
+    return newActor;
+}
+
+void UWorld::BeginPlay() {}
 
 void UWorld::Update(float deltaTime)
 {
@@ -35,49 +53,24 @@ void UWorld::RemoveActorFromWorld(AActor* actor)
 
 void UWorld::StartLevel()
 {
-    physicsSubsystem = std::make_unique<UPhysicsSubsystem>();
-    GetAudioSubsystem()->StartNewMusic("level_music");
 
-         PointCountOnLevel = 0;
-         StarCountOnLevel = 0;
-    
-             LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
-         std::ifstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
-    
-    //     std::string line;
-    //     while (std::getline(file, line))
-    //     {
-    //         std::istringstream stream(line);
-    //         int xPos, yPos, Rotation, ActorID;
-    //         char commaSeparator;
-    //
-    //         stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
-    //
-    //         CreateObject({ (float)xPos, (float)yPos }, (float)Rotation, ActorID);
-    //
-    //         if (ActorID == 6 or ActorID == 7)
-    //         {
-    //             CreateObject({ (float)xPos, (float)yPos }, 0, 12);
-    //         }
-    //     }
-    //
-    //     PointCountOnLevel = GetCountOfActorsOf<Point>();
-    //     StarCountOnLevel = GetCountOfActorsOf<Star>();
-    //
-    //     for (auto _actor : ActorsOnLevel)
-    //     {
-    //         _actor->BeginPlay();
-    //     }
-}
+    PointCountOnLevel = 0;
+    StarCountOnLevel = 0;
 
-void UWorld::AddPoint()
-{
-    ++PointCount;
-    LevelHUD->UpdateHUDState(StarCount, PointCount);
-}
+    LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
+    std::ifstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
 
-void UWorld::AddStar()
-{
-    ++StarCount;
-    LevelHUD->UpdateHUDState(StarCount, PointCount);
+    std::string line;
+    while (std::getline(file, line))
+    {
+        std::istringstream stream(line);
+        int xPos, yPos, Rotation, ActorID;
+        char commaSeparator;
+
+        stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
+
+        SpawnActorOnCellByID(ActorID, xPos, yPos, (float)Rotation);
+    }
+    PointCountOnLevel = GetActorsNumberOfClass<APoint>();
+    StarCountOnLevel = GetActorsNumberOfClass<AStar>();
 }

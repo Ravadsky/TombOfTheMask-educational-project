@@ -8,6 +8,8 @@
 #include "Components/ColliderComponent.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
 
+#include "Components/ViewportComponent.h"
+
 APlayerEnd::APlayerEnd(UWorld* InWorld) : AActor(InWorld)
 {
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
@@ -28,19 +30,21 @@ void APlayerEnd::EndLevel(UColliderComponent* otherCollider)
         std::string key = "Level" + std::to_string(LevelIndex) + ':';
         ChangeDataParamater(key, 1);
 
+        auto viewport = actor->GetComponentByClass<UViewportComponent>();
+
         // Сколько звезд собрано
         key = "Level" + std::to_string(LevelIndex) + ".stars:";
-        if (player->GetStarCount() > GetDataParameter(key))
+        if (viewport->GetStarCount() > GetDataParameter(key))
         {
-            ChangeDataParamater(key, player->GetStarCount());
+            ChangeDataParamater(key, viewport->GetStarCount());
         }
 
         // Сколько очков собрано
         key = "Level" + std::to_string(LevelIndex) + ".points:";
-        if (player->GetPointCount() > GetDataParameter(key))
+        if (viewport->GetPointCount() > GetDataParameter(key))
         {
-            ChangeDataParamater(key, player->GetPointCount());
+            ChangeDataParamater(key, viewport->GetPointCount());
         }
-        Engine->MarkToSwitchState<LevelSelector>();
+        Engine->MarkToSwitchState<ULevelSelector>();
     }
 }

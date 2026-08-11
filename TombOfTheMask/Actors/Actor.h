@@ -38,7 +38,7 @@ public:
     float GetActorRotation() const;
     void SetActorRotation(float newRotation);
 
-        sf::Vector2f GetActorScale() const;
+    sf::Vector2f GetActorScale() const;
     void SetActorScale(sf::Vector2f newScale);
 
     // component methods
@@ -61,8 +61,9 @@ public:
 
         for (UActorComponent* comp : Components)
         {
-            if (dynamic_cast<componentClass>(comp) != nullptr)
-                return comp
+            auto castedComp = dynamic_cast<componentClass*>(comp);
+            if (castedComp != nullptr)
+                return castedComp;
         }
         return nullptr;
     }

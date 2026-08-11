@@ -2,8 +2,9 @@
 #include <functional>
 #include <vector>
 
-class GameState;
+class UGameState;
 
+class UObject;
 class URenderSubsystem;
 class UResourceSubsystem;
 class UAudioSubsystem;
@@ -21,7 +22,7 @@ public:
     inline void MarkToSwitchState()
     {
         needToSwitchState = true;
-        PendingState = []() -> std::unique_ptr<GameState> { return std::make_unique<T>(); };
+        PendingState = []() -> std::unique_ptr<UGameState> { return std::make_unique<T>(); };
     }
 
     inline URenderSubsystem* GetRenderSubsystem() const { return renderSubsystem.get(); };
@@ -32,12 +33,14 @@ public:
     void RegisterObject(UObject* object);
     void UnregisterObject(UObject* object);
 
+    void RegisterSubsystems();
+
 private:
     void SwitchGameState();
 
     bool needToSwitchState = false;
-    std::unique_ptr<GameState> CurrentGameState;
-    std::function<std::unique_ptr<GameState>()> PendingState;
+    std::unique_ptr<UGameState> CurrentGameState;
+    std::function<std::unique_ptr<UGameState>()> PendingState;
 
     std::unique_ptr<URenderSubsystem> renderSubsystem;
     std::unique_ptr<UResourceSubsystem> resourceSubsystem;

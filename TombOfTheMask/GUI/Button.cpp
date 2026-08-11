@@ -1,21 +1,28 @@
 #include "Button.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Base/TextBlock.h"
+#include "Base/Image.h"
 
-UButton::UButton(std::string text)
+UButton::UButton(UUserWidget* parent) : UUserWidget(parent)
 {
-    assert(ButtonTexture.loadFromFile(RESOURCES_PATH + "GUI/Button.png"));
-    ButtonText = std::make_unique<UTextBlock>(text);
+    ButtonImage = std::make_unique<UImage>(this);
+    ButtonImage->SetTextureByName("button");
+
+    ButtonText = std::make_unique<UTextBlock>(this);
 }
 
 void UButton::TriggerIfCollision(int xMousePos, int yMousePos)
 {
-    sf::Vector2f MousePos = { (float)xMousePos, (float)yMousePos };
-
-    if (Sprite.getGlobalBounds().contains(MousePos))
+    if (ButtonImage->ContainsMouse({ (float)xMousePos, (float)yMousePos }))
     {
         onButtonPressed.Broadcast();
-        GetAudioSubsystem()->PlaySound("button_sound");
+        GetAudioSubsystem()->PlaySound("button");
     }
+}
+
+void UButton::SetButtonText(std::string newText)
+{
+    ButtonText->SetText(newText);
 }
 
 void UButton::Render() {}

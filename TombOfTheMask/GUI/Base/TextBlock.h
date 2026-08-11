@@ -3,11 +3,11 @@
 
 class UTextBlock : public UUserWidget
 {
-  private:
+protected:
     sf::Text TextContainer;
 
-  public:
-    UTextBlock();
+public:
+    UTextBlock(UUserWidget* parent);
 
     virtual void Render() override;
 

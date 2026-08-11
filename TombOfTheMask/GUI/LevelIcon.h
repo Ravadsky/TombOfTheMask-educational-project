@@ -1,18 +1,19 @@
 #pragma once
-#include "UserWidget.h"
+#include "Base/UserWidget.h"
 
 class UTextBlock;
+class UImage;
 
 class ULevelIcon : public UUserWidget
 {
-  private:
-    sf::Sprite Sprite;
+private:
+    std::unique_ptr<UImage> LevelImage;
     std::unique_ptr<UTextBlock> PointCountText;
     std::unique_ptr<UTextBlock> StarCountText;
 
-  public:
-    virtual void Render() override;
+public:
+    ULevelIcon(UUserWidget* parent);
 
-
-    //LevelInfo(sf::Vector2f pos, sf::Texture &tex, int levelIndex);
+    void SetLevelInfo(int levelIndex);
+    void UpdateLevelIcon(int levelIndex);
 };

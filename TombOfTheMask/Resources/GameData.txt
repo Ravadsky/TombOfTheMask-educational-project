@@ -1,7 +1,7 @@
-MusicValue:1
-SoundValue:1
+MusicValue:0
+SoundValue:0
 
-CurrentLevel:1
+CurrentLevel:2
 
 Level1:1
 Level1.stars:3

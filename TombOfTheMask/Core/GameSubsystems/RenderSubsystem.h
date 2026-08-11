@@ -9,6 +9,7 @@ class URenderSubsystem : public UGameSubsystem
 {
 private:
     UCameraComponent* CurrentCameraComponent = nullptr;
+    sf::Vector2f CameraOrigin;
 
 public:
     std::vector<USpriteComponent*> ActorsToDraw;

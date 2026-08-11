@@ -1,21 +1,22 @@
 #pragma once
-#include "UserWidget.h"
+#include "Base/UserWidget.h"
 
 class UTextBlock;
+class UImage;
 
 class ULevelHUD : public UUserWidget
 {
 public:
-    ULevelHUD();
+    ULevelHUD(UUserWidget* parent);
 
     virtual void BeginPlay() override;
 
     void UpdateHUDState(int newStarCount, int newPointCount);
 
-private:
-    sf::Sprite StarSprite;
+protected:
+    std::unique_ptr<UImage> StarImage;
     std::unique_ptr<UTextBlock> StarText;
 
-    sf::Sprite PointSprite;
+    std::unique_ptr<UImage> PointImage;
     std::unique_ptr<UTextBlock> PointText;
 };

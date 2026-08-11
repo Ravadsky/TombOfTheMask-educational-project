@@ -18,12 +18,13 @@ public:
     USpriteComponent(AActor* componentOwner);
     virtual ~USpriteComponent();
 
-    void Render();
+    void Render(sf::Vector2f cameraOrigin);
 
     void SetSpriteTexture(const std::string& textureName);
 
     void SetColor(sf::Color color);
     void Flip(bool flip);
 
+    inline ERenderLayer GetRenderLayer() { return renderLayer; }
     sf::FloatRect GetBounds();
 };

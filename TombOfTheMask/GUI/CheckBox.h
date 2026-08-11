@@ -1,25 +1,16 @@
 #pragma once
-#include "UserWidget.h"
+#include "Button.h"
 
-class SpriteComponent;
-
-class UCheckBox : public UUserWidget
+class UCheckBox : public UButton
 {
-private:
-    sf::Texture TextureOn, TextureOff;
-    sf::Sprite Sprite;
-
+protected:
+    std::string TextureOn, TextureOff;
     bool CurrentState;
 
 public:
-    UCheckBox(std::string SpriteOn, std::string SpriteOff);
-
-    void TriggerIfCollision(int xMousePos, int yMousePos);
+    UCheckBox(UUserWidget* parent);
 
     void SetInitState(bool State);
     bool ChangeState();
-
-    virtual void Render() override;
-
-    FDelegate<> onCheckBoxPressed;
+    void SetTextureNames(std::string textureOn, std::string textureOff);
 };

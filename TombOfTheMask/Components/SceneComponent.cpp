@@ -41,7 +41,7 @@ void USceneComponent::SetWorldLocation(sf::Vector2f newLocation)
         float parentRotation = Parent->GetWorldRotation();
 
         sf::Vector2f delta = newLocation - parentLocation;
-        location = RotateVector(delta, -parentRotation); // обратный поворот
+        location = RotateVector(delta, -parentRotation);
     }
     location = newLocation;
 }
@@ -73,9 +73,9 @@ void USceneComponent::AddWorldOffset(sf::Vector2f offset)
 
 void USceneComponent::AttachToComponent(USceneComponent* parent)
 {
-    assert(parent != nullptr, "parent component no nullptr");
+    assert(parent != nullptr);
 
-    if (parent != nullptr)
+    if (Parent != nullptr)
     {
         auto& oldParent_Children = Parent->Children;
         oldParent_Children.erase(std::remove(oldParent_Children.begin(), oldParent_Children.end(), this),
