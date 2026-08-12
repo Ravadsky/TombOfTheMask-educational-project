@@ -1,5 +1,5 @@
 #include "Point.h"
-#include "Player.h"
+#include "Actors/Player.h"
 
 #include "Components/ColliderComponent.h"
 #include "Components/ViewportComponent.h"
@@ -11,7 +11,7 @@ APoint::APoint(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
     ColliderComponent->onCollision.Add(this, &APoint::Pickup);
 
-    SpriteComponent->SetSpriteTexture("star");
+    SpriteComponent->SetSpriteTexture("point");
 }
 
 void APoint::Pickup(UColliderComponent* otherCollider)

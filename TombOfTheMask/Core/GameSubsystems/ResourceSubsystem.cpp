@@ -1,11 +1,22 @@
 #include "ResourceSubsystem.h"
 
+#include "Actors/Player.h"
+#include "Actors/Environment/Star.h"
+#include "Actors/Environment/Point.h"
+#include "Actors/Environment/Archer.h"
+#include "Actors/Environment/Walls.h"
+#include "Actors/Environment/EditorObject.h"
+#include "Actors/Environment/PlayerEnd.h"
+#include "Actors/Environment/PlayerStart.h"
+#include "Actors/Environment/Spikes.h"
+
 UResourceSubsystem::UResourceSubsystem()
 {
     LoadGameFont("font.otf");
     LoadSpriteSheet("Sprites.png");
 
     LoadGUISprite("background");
+    LoadGUISprite("selector");
     LoadGUISprite("button");
     LoadGUISprite("completed_level_icon");
     LoadGUISprite("locked_level_icon");
@@ -44,6 +55,23 @@ UResourceSubsystem::UResourceSubsystem()
     // sprite sheet row 4
     LoadSpriteFromSpriteSheet("background_wall", 4, 1);
     LoadSpriteFromSpriteSheet("editor_object", 4, 4);
+
+    RegisterByID<AWall>(0, "wall");
+    RegisterByID<ACornerWall>(1, "corner_wall");
+    RegisterByID<ABackgroundWall>(2, "background_wall");
+    RegisterByID<ASpikes>(3, "spikes");
+    RegisterByID<AArcher>(4, "archer");
+    RegisterByID<APlayerStart>(5, "player_start");
+    RegisterByID<APlayerStartBlock>(6, "player_start_block");
+    RegisterByID<APlayerEnd>(7, "player_end");
+    RegisterByID<APlayerEndBlock>(8, "player_end_block");
+    RegisterByID<APoint>(9, "point");
+    RegisterByID<AStar>(10, "star");
+
+    // specific objects
+    RegisterByID<APlayer>(51, "player", false);
+    RegisterByID<AArrow>(52, "arrow", false);
+    RegisterByID<AEditorObject>(99, "editor_object", false);
 }
 
 void UResourceSubsystem::LoadSpriteFromSpriteSheet(const std::string& spriteName, int row, int column)

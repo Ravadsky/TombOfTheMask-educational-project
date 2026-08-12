@@ -1,5 +1,5 @@
 #include "Star.h"
-#include "Player.h"
+#include "Actors/Player.h"
 
 #include "Components/ColliderComponent.h"
 #include "Components/ViewportComponent.h"
@@ -17,6 +17,7 @@ AStar::AStar(UWorld* InWorld) : AActor(InWorld)
 void AStar::Pickup(UColliderComponent* otherCollider)
 {
     auto actor = otherCollider->GetOwner();
+
     if (isClassOf<APlayer>(actor))
     {
         auto viewport = actor->GetComponentByClass<UViewportComponent>();

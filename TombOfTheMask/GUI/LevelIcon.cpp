@@ -9,7 +9,10 @@ ULevelIcon::ULevelIcon(UUserWidget* parent) : UUserWidget(parent)
     LevelImage->SetTextureByName("level_icon");
 
     PointCountText = std::make_unique<UTextBlock>(this);
+    PointCountText->SetScreenPosition({ 124.0f, 56.0f });
+
     StarCountText = std::make_unique<UTextBlock>(this);
+    StarCountText->SetScreenPosition({ 124.0f, -16.0f });
 }
 
 void ULevelIcon::SetLevelInfo(int levelIndex)
@@ -22,12 +25,12 @@ void ULevelIcon::SetLevelInfo(int levelIndex)
 
     value = GetDataParameter(key + ".stars:");
     maxValue = GetDataParameter(key + ".maxstars:");
-    text = std::to_string(value) + " / " + std::to_string(maxValue);
+    text = std::to_string(value) + "/" + std::to_string(maxValue);
     StarCountText->SetText(text);
 
     value = GetDataParameter(key + ".points:");
     maxValue = GetDataParameter(key + ".maxpoints:");
-    text = std::to_string(value) + " / " + std::to_string(maxValue);
+    text = std::to_string(value) + "/" + std::to_string(maxValue);
     PointCountText->SetText(text);
 
     UpdateLevelIcon(levelIndex);

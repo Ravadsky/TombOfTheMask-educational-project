@@ -4,6 +4,7 @@
 class AActor;
 class UWorld;
 class AEditorSpectator;
+class UEditorSelectorPanel;
 
 struct FActorInfo
 {
@@ -16,9 +17,11 @@ class ULevelEditor : public UGameState
 {
 private:
     std::unique_ptr<UWorld> WorldInstance;
+    std::unique_ptr<UEditorSelectorPanel> EditorSelectorPanel;
+
     AEditorSpectator* WorldSpectator;
 
-    int CurrentObjectIndex = 1;
+    int selectorID = -1;
     std::string LevelName;
 
     FActorInfo LevelActors[LEVEL_SIZE][LEVEL_SIZE];
@@ -26,8 +29,8 @@ private:
     void AddEntity();
     void RotateEntity();
     void RemoveEntity();
-
-    int xCellMousePos, yCellMousePos;
+    void EndEditor();
+    int x_cell, y_cell;
 
 public:
     ULevelEditor();
@@ -37,5 +40,5 @@ public:
     void SaveLevel();
     void LoadLevel();
 
-    void SelectObjectIndex();
+    void SelectByID(int newID);
 };

@@ -21,3 +21,6 @@ private:
     EMovementDirection currentDirection = EMovementDirection::NoDirection;
     float movementSpeed = 8.0f;
 };
+
+bool isRotationApproximatelyEqual(float rotation, float equals, float threshold = 1.0f);
+EMovementDirection ConvertDirectionFromRotation(float rotation);

@@ -11,9 +11,6 @@ class APlayer : public AActor
 public:
     APlayer(UWorld* InWorld);
 
-    virtual void BeginPlay() override;
-    virtual void Update(float deltaTime) override;
-
     void GetDamage();
 
 private:

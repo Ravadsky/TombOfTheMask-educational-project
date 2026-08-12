@@ -9,7 +9,7 @@ void UViewportComponent::AddPoint()
 
 UViewportComponent::UViewportComponent(AActor* componentOwner) : UActorComponent(componentOwner)
 {
-    LevelHUD = std::make_unique<ULevelHUD>(nullptr);
+    LevelHUD = Construct<ULevelHUD>(nullptr);
 }
 
 void UViewportComponent::AddStar()

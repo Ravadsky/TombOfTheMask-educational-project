@@ -51,15 +51,6 @@
     <ClCompile Include="Actors\Environment\Archer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Environment\Arrow.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Environment\BackgroundWall.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Environment\CornerWall.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Actors\Environment\EditorObject.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -69,19 +60,13 @@
     <ClCompile Include="Actors\Environment\PlayerEnd.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Environment\PlayerEndBlock.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Actors\Environment\PlayerStart.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Environment\PlayerStartBlock.cpp">
+    <ClCompile Include="Actors\Environment\Point.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Point.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Actors\Environment\Wall.cpp">
+    <ClCompile Include="Actors\Environment\Walls.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Core\GameSubsystems\AudioSubsystem.cpp">
@@ -138,7 +123,7 @@
     <ClCompile Include="Actors\Environment\Spikes.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\Star.cpp">
+    <ClCompile Include="Actors\Environment\Star.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GUI\CheckBox.cpp">
@@ -177,13 +162,13 @@
     <ClCompile Include="GUI\Base\Image.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Actors\ManagerActorID.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ViewportComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Actors\EditorSpectator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\EditorSelector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -197,15 +182,6 @@
     <ClInclude Include="Actors\Environment\Archer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Environment\Arrow.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Environment\BackgroundWall.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Environment\CornerWall.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Actors\Environment\EditorObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -215,19 +191,13 @@
     <ClInclude Include="Actors\Environment\PlayerEnd.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Environment\PlayerEndBlock.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Actors\Environment\PlayerStart.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Environment\PlayerStartBlock.h">
+    <ClInclude Include="Actors\Environment\Point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Point.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Actors\Environment\Wall.h">
+    <ClInclude Include="Actors\Environment\Walls.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Core\DataFunctions.h">
@@ -287,7 +257,7 @@
     <ClInclude Include="Components\SpriteComponent.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\Star.h">
+    <ClInclude Include="Actors\Environment\Star.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GUI\Base\TextBlock.h">
@@ -332,13 +302,13 @@
     <ClInclude Include="GUI\Base\Image.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Actors\ManagerActorID.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Components\ViewportComponent.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Actors\EditorSpectator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\EditorSelector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

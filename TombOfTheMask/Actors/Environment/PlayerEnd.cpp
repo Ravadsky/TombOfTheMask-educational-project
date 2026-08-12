@@ -48,3 +48,10 @@ void APlayerEnd::EndLevel(UColliderComponent* otherCollider)
         Engine->MarkToSwitchState<ULevelSelector>();
     }
 }
+
+APlayerEndBlock::APlayerEndBlock(UWorld* InWorld) : AActor(InWorld)
+{
+    ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+
+    SpriteComponent->SetSpriteTexture("player_end_block");
+}

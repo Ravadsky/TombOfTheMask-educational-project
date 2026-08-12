@@ -20,6 +20,8 @@ public:
     inline ECollisionPreset GetCollisionPreset() const { return CollisionPreset; };
     inline void SetCollisionPreset(ECollisionPreset collision) { CollisionPreset = collision; };
 
+    virtual void Update(float deltaTime) override;
+
 private:
     ECollisionPreset CollisionPreset = ECollisionPreset::Ignore;
     sf::FloatRect CollisionBox;

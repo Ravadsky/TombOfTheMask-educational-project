@@ -5,8 +5,11 @@
 
 UColliderComponent::UColliderComponent(AActor* componentOwner) : USceneComponent(componentOwner)
 {
-    CollisionBox = { location.x - SPRITE_GAME_SIZE / 2, location.y - SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE,
-                     SPRITE_GAME_SIZE };
+    bCanTick = true;
+
+    auto loc = GetWorldLocation();
+    CollisionBox = { loc.x - SPRITE_GAME_SIZE / (scale.x * 2), loc.y - SPRITE_GAME_SIZE / (scale.y * 2),
+                     SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
 
     Owner->GetWorld()->GetPhysicsSubsystem()->AddTriggerComponent(this);
 }
@@ -19,4 +22,11 @@ UColliderComponent::~UColliderComponent()
 void UColliderComponent::OnCollision(UColliderComponent* otherCollider)
 {
     onCollision.Broadcast(otherCollider);
+}
+
+void UColliderComponent::Update(float deltaTime)
+{
+    auto loc = GetWorldLocation();
+    CollisionBox = { loc.x - SPRITE_GAME_SIZE / (scale.x * 2), loc.y - SPRITE_GAME_SIZE / (scale.y * 2),
+                     SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
 }

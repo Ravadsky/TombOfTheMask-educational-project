@@ -28,4 +28,12 @@ public:
 
 protected:
     int xMousePos, yMousePos;
+
+    FDelegate<> onLeftMouseButtonPressed;
+    FDelegate<> onMiddleMouseButtonPressed;
+    FDelegate<> onRightMouseButtonPressed;
+    FDelegate<> onEnterPressed;
+    FDelegate<> onEscapePressed;
+
+    void CheckAllButtonsPressed();
 };

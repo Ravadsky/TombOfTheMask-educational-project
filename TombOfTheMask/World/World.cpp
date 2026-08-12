@@ -3,29 +3,29 @@
 #include "Core/GameSubsystems/AudioSubsystem.h"
 #include "Actors/Actor.h"
 #include "Core/DataFunctions.h"
-#include "Actors/ManagerActorID.h"
 #include <sstream>
 
-#include "Actors/Point.h"
-#include "Actors/Star.h"
+#include "Actors/Environment/Point.h"
+#include "Actors/Environment/Star.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
 
 UWorld::UWorld()
 {
-    actorsID = std::make_unique<ManagerActorID>(this);
-
-    physicsSubsystem = std::make_unique<UPhysicsSubsystem>();
+    physicsSubsystem = new UPhysicsSubsystem;
     GetAudioSubsystem()->StartNewMusic("level_music");
 }
+
+UWorld::~UWorld() {}
 
 AActor* UWorld::SpawnActorOnCellByID(const int ID, const int x_cell, const int y_cell, const float rotation,
                                      const sf::Vector2f& scale)
 {
     sf::Vector2f worldLocation((float)x_cell * SPRITE_GAME_SIZE, (float)y_cell * SPRITE_GAME_SIZE);
-    auto newActor = actorsID->Create(ID);
-    newActor->BeginPlay();
+    auto newActor = GetResourceSubsystem()->Create(ID, this);
     newActor->SetActorLocation(worldLocation);
     newActor->SetActorRotation(rotation);
     newActor->SetActorScale(scale);
+    newActor->BeginPlay();
     return newActor;
 }
 
@@ -35,8 +35,10 @@ void UWorld::Update(float deltaTime)
 {
     for (auto actor : ActorsInWorld)
     {
-        actor->Update(deltaTime);
+        if (actor->CanTick())
+            actor->Update(deltaTime);
     }
+    physicsSubsystem->Update(deltaTime);
 }
 
 void UWorld::AddActorToWorld(AActor* actor)
@@ -53,6 +55,7 @@ void UWorld::RemoveActorFromWorld(AActor* actor)
 
 void UWorld::StartLevel()
 {
+    bIsEditorMode = false;
 
     PointCountOnLevel = 0;
     StarCountOnLevel = 0;
@@ -73,4 +76,12 @@ void UWorld::StartLevel()
     }
     PointCountOnLevel = GetActorsNumberOfClass<APoint>();
     StarCountOnLevel = GetActorsNumberOfClass<AStar>();
+}
+
+void UWorld::DestoyLevel()
+{
+    for (auto actor : ActorsInWorld)
+        actor->MarkAsGarbage();
+
+    physicsSubsystem->MarkAsGarbage();
 }

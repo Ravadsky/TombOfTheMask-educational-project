@@ -10,4 +10,6 @@ ULevelInstance::ULevelInstance()
 void ULevelInstance::Update(float deltaTime)
 {
     WorldInstance->Update(deltaTime);
+
+    UGameState::Update(deltaTime);
 }

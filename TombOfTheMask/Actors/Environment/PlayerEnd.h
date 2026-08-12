@@ -9,3 +9,9 @@ public:
 private:
     void EndLevel(UColliderComponent* otherCollider);
 };
+
+class APlayerEndBlock : public AActor
+{
+public:
+    APlayerEndBlock(UWorld* InWorld);
+};

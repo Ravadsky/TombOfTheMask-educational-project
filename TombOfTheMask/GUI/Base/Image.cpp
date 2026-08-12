@@ -15,7 +15,10 @@ void UImage::Render()
 
 void UImage::SetTextureByName(std::string newString)
 {
-    Sprite.setTexture(GetResourceSubsystem()->GetTexture(newString));
+    auto& newTexture = GetResourceSubsystem()->GetTexture(newString);
+    Sprite.setTexture(newTexture);
+    Sprite.setTextureRect(sf::IntRect(0, 0, newTexture.getSize().x, newTexture.getSize().y));
+
     sf::FloatRect bounds = Sprite.getLocalBounds();
     Sprite.setOrigin(std::floor(bounds.left + bounds.width / 2.0f), std::floor(bounds.top + bounds.height / 2.0f));
 }

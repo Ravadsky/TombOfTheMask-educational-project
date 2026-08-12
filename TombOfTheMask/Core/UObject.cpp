@@ -13,5 +13,9 @@ UObject::~UObject()
 
 void UObject::MarkAsGarbage()
 {
-    GetGarbageCollector()->AddObjectToKill(this);
+    if (bPendingToKill == false)
+    {
+        GetGarbageCollector()->AddObjectToKill(this);
+        bPendingToKill = true;
+    }
 }

@@ -16,6 +16,7 @@ ASpikes::ASpikes(UWorld* InWorld) : AActor(InWorld)
 void ASpikes::DamagePlayer(UColliderComponent* otherCollider)
 {
     auto actor = otherCollider->GetOwner();
+
     if (isClassOf<APlayer>(actor))
     {
         auto player = CastTo<APlayer>(actor);

@@ -26,7 +26,7 @@ sf::Vector2f UUserWidget::GetAlignmentOffset()
             offset.y = WINDOW_HEIGHT / 2;
             break;
         case EVerticalAlignment::Bottom:
-            offset.x = WINDOW_HEIGHT;
+            offset.y = WINDOW_HEIGHT;
             break;
     }
     return offset;

@@ -1,5 +1,5 @@
 #pragma once
-#include "Actor.h"
+#include "Actors/Actor.h"
 
 class APoint : public AActor
 {

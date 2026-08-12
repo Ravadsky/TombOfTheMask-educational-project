@@ -34,11 +34,11 @@ ULevelSelector::ULevelSelector() : UGameState()
 
     Level1Button = ConstructButton<UButton>(CanvasImage.get(), "level 1");
     Level1Button->onButtonPressed.Add(this, &ULevelSelector::OnLevel1ButtonPressed);
-    Level1Icon->SetScreenPosition({ 0.0f, -192.0f });
+    Level1Button->SetScreenPosition({ 0.0f, -192.0f });
 
     Level1Icon = Construct<ULevelIcon>(CanvasImage.get());
     Level1Icon->SetLevelInfo(1);
-    Level1Icon->SetScreenPosition({ 0.0f, -192.0f });
+    Level1Icon->SetScreenPosition({ -340.0f, -192.0f });
 
     //
 
@@ -47,6 +47,8 @@ ULevelSelector::ULevelSelector() : UGameState()
 
     Level2Icon = Construct<ULevelIcon>(CanvasImage.get());
     Level2Icon->SetLevelInfo(2);
+    Level2Icon->SetScreenPosition({ -340.0f, 0.0f });
+
 
     //
 
@@ -56,7 +58,7 @@ ULevelSelector::ULevelSelector() : UGameState()
 
     Level3Icon = Construct<ULevelIcon>(CanvasImage.get());
     Level3Icon->SetLevelInfo(3);
-    Level3Icon->SetScreenPosition({ 0.0f, +192.0f });
+    Level3Icon->SetScreenPosition({ -340.0f, +192.0f });
 }
 
 void ULevelSelector::ChooseLevel(int index)

@@ -3,12 +3,12 @@
 
 class AActor;
 class UPhysicsSubsystem;
-class ManagerActorID;
 
 class UWorld : public UObject
 {
 public:
     UWorld();
+    ~UWorld();
 
     template <typename actorClass>
     actorClass* SpawnActor(const sf::Vector2f& location, const float rotation, const sf::Vector2f& scale = { 1, 1 })
@@ -25,7 +25,7 @@ public:
 
     template <typename actorClass>
     actorClass* SpawnActorOnCell(const int x_cell, const int y_cell, const float rotation,
-                             const sf::Vector2f& scale = { 1, 1 })
+                                 const sf::Vector2f& scale = { 1, 1 })
     {
         static_assert(std::is_base_of_v<AActor, actorClass>, "class must be derived from AActor");
 
@@ -67,12 +67,15 @@ public:
     virtual void BeginPlay() override;
     virtual void Update(float deltaTime) override;
 
-    inline UPhysicsSubsystem* GetPhysicsSubsystem() { return physicsSubsystem.get(); };
+    inline UPhysicsSubsystem* GetPhysicsSubsystem() { return physicsSubsystem; };
 
     void AddActorToWorld(AActor* actor);
     void RemoveActorFromWorld(AActor* actor);
 
     void StartLevel();
+    void DestoyLevel();
+
+    bool bIsEditorMode = true;
 
 private:
     std::vector<AActor*> ActorsInWorld;
@@ -80,6 +83,5 @@ private:
     std::string LevelName;
     int PointCountOnLevel, StarCountOnLevel;
 
-    std::unique_ptr<UPhysicsSubsystem> physicsSubsystem;
-    std::unique_ptr<ManagerActorID> actorsID;
+    UPhysicsSubsystem* physicsSubsystem;
 };

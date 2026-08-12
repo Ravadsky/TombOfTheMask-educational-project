@@ -3,6 +3,9 @@
 
 class UObject
 {
+private:
+    bool bPendingToKill = false;
+
 protected:
     bool bCanTick = false;
 
@@ -13,6 +16,7 @@ public:
     virtual void BeginPlay() {};
     virtual void Update(float deltaTime) {};
 
+    inline bool IsValid() const { return !bPendingToKill; }
     void MarkAsGarbage();
 
     inline bool CanTick() const { return bCanTick; }

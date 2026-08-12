@@ -7,6 +7,8 @@
 
 AActor::AActor(UWorld* InWorld) : UObject()
 {
+    bCanTick = true;
+
     World = InWorld;
 
     SceneComponent = AddNewComponent<USceneComponent>();
@@ -29,6 +31,7 @@ AActor::~AActor()
     }
     Components.clear();
 
+    //
     GetWorld()->RemoveActorFromWorld(this);
 }
 
@@ -59,7 +62,11 @@ void AActor::AddWorldOffset(sf::Vector2f offset)
 
 float AActor::GetActorRotation() const
 {
-    return RootComponent->GetWorldRotation();
+    float rotation = RootComponent->GetWorldRotation();
+    float angle = std::fmod(rotation, 360.0f);
+    if (angle < 0.0f)
+        angle += 360.0f;
+    return angle;
 }
 
 void AActor::SetActorRotation(float newRotation)

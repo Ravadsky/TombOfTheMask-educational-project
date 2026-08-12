@@ -7,10 +7,8 @@
 #include "Components/ViewportComponent.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
 
-#include "Actors/Environment/Arrow.h"
+#include "Actors/Environment/Archer.h"
 #include "GameStates/LevelInstance.h"
-
-void APlayer::Update(float deltaTime) {}
 
 APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
 {
@@ -30,8 +28,6 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
     //                  SPRITE_GAME_SIZE / 2 };
 }
 
-void APlayer::BeginPlay() {}
-
 //sf::FloatRect APlayer::GetCollisionBox()
 //{
 //
@@ -46,7 +42,7 @@ void APlayer::BeginPlay() {}
 void APlayer::GetDamage()
 {
     //ActorSprite->SetColor(sf::Color::Red);
-    GetAudioSubsystem()->PlaySound("death_sound");
+    GetAudioSubsystem()->PlaySound("death");
     //CanAction = false;
     Engine->MarkToSwitchState<ULevelInstance>();
 }

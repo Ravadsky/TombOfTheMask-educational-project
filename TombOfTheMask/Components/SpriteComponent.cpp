@@ -44,6 +44,7 @@ void USpriteComponent::Render(sf::Vector2f cameraOrigin)
     if (sprite.getTexture() != nullptr)
     {
         sprite.setPosition(CAMERA_PIVOT - cameraOrigin + GetWorldLocation());
+        sprite.setRotation(GetWorldRotation());
         Window->draw(sprite);
     }
 }

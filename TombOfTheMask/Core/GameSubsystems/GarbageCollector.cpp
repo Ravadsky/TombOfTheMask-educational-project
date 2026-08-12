@@ -1,12 +1,13 @@
 #include "GarbageCollector.h"
 
-UGarbageCollector::UGarbageCollector() : UGameSubsystem() {} 
+UGarbageCollector::UGarbageCollector() : UGameSubsystem() {}
 
 void UGarbageCollector::Update(float deltaTime)
 {
     for (auto obj : ObjectsToKill)
     {
-        delete obj;
+        if (obj != nullptr)
+            delete obj;
     }
     ObjectsToKill.clear();
 }
