@@ -18,4 +18,6 @@ private:
     UMovementComponent* MovementComponent;
     UCameraComponent* CameraComponent;
     UViewportComponent* ViewportComponent;
+
+    void StopMovement(UColliderComponent* otherCollider);
 };

@@ -35,6 +35,8 @@ public:
 
     void RegisterSubsystems();
 
+    inline void SetSleepingTime(int inMilliseconds) { sleepingTimeBetweenFrames = inMilliseconds; }
+
 private:
     void SwitchGameState();
 
@@ -51,4 +53,7 @@ private:
 
     sf::Clock GameClock;
     float deltaTime = 0.f;
+
+    int sleepingTimeBetweenFrames = 0;
+    void SleepToNextFrame();
 };

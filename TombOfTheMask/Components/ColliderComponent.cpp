@@ -8,8 +8,10 @@ UColliderComponent::UColliderComponent(AActor* componentOwner) : USceneComponent
     bCanTick = true;
 
     auto loc = GetWorldLocation();
-    CollisionBox = { loc.x - SPRITE_GAME_SIZE / (scale.x * 2), loc.y - SPRITE_GAME_SIZE / (scale.y * 2),
-                     SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
+
+    float halfedSizeX = (SPRITE_GAME_SIZE * 0.5f) * scale.x;
+    float halfedSizeY = (SPRITE_GAME_SIZE * 0.5f) * scale.y;
+    CollisionBox = { loc.x - halfedSizeX, loc.y - halfedSizeY, halfedSizeX * 2, halfedSizeY * 2 };
 
     Owner->GetWorld()->GetPhysicsSubsystem()->AddTriggerComponent(this);
 }
@@ -27,6 +29,7 @@ void UColliderComponent::OnCollision(UColliderComponent* otherCollider)
 void UColliderComponent::Update(float deltaTime)
 {
     auto loc = GetWorldLocation();
-    CollisionBox = { loc.x - SPRITE_GAME_SIZE / (scale.x * 2), loc.y - SPRITE_GAME_SIZE / (scale.y * 2),
-                     SPRITE_GAME_SIZE, SPRITE_GAME_SIZE };
+    float halfedSizeX = (SPRITE_GAME_SIZE * 0.5f) * scale.x;
+    float halfedSizeY = (SPRITE_GAME_SIZE * 0.5f) * scale.y;
+    CollisionBox = { loc.x - halfedSizeX, loc.y - halfedSizeY, halfedSizeX * 2, halfedSizeY * 2 };
 }

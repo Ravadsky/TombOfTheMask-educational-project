@@ -1,41 +1,63 @@
 #include "MovementComponent.h"
 #include "Actors/Actor.h"
+#include "World/World.h"
 
-UMovementComponent::UMovementComponent(AActor* componentOwner) : UActorComponent(componentOwner) {}
-
-void UMovementComponent::Move(EMovementDirection direction)
+UMovementComponent::UMovementComponent(AActor* componentOwner) : UActorComponent(componentOwner)
 {
-    sf::Vector2f vectorDirection;
+    bCanTick = true;
+}
 
-    switch (direction)
+void UMovementComponent::Move(EMovementDirection direction, bool isPushing)
+{
+
+    bIsPushing = isPushing;
+    currentDirection = direction;
+
+    sprite = GetOwner()->GetComponentByClass<USpriteComponent>();
+
+    switch (currentDirection)
     {
         case EMovementDirection::Up:
-            vectorDirection = { 0.f, -1.f };
-            // ActorSprite->SetRotation(90.f);
-            // ActorSprite->Flip(true);
+            SetMovement({ 0.f, -movementSpeed }, 90.0f, true);
             break;
         case EMovementDirection::Down:
-            vectorDirection = { 0.f, 1.f };
-            //  ActorSprite->SetRotation(90.f);
-            //   ActorSprite->Flip(false);
+            SetMovement({ 0.f, movementSpeed }, 90.0f, false);
             break;
         case EMovementDirection::Left:
-            vectorDirection = { -1.f, 0.f };
-            //    ActorSprite->SetRotation(0.f);
-            //   ActorSprite->Flip(true);
+            SetMovement({ -movementSpeed, 0.f }, 0.0f, true);
             break;
         case EMovementDirection::Right:
-            vectorDirection = { 1.f, 0.f };
-            // ActorSprite->SetRotation(0.f);
-            //   ActorSprite->Flip(false);
+            SetMovement({ movementSpeed, 0.f }, 0.0f, false);
             break;
 
         case EMovementDirection::NoDirection:
-            vectorDirection = { 0.f, 0.f };
+            SetMovement({ 0, 0.f }, 0.0f, false);
     }
+    GetOwner()->AddWorldOffset(lastMovementOffset);
+}
 
-    sf::Vector2f OffsetInPixels(vectorDirection.x * movementSpeed, vectorDirection.y * movementSpeed);
-    GetOwner()->AddWorldOffset(OffsetInPixels);
+void UMovementComponent::StopMovement(bool revertPreviousMovement)
+{
+    bIsPushing = false;
+    currentDirection = EMovementDirection::NoDirection;
+
+    if (revertPreviousMovement)
+        GetOwner()->AddWorldOffset(-lastMovementOffset);
+}
+
+void UMovementComponent::Update(float deltaTime)
+{
+    if (GetOwner()->GetWorld()->bIsEditorMode == false)
+        if (bIsPushing)
+            Move(currentDirection, true);
+}
+
+void UMovementComponent::SetMovement(sf::Vector2f direction, float spriteRotation, bool spriteFlip)
+{
+
+    lastMovementOffset = direction;
+    sprite->SetWorldRotation(spriteRotation);
+    sprite->Flip(spriteFlip);
 }
 
 bool isRotationApproximatelyEqual(float rotation, float equals, float threshold)
@@ -53,4 +75,6 @@ EMovementDirection ConvertDirectionFromRotation(float rotation)
         return EMovementDirection::Left;
     if (isRotationApproximatelyEqual(rotation, 270.0f))
         return EMovementDirection::Up;
+
+    return EMovementDirection::NoDirection;
 }

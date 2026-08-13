@@ -9,6 +9,7 @@
 AStar::AStar(UWorld* InWorld) : AActor(InWorld)
 {
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->SetWorldScale({ 0.5f, 0.5f });
     ColliderComponent->onCollision.Add(this, &AStar::Pickup);
 
     SpriteComponent->SetSpriteTexture("star");
@@ -16,6 +17,7 @@ AStar::AStar(UWorld* InWorld) : AActor(InWorld)
 
 void AStar::Pickup(UColliderComponent* otherCollider)
 {
+
     auto actor = otherCollider->GetOwner();
 
     if (isClassOf<APlayer>(actor))

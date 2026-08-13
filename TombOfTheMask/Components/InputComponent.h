@@ -1,6 +1,8 @@
 #pragma once
 #include "Components/ActorComponent.h"
 
+class UMovementComponent;
+
 class UInputComponent : public UActorComponent
 {
 public:
@@ -8,5 +10,10 @@ public:
 
     virtual void Update(float deltaTime) override;
 
-    bool CanAction = true;
+    inline void EnableControlActor() { canControlActor = true; };
+    inline void DisableControlActor() { canControlActor = false; };
+
+private:
+    UMovementComponent* movement;
+    bool canControlActor = true;
 };

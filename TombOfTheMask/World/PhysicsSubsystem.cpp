@@ -1,6 +1,7 @@
 #include "PhysicsSubsystem.h"
 
 #include "Components/ColliderComponent.h"
+#include "Actors/Actor.h"
 
 void UPhysicsSubsystem::Update(float deltaTime)
 {
@@ -19,8 +20,11 @@ void UPhysicsSubsystem::Update(float deltaTime)
 
             if (component->GetCollisionBox().intersects(otherComponent->GetCollisionBox()))
             {
-                component->OnCollision(otherComponent);
-                otherComponent->OnCollision(component);
+                if (component->GetOwner()->IsValid())
+                    component->OnCollision(otherComponent);
+
+                if (otherComponent->GetOwner()->IsValid())
+                    otherComponent->OnCollision(component);
             }
         }
     }

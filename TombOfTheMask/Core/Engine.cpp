@@ -31,6 +31,7 @@ void GEngine::Update()
 
     // collect garbage after all
     garbageCollector->Update(deltaTime);
+    SleepToNextFrame();
 }
 
 void GEngine::RegisterObject(UObject* object)
@@ -62,4 +63,12 @@ void GEngine::SwitchGameState()
 
     PendingState = nullptr;
     needToSwitchState = false;
+}
+
+void GEngine::SleepToNextFrame()
+{
+    if (sleepingTimeBetweenFrames > 0)
+        sf::sleep(sf::milliseconds(sleepingTimeBetweenFrames));
+
+    sleepingTimeBetweenFrames = 0;
 }

@@ -9,6 +9,7 @@
 APoint::APoint(UWorld* InWorld) : AActor(InWorld)
 {
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Overlap);
+    ColliderComponent->SetWorldScale({ 0.5f, 0.5f });
     ColliderComponent->onCollision.Add(this, &APoint::Pickup);
 
     SpriteComponent->SetSpriteTexture("point");

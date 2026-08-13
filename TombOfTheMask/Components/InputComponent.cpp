@@ -6,21 +6,27 @@ UInputComponent::UInputComponent(AActor* componentOwner) : UActorComponent(compo
 
 void UInputComponent::Update(float deltaTime)
 {
-    auto movementComponent = Owner->GetComponentByClass<UMovementComponent>();
-    if (movementComponent != nullptr)
+    if (canControlActor == false)
+        return;
+
+    movement = Owner->GetComponentByClass<UMovementComponent>();
+    assert(movement != nullptr);
+
+    EMovementDirection currentDirection = EMovementDirection::NoDirection;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        currentDirection = EMovementDirection::Up;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        currentDirection = EMovementDirection::Down;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        currentDirection = EMovementDirection::Left;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        currentDirection = EMovementDirection::Right;
+
+    if (currentDirection != EMovementDirection::NoDirection)
     {
-        EMovementDirection currentDirection = EMovementDirection::NoDirection;
+        canControlActor = false;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            currentDirection = EMovementDirection::Up;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            currentDirection = EMovementDirection::Down;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            currentDirection = EMovementDirection::Left;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            currentDirection = EMovementDirection::Right;
-
-        if (currentDirection != EMovementDirection::NoDirection)
-            movementComponent->Move(currentDirection);
+        movement->Move(currentDirection, true);
     }
 }

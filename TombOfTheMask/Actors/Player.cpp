@@ -9,6 +9,7 @@
 
 #include "Actors/Environment/Archer.h"
 #include "GameStates/LevelInstance.h"
+#include "World/World.h"
 
 APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
 {
@@ -19,30 +20,44 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
     CameraComponent = AddNewComponent<UCameraComponent>();
 
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
+    ColliderComponent->onCollision.Add(this, &APlayer::StopMovement);
 
     SpriteComponent->SetSpriteTexture("player");
 
     ViewportComponent = AddNewComponent<UViewportComponent>();
 
+
     // CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2,
     //                  SPRITE_GAME_SIZE / 2 };
 }
 
-//sf::FloatRect APlayer::GetCollisionBox()
+// sf::FloatRect APlayer::GetCollisionBox()
 //{
 //
-//    float TempWidth = SPRITE_GAME_SIZE / 2;
-//    float TempHeight = SPRITE_GAME_SIZE / 2;
-//    float TempLeft = ActorLocation.x - SPRITE_GAME_SIZE / 4 + (PlayerDirection.x * SPRITE_GAME_SIZE / 4);
-//    float TempTop = ActorLocation.y - SPRITE_GAME_SIZE / 4 + (PlayerDirection.y * SPRITE_GAME_SIZE / 4);
+//     float TempWidth = SPRITE_GAME_SIZE / 2;
+//     float TempHeight = SPRITE_GAME_SIZE / 2;
+//     float TempLeft = ActorLocation.x - SPRITE_GAME_SIZE / 4 + (PlayerDirection.x * SPRITE_GAME_SIZE / 4);
+//     float TempTop = ActorLocation.y - SPRITE_GAME_SIZE / 4 + (PlayerDirection.y * SPRITE_GAME_SIZE / 4);
 //
-//    return { TempLeft, TempTop, TempWidth, TempHeight };
-//}
+//     return { TempLeft, TempTop, TempWidth, TempHeight };
+// }
 
 void APlayer::GetDamage()
 {
-    //ActorSprite->SetColor(sf::Color::Red);
+    SpriteComponent->SetColor(sf::Color::Red);
     GetAudioSubsystem()->PlaySound("death");
-    //CanAction = false;
+
+    Engine->SetSleepingTime(500);
+
+    GetWorld()->DestoyLevel();
     Engine->MarkToSwitchState<ULevelInstance>();
+}
+
+void APlayer::StopMovement(UColliderComponent* otherCollider)
+{
+    if (otherCollider->GetCollisionPreset() == ECollisionPreset::Block)
+    {
+        MovementComponent->StopMovement(true);
+        InputComponent->EnableControlActor();
+    }
 }
