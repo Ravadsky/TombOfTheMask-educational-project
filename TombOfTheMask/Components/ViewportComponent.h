@@ -16,5 +16,7 @@ public:
 private:
     int PointCount = 0;
     int StarCount = 0;
+    int maxStars, maxPoints;
+
     std::unique_ptr<ULevelHUD> LevelHUD;
 };

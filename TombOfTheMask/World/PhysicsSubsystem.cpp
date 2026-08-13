@@ -6,6 +6,9 @@
 void UPhysicsSubsystem::Update(float deltaTime)
 {
     for (auto component : triggerComponents)
+        component->UpdateCollider();
+
+    for (auto component : triggerComponents)
     {
         if (component->GetCollisionPreset() == ECollisionPreset::Ignore)
             continue;

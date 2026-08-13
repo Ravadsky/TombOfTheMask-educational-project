@@ -16,8 +16,6 @@ public:
     void TriggerIfCollision(int xMousePos, int yMousePos);
     void SetButtonText(std::string newText);
 
-    virtual void Render() override;
-
     FDelegate<> onButtonPressed;
 };
 

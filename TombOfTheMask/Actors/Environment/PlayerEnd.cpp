@@ -1,14 +1,12 @@
 #include "PlayerEnd.h"
 
 #include "Core/DataFunctions.h"
-
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "Components/ColliderComponent.h"
+#include "Components/ViewportComponent.h"
 #include "GameStates/LevelSelector.h"
 #include "Actors/Player.h"
-
-#include "Components/ColliderComponent.h"
-#include "Core/GameSubsystems/ResourceSubsystem.h"
-
-#include "Components/ViewportComponent.h"
+#include "World/World.h"
 
 APlayerEnd::APlayerEnd(UWorld* InWorld) : AActor(InWorld)
 {
@@ -45,6 +43,8 @@ void APlayerEnd::EndLevel(UColliderComponent* otherCollider)
         {
             ChangeDataParamater(key, viewport->GetPointCount());
         }
+
+        GetWorld()->DestoyLevel();
         Engine->MarkToSwitchState<ULevelSelector>();
     }
 }

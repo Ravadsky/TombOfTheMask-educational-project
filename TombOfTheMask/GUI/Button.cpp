@@ -24,5 +24,3 @@ void UButton::SetButtonText(std::string newText)
 {
     ButtonText->SetText(newText);
 }
-
-void UButton::Render() {}

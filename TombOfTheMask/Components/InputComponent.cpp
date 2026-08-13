@@ -1,6 +1,7 @@
 #include "InputComponent.h"
 #include "MovementComponent.h"
 #include "Actors/Actor.h"
+#include "World/World.h"
 
 UInputComponent::UInputComponent(AActor* componentOwner) : UActorComponent(componentOwner) {}
 
@@ -25,7 +26,8 @@ void UInputComponent::Update(float deltaTime)
 
     if (currentDirection != EMovementDirection::NoDirection)
     {
-        canControlActor = false;
+        if (GetOwner()->GetWorld()->bIsEditorMode == false)
+            canControlActor = false;
 
         movement->Move(currentDirection, true);
     }

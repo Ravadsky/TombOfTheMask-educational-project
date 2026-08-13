@@ -12,4 +12,6 @@ public:
 
 private:
     std::unique_ptr<UWorld> WorldInstance;
+
+    void EndLevelInstance();
 };

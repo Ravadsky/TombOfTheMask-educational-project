@@ -2,9 +2,7 @@
 #include "Base/TextBlock.h"
 #include "Base/Image.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
-
 #include "GameStates/LevelEditor.h"
-#include "GUI/Base/Image.h"
 
 void UEditorSelector::ChangeEditorSelect()
 {

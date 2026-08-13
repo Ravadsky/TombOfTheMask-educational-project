@@ -31,7 +31,7 @@ void UAudioSubsystem::StartNewMusic(std::string MusicFileName)
 {
     assert(BackgroundMusic.openFromFile(RESOURCES_PATH + "Audio/" + MusicFileName + ".wav"));
     BackgroundMusic.setLoop(true);
-    BackgroundMusic.setVolume(MusicValue);
+    BackgroundMusic.setVolume(MusicValue * 10.0f);
     BackgroundMusic.play();
 }
 
@@ -42,7 +42,7 @@ void UAudioSubsystem::PlaySound(std::string soundName)
 
 void UAudioSubsystem::UpdateSoundAndMusicValues()
 {
-    MusicValue = GetDataParameter("MusicValue:") * 1.f;
-    SoundValue = GetDataParameter("SoundValue:") * 1.f;
-    BackgroundMusic.setVolume(MusicValue);
+    MusicValue = GetDataParameter("MusicValue:") * 10.f;
+    SoundValue = GetDataParameter("SoundValue:") * 10.f;
+    BackgroundMusic.setVolume(MusicValue * 10);
 }

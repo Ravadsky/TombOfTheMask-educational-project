@@ -57,7 +57,6 @@ void GEngine::RegisterSubsystems()
 
 void GEngine::SwitchGameState()
 {
-    sf::sleep(TimeBeetweenStates);
     CurrentGameState = PendingState();
     CurrentGameState->BeginPlay();
 

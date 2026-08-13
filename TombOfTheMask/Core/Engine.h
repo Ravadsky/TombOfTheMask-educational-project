@@ -21,6 +21,7 @@ public:
     template <typename T>
     inline void MarkToSwitchState()
     {
+        SetSleepingTime(200);
         needToSwitchState = true;
         PendingState = []() -> std::unique_ptr<UGameState> { return std::make_unique<T>(); };
     }

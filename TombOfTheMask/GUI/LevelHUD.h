@@ -11,7 +11,7 @@ public:
 
     virtual void BeginPlay() override;
 
-    void UpdateHUDState(int newStarCount, int newPointCount);
+    void UpdateHUDState(int newStarCount, int maxStarCount, int newPointCount, int maxPointCount);
 
 protected:
     std::unique_ptr<UImage> StarImage;

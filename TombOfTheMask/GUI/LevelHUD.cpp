@@ -26,15 +26,14 @@ ULevelHUD::ULevelHUD(UUserWidget* parent) : UUserWidget(parent)
 
 void ULevelHUD::BeginPlay()
 {
-    UpdateHUDState(0, 0);
 }
 
-void ULevelHUD::UpdateHUDState(int newStarCount, int newPointCount)
+void ULevelHUD::UpdateHUDState(int newStarCount, int maxStarCount, int newPointCount, int maxPointCount)
 {
-    std::string pointString = std::to_string(newPointCount) + " / " + std::to_string(3);
+    std::string pointString = std::to_string(newPointCount) + " / " + std::to_string(maxPointCount);
     PointText->SetText(pointString);
 
-    std::string starString = std::to_string(newStarCount) + " / " + std::to_string(3);
+    std::string starString = std::to_string(newStarCount) + " / " + std::to_string(maxStarCount);
     StarText->SetText(starString);
 
     GetAudioSubsystem()->PlaySound("point");

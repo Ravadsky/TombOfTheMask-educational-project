@@ -5,9 +5,11 @@
 
 UGameState::UGameState() : UObject()
 {
+    GetAudioSubsystem()->UpdateSoundAndMusicValues();
     GetAudioSubsystem()->StartNewMusic("menu_music");
 
     onLeftMouseButtonPressed.Add(this, &UGameState::CheckAllButtonsPressed);
+    onEscapePressed.Add(this, &UGameState::ReturnToMainMenu);
 }
 
 void UGameState::Update(float deltaTime)
@@ -49,4 +51,9 @@ void UGameState::CheckAllButtonsPressed()
 {
     for (auto button : Buttons)
         button->TriggerIfCollision(xMousePos, yMousePos);
+}
+
+void UGameState::ReturnToMainMenu()
+{
+    Engine->MarkToSwitchState<UMainMenu>();
 }

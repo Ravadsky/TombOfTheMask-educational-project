@@ -22,6 +22,8 @@ public:
 
     virtual void Update(float deltaTime) override;
 
+    void UpdateCollider();
+
 private:
     ECollisionPreset CollisionPreset = ECollisionPreset::Ignore;
     sf::FloatRect CollisionBox;

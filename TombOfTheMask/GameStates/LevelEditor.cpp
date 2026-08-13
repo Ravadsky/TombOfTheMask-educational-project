@@ -61,7 +61,6 @@ void ULevelEditor::RemoveEntity()
 void ULevelEditor::EndEditor()
 {
     WorldInstance->DestoyLevel();
-    Engine->MarkToSwitchState<UMainMenu>();
 }
 
 ULevelEditor::ULevelEditor() : UGameState()
@@ -140,11 +139,15 @@ void ULevelEditor::SaveLevel()
             }
         }
 
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ":", 0);
+
     int PointCountOnLevel = WorldInstance->GetActorsNumberOfClass<APoint>();
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxpoints:", PointCountOnLevel);
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".points:", 0);
 
     int StarCountOnLevel = WorldInstance->GetActorsNumberOfClass<AStar>();
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxstars:", StarCountOnLevel);
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".stars:", 0);
 }
 
 void ULevelEditor::LoadLevel()

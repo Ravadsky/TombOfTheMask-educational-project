@@ -1,4 +1,5 @@
 #include "MovementComponent.h"
+#include "ColliderComponent.h"
 #include "Actors/Actor.h"
 #include "World/World.h"
 

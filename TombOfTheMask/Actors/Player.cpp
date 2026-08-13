@@ -15,32 +15,18 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
 {
     bCanTick = true;
 
-    MovementComponent = AddNewComponent<UMovementComponent>();
     InputComponent = AddNewComponent<UInputComponent>();
+    MovementComponent = AddNewComponent<UMovementComponent>();
     CameraComponent = AddNewComponent<UCameraComponent>();
 
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
     ColliderComponent->onCollision.Add(this, &APlayer::StopMovement);
+    ColliderComponent->SetWorldScale({ 0.7f, 0.7f });
 
     SpriteComponent->SetSpriteTexture("player");
 
     ViewportComponent = AddNewComponent<UViewportComponent>();
-
-
-    // CollisionBox = { position.x - SPRITE_GAME_SIZE / 4, position.y - SPRITE_GAME_SIZE / 4, SPRITE_GAME_SIZE / 2,
-    //                  SPRITE_GAME_SIZE / 2 };
 }
-
-// sf::FloatRect APlayer::GetCollisionBox()
-//{
-//
-//     float TempWidth = SPRITE_GAME_SIZE / 2;
-//     float TempHeight = SPRITE_GAME_SIZE / 2;
-//     float TempLeft = ActorLocation.x - SPRITE_GAME_SIZE / 4 + (PlayerDirection.x * SPRITE_GAME_SIZE / 4);
-//     float TempTop = ActorLocation.y - SPRITE_GAME_SIZE / 4 + (PlayerDirection.y * SPRITE_GAME_SIZE / 4);
-//
-//     return { TempLeft, TempTop, TempWidth, TempHeight };
-// }
 
 void APlayer::GetDamage()
 {

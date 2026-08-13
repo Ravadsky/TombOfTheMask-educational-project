@@ -17,9 +17,9 @@ public:
     virtual void Update(float deltaTime) {};
 
     inline bool IsValid() const { return !bPendingToKill; }
-    void MarkAsGarbage();
-
     inline bool CanTick() const { return bCanTick; }
+
+    void MarkAsGarbage();
 };
 
 template <typename T, typename K>

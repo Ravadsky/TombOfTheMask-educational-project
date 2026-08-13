@@ -9,7 +9,7 @@
 #include "LevelSelector.h"
 #include "LevelEditorSelector.h"
 
-UMainMenu::UMainMenu()
+UMainMenu::UMainMenu() : UGameState()
 {
     float CentralWidth = WINDOW_WIGHT / 2;
 
@@ -31,13 +31,13 @@ UMainMenu::UMainMenu()
     SoundBox->onButtonPressed.Add(this, &UMainMenu::SoundBoxChanged);
     SoundBox->SetTextureNames("sound_on", "sound_off");
     SoundBox->SetInitState(GetDataParameter("SoundValue:"));
-    SoundBox->SetScreenPosition({ 64, +128 });
+    SoundBox->SetScreenPosition({ 96, +96 });
 
     MusicBox = ConstructButton<UCheckBox>(CanvasImage.get(), "");
     MusicBox->onButtonPressed.Add(this, &UMainMenu::MusicBoxChanged);
     MusicBox->SetTextureNames("music_on", "music_off");
     MusicBox->SetInitState(GetDataParameter("MusicValue:"));
-    MusicBox->SetScreenPosition({ 64, +256 });
+    MusicBox->SetScreenPosition({ 96, +256 });
 }
 
 void UMainMenu::StartGameButtonPressed()

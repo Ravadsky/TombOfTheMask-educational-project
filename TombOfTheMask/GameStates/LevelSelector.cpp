@@ -15,12 +15,14 @@ void ULevelSelector::OnLevel1ButtonPressed()
 
 void ULevelSelector::OnLevel2ButtonPressed()
 {
-    ChooseLevel(2);
+    if (GetDataParameter("Level1:"))
+        ChooseLevel(2);
 }
 
 void ULevelSelector::OnLevel3ButtonPressed()
 {
-    ChooseLevel(3);
+    if (GetDataParameter("Level2:"))
+        ChooseLevel(3);
 }
 
 ULevelSelector::ULevelSelector() : UGameState()
@@ -48,7 +50,6 @@ ULevelSelector::ULevelSelector() : UGameState()
     Level2Icon = Construct<ULevelIcon>(CanvasImage.get());
     Level2Icon->SetLevelInfo(2);
     Level2Icon->SetScreenPosition({ -340.0f, 0.0f });
-
 
     //
 

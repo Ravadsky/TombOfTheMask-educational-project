@@ -77,6 +77,9 @@ public:
 
     bool bIsEditorMode = true;
 
+    inline int GetPointCountOnLevel() { return PointCountOnLevel; };
+    inline int GetStarCountOnLevel() { return StarCountOnLevel; };
+
 private:
     std::vector<AActor*> ActorsInWorld;
 

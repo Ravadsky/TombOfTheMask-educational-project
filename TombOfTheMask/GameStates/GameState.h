@@ -36,4 +36,5 @@ protected:
     FDelegate<> onEscapePressed;
 
     void CheckAllButtonsPressed();
+    void ReturnToMainMenu();
 };
