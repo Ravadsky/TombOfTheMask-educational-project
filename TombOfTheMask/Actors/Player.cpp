@@ -24,6 +24,7 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetWorldScale({ 0.7f, 0.7f });
 
     SpriteComponent->SetSpriteTexture("player");
+    SpriteComponent->SetRenderLayer(ERenderLayer::forward);
 
     ViewportComponent = AddNewComponent<UViewportComponent>();
 }

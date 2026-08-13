@@ -25,6 +25,8 @@ public:
     void SetColor(sf::Color color);
     void Flip(bool flip);
 
-    inline ERenderLayer GetRenderLayer() { return renderLayer; }
+    inline ERenderLayer GetRenderLayer() const { return renderLayer; }
+    inline void SetRenderLayer(ERenderLayer layer) { renderLayer = layer; }
+
     sf::FloatRect GetBounds();
 };

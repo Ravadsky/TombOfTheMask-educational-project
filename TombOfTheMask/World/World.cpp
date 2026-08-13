@@ -73,6 +73,10 @@ void UWorld::StartLevel()
         stream >> ActorID >> commaSeparator >> xPos >> commaSeparator >> yPos >> commaSeparator >> Rotation;
 
         SpawnActorOnCellByID(ActorID, xPos, yPos, (float)Rotation);
+
+        // установка стен за объекты
+        SpawnActorOnCellByID(2, xPos, yPos, 0.0f);
+
     }
     PointCountOnLevel = GetActorsNumberOfClass<APoint>();
     StarCountOnLevel = GetActorsNumberOfClass<AStar>();
