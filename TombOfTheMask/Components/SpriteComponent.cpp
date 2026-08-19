@@ -26,12 +26,6 @@ USpriteComponent::USpriteComponent(AActor* componentOwner) : USceneComponent(com
     sprite.setScale(PIXEL_RATIO);
 
     GetRenderSubsystem()->ActorsToDraw.push_back(this);
-
-    // anim part
-    // int indexRow = index % SpriteSheetSize;
-    // int indexColumn = index / SpriteSheetSize;
-    // ObjectSprite.setTextureRect(
-    //   { indexRow * RAW_SPRITE_SIZE, indexColumn * RAW_SPRITE_SIZE, RAW_SPRITE_SIZE, RAW_SPRITE_SIZE });
 }
 
 USpriteComponent::~USpriteComponent()

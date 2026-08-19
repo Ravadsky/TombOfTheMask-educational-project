@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Components\AnimatedSpriteComponent.cpp" />
     <ClCompile Include="Components\CameraShakeComponent.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="Components\ColliderComponent.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\AnimatedSpriteComponent.h" />
     <ClInclude Include="Components\CameraShakeComponent.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="Components\ColliderComponent.h" />

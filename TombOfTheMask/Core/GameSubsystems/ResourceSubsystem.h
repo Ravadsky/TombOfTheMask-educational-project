@@ -14,6 +14,7 @@ public:
 
     void LoadSpriteSheet(const std::string& filename);
     void LoadGUISprite(const std::string& filename);
+    void LoadAnimation(const std::string& filename);
 
     void LoadGameFont(const std::string& filename);
     void LoadSoundBuffer(const std::string& filename);
