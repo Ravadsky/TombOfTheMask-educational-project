@@ -5,6 +5,7 @@
 #include "Components/MovementComponent.h"
 #include "Components/CameraComponent.h"
 #include "Components/ViewportComponent.h"
+#include "Components/CameraShakeComponent.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
 
 #include "Actors/Environment/Archer.h"
@@ -27,6 +28,8 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
     SpriteComponent->SetRenderLayer(ERenderLayer::forward);
 
     ViewportComponent = AddNewComponent<UViewportComponent>();
+
+    CameraShakeComponent = AddNewComponent<UCameraShakeComponent>();
 }
 
 void APlayer::GetDamage()
@@ -44,6 +47,12 @@ void APlayer::StopMovement(UColliderComponent* otherCollider)
 {
     if (otherCollider->GetCollisionPreset() == ECollisionPreset::Block)
     {
+        if (MovementComponent->WasRealMovement())
+        {
+            CameraShakeComponent->StartShake(0.5f, 4.0f);
+            GetAudioSubsystem()->PlaySound("hit");
+        }
+
         MovementComponent->StopMovement(true);
         InputComponent->EnableControlActor();
     }

@@ -33,6 +33,7 @@ UResourceSubsystem::UResourceSubsystem()
     LoadSoundBuffer("death");
     LoadSoundBuffer("star");
     LoadSoundBuffer("point");
+    LoadSoundBuffer("hit");
 
     // sprite sheet row 1
     LoadSpriteFromSpriteSheet("player", 1, 1);
