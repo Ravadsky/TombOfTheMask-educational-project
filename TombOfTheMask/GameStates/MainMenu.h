@@ -1,25 +1,30 @@
 #pragma once
 #include "GameState.h"
 
-class Button;
-class SpriteComponent;
-class CheckBox;
+class UButton;
+class UCheckBox;
+class UImage;
 
-class MainMenu : public GameState
+class UMainMenu : public UGameState
 {
-  private:
-    std::unique_ptr<SpriteComponent> Background;
-    sf::Texture BackgroundTexture;
+public:
+    UMainMenu();
 
-    std::unique_ptr<Button> StartGameButton;
-    std::unique_ptr<Button> EditorButton;
-    std::unique_ptr<Button> ExitButton;
+private:
+    std::unique_ptr<UImage> CanvasImage;
 
-    std::unique_ptr<CheckBox> SoundBox;
-    std::unique_ptr<CheckBox> MusicBox;
+    std::unique_ptr<UButton> StartGameButton;
+    void StartGameButtonPressed();
 
-  public:
-    MainMenu();
+    std::unique_ptr<UButton> EditorButton;
+    void EditorButtonPressed();
 
-    virtual void Update() override;
+    std::unique_ptr<UButton> ExitButton;
+    void ExitButtonPressed();
+
+    std::unique_ptr<UCheckBox> SoundBox;
+    void SoundBoxChanged();
+
+    std::unique_ptr<UCheckBox> MusicBox;
+    void MusicBoxChanged();
 };

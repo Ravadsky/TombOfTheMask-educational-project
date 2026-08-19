@@ -1,19 +1,17 @@
 #pragma once
 #include "GameState.h"
 
-class LevelSubsystem;
-class PhysicsSubsystem;
-class InputSubsystem;
+class UWorld;
 
-class LevelInstance : public GameState
+class ULevelInstance : public UGameState
 {
-  private:
-    std::unique_ptr<LevelSubsystem> LevelSS;
-    std::unique_ptr<PhysicsSubsystem> PhysicsSS;
-    std::unique_ptr<InputSubsystem> InputSS;
+public:
+    ULevelInstance();
 
-  public:
-    LevelInstance();
+    virtual void Update(float deltaTime) override;
 
-    virtual void Update() override;
+private:
+    std::unique_ptr<UWorld> WorldInstance;
+
+    void EndLevelInstance();
 };

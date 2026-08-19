@@ -1,5 +1,5 @@
 #pragma once
-#include "CoreMinimal.h"
+#include "Core/CoreMinimal.h"
 #include <fstream>
 
 // Работа с параметрами, которые передаются между игровыми окнами

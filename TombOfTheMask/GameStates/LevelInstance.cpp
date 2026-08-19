@@ -1,31 +1,22 @@
 #include "LevelInstance.h"
+#include "World/World.h"
 
-#include "AudioSubsystem.h"
-#include "InputSubsystem.h"
-#include "LevelSubsystem.h"
-#include "PhysicsSubsystem.h"
-
-LevelInstance::LevelInstance()
+ULevelInstance::ULevelInstance() : UGameState()
 {
-    LevelSS = std::make_unique<LevelSubsystem>();
-    GLevelSubsystem = LevelSS.get();
+    WorldInstance = std::make_unique<UWorld>();
+    WorldInstance->StartLevel();
 
-    PhysicsSS = std::make_unique<PhysicsSubsystem>();
-    GPhysicsSubsystem = PhysicsSS.get();
-
-    InputSS = std::make_unique<InputSubsystem>();
-    GInputSubsystem = InputSS.get();
-
-    GAudioSubsystem->StartNewMusic("level_music");
-
-    GLevelSubsystem->StartLevel();
+    onEscapePressed.Add(this, &ULevelInstance::EndLevelInstance);
 }
 
-void LevelInstance::Update()
+void ULevelInstance::EndLevelInstance()
 {
-    GInputSubsystem->Update();
+    WorldInstance->DestoyLevel();
+}
 
-    GLevelSubsystem->Update();
+void ULevelInstance::Update(float deltaTime)
+{
+    WorldInstance->Update(deltaTime);
 
-    GPhysicsSubsystem->Update();
+    UGameState::Update(deltaTime);
 }

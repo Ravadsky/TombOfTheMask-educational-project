@@ -1,156 +1,156 @@
 #include "LevelEditor.h"
 
-#include "AudioSubsystem.h"
-#include "DataFunctions.h"
-#include "EditorObject.h"
-#include "Engine.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "Core/GameSubsystems/RenderSubsystem.h"
+#include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "Core/DataFunctions.h"
+#include "Actors/Environment/EditorObject.h"
+#include "Actors/Environment/Point.h"
+#include "Actors/Environment/Star.h"
 #include "LevelEditorSelector.h"
-#include "LevelSubsystem.h"
-#include "MathFunctions.h"
-#include "RenderSubsystem.h" 
-#include "ResourceSubsystem.h"
 #include <sstream>
-#include "Point.h"
-#include "Star.h"
+#include "World/World.h"
+#include "Actors/EditorSpectator.h"
+#include "Components/CameraComponent.h"
+#include "MainMenu.h"
+#include "GUI/EditorSelector.h"
 
-
-LevelEditor::LevelEditor()
+void ULevelEditor::AddEntity()
 {
-    LevelSS = std::make_unique<LevelSubsystem>();
-    GLevelSubsystem = LevelSS.get();
+    if (x_cell == -1 or y_cell == -1 or selectorID == -1)
+        return;
 
-    GAudioSubsystem->StartNewMusic("level_music");
+    if (LevelActors[x_cell][y_cell].ActorID == -1)
+    {
+        LevelActors[x_cell][y_cell] = { selectorID, 0, nullptr };
 
-    LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
+        LevelActors[x_cell][y_cell].currentActor = WorldInstance->SpawnActorOnCellByID(
+            LevelActors[x_cell][y_cell].ActorID, x_cell, y_cell, (float)LevelActors[x_cell][y_cell].currentRotation);
+    }
 }
 
-void LevelEditor::BeginPlay()
+void ULevelEditor::RotateEntity()
 {
-    GRenderSubsystem->SetCameraPosition(&CameraOffset);
+    if (x_cell == -1 or y_cell == -1)
+        return;
+
+    if (LevelActors[x_cell][y_cell].ActorID != -1)
+    {
+        LevelActors[x_cell][y_cell].currentActor->MarkAsGarbage();
+
+        auto newRotation = LevelActors[x_cell][y_cell].currentRotation + 90;
+        auto rotatedActor =
+            WorldInstance->SpawnActorOnCellByID(LevelActors[x_cell][y_cell].ActorID, x_cell, y_cell, newRotation);
+
+        LevelActors[x_cell][y_cell].currentActor = rotatedActor;
+        LevelActors[x_cell][y_cell].currentRotation = newRotation;
+    }
+}
+
+void ULevelEditor::RemoveEntity()
+{
+    if (x_cell == -1 or y_cell == -1)
+        return;
+
+    if (LevelActors[x_cell][y_cell].currentActor != nullptr)
+        LevelActors[x_cell][y_cell].currentActor->MarkAsGarbage();
+
+    LevelActors[x_cell][y_cell] = { -1, 0, nullptr };
+}
+
+void ULevelEditor::EndEditor()
+{
+    WorldInstance->DestoyLevel();
+}
+
+ULevelEditor::ULevelEditor() : UGameState()
+{
+    LevelName = "Level" + std::to_string(GetDataParameter("CurrentLevel:"));
+
+    WorldInstance = std::make_unique<UWorld>();
+    EditorSelectorPanel = Construct<UEditorSelectorPanel>(nullptr);
+
+    onLeftMouseButtonPressed.Add(this, &ULevelEditor::AddEntity);
+    onMiddleMouseButtonPressed.Add(this, &ULevelEditor::RotateEntity);
+    onRightMouseButtonPressed.Add(this, &ULevelEditor::RemoveEntity);
+    onEnterPressed.Add(this, &ULevelEditor::SaveLevel);
+    onEscapePressed.Add(this, &ULevelEditor::EndEditor);
+}
+
+void ULevelEditor::BeginPlay()
+{
+    EditorSelectorPanel->UpdateSelectorPanel(this);
 
     // Создание фона
-    for (int i = 0; i < MAX_LEVEL_SIZE; ++i)
-        for (int j = 0; j < MAX_LEVEL_SIZE; ++j)
+    for (int i = 0; i < LEVEL_SIZE; ++i)
+        for (int j = 0; j < LEVEL_SIZE; ++j)
         {
-            SpawnActor<EditorObject>({(float)i, (float)j});
+            WorldInstance->SpawnActorOnCell<AEditorObject>(i, j, 0, { 1, 1 });
         }
+
+    sf::Vector2f LevelCenter = { LEVEL_SIZE / 2 * SPRITE_GAME_SIZE, LEVEL_SIZE / 2 * SPRITE_GAME_SIZE };
+
+    WorldSpectator = WorldInstance->SpawnActor<AEditorSpectator>(LevelCenter, 0);
 
     //  Загрузка уровня
     LoadLevel();
 }
 
-void LevelEditor::Update()
+void ULevelEditor::Update(float deltaTime)
 {
-    // Рассчет позиции мыши
-    int xMousePos =
-        (sf::Mouse::getPosition(*GWindow).x + (int)CameraOffset.x - (int)CAMERA_PIVOT.x + SPRITE_GAME_SIZE / 2) /
-        SPRITE_GAME_SIZE;
-    int yMousePos =
-        (sf::Mouse::getPosition(*GWindow).y + (int)CameraOffset.y - (int)CAMERA_PIVOT.y + SPRITE_GAME_SIZE / 2) /
-        SPRITE_GAME_SIZE;
+
+    auto cameraPos = WorldSpectator->GetComponentByClass<UCameraComponent>()->GetCameraPosition();
+    float halfCellSize = SPRITE_GAME_SIZE / 2;
+    auto mousePosition = sf::Mouse::getPosition(*Window);
+    x_cell = (mousePosition.x + cameraPos.x - CAMERA_PIVOT.x + halfCellSize) / SPRITE_GAME_SIZE;
+    y_cell = (mousePosition.y + cameraPos.y - CAMERA_PIVOT.y + halfCellSize) / SPRITE_GAME_SIZE;
 
     // Ограничение позиций мыши по игровому полю
-    if (xMousePos < 0 or xMousePos >= MAX_LEVEL_SIZE)
-        xMousePos = -1;
-    if (yMousePos < 0 or yMousePos >= MAX_LEVEL_SIZE)
-        yMousePos = -1;
+    if (x_cell < 0 or x_cell >= LEVEL_SIZE)
+        x_cell = -1;
+    if (y_cell < 0 or y_cell >= LEVEL_SIZE)
+        y_cell = -1;
 
-    // Перемещение камеры
-    MoveCamera();
-    // Выбор какой тип объекта устанавливать на ЛКМ
-    SelectObjectIndex();
-
-    sf::Event event;
-    while (GWindow->pollEvent(event))
+    if (EditorSelectorPanel->IsHoveredByMouse(xMousePos, yMousePos))
     {
-        // Проверка на закрытие окна
-        if (event.type == sf::Event::Closed)
-            GWindow->close();
-
-        // Поворот объекта
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Middle))
-        {
-            if (xMousePos != -1 and yMousePos != -1 and ActorsInfo[xMousePos][yMousePos].ActorID != -1)
-            {
-                ActorsInfo[xMousePos][yMousePos] = {ActorsInfo[xMousePos][yMousePos].ActorID,
-                                                    ActorsInfo[xMousePos][yMousePos].rotation + 90};
-
-                if (auto actor = Actors[xMousePos][yMousePos].lock())
-                {
-                    actor->MarkToKill();
-                }
-
-                Actors[xMousePos][yMousePos] = GResourceSubsystem->ActorsID[ActorsInfo[xMousePos][yMousePos].ActorID](
-                    {(float)xMousePos, (float)yMousePos}, (float)ActorsInfo[xMousePos][yMousePos].rotation);
-            }
-        }
-        // Установить новый объект в клетку
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            if (xMousePos != -1 and yMousePos != -1 and ActorsInfo[xMousePos][yMousePos].ActorID == -1)
-            {
-                ActorsInfo[xMousePos][yMousePos] = {CurrentObjectIndex, 0};
-                Actors[xMousePos][yMousePos] =
-                    GResourceSubsystem->ActorsID[CurrentObjectIndex]({(float)xMousePos, (float)yMousePos}, 0.f);
-            }
-        }
-        // Удалить объект из клетки
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-        {
-            if (xMousePos != -1 and yMousePos != -1)
-            {
-                ActorsInfo[xMousePos][yMousePos] = {-1, 0};
-                if (auto actor = Actors[xMousePos][yMousePos].lock())
-                    actor->MarkToKill();
-            }
-        }
-        // Сохранение игрового уровня на Enter
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-        {
-            SaveLevel();
-        }
-        // Выход в меню с сохранением
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {
-            SaveLevel();
-            GEngine->SwitchState<LevelEditorSelector>();
-        }
+        x_cell = -1;
+        y_cell = -1;
     }
+
+    UGameState::Update(deltaTime);
+
+    WorldInstance->Update(deltaTime);
 }
 
-void LevelEditor::SaveLevel()
+void ULevelEditor::SaveLevel()
 {
     std::ofstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     assert(file.is_open());
 
     file.clear();
-    bool PlayerIsExists = false;
 
-    for (int xPos = 0; xPos < MAX_LEVEL_SIZE; ++xPos)
-        for (int yPos = 0; yPos < MAX_LEVEL_SIZE; ++yPos)
+    for (int xPos = 0; xPos < LEVEL_SIZE; ++xPos)
+        for (int yPos = 0; yPos < LEVEL_SIZE; ++yPos)
         {
-            auto actor = ActorsInfo[xPos][yPos];
+            auto& actor = LevelActors[xPos][yPos];
             if (actor.ActorID != -1)
             {
-                file << actor.ActorID << "," << xPos << "," << yPos << "," << actor.rotation << "\n";
-
-                // создание персонажа на месте ворот спавна
-                if (actor.ActorID == 8 and !PlayerIsExists)
-                {
-                    file << 0 << "," << xPos << "," << yPos << "," << 0 << "\n";
-                    PlayerIsExists = true;
-                }
+                file << actor.ActorID << "," << xPos << "," << yPos << "," << actor.currentRotation << "\n";
             }
         }
 
-    int PointCountOnLevel = GetCountOfActorsOf<Point>();
-    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxpoints:", PointCountOnLevel);
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ":", 0);
 
-    int StarCountOnLevel = GetCountOfActorsOf<Star>();
+    int PointCountOnLevel = WorldInstance->GetActorsNumberOfClass<APoint>();
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxpoints:", PointCountOnLevel);
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".points:", 0);
+
+    int StarCountOnLevel = WorldInstance->GetActorsNumberOfClass<AStar>();
     ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".maxstars:", StarCountOnLevel);
+    ChangeDataParamater("Level" + std::to_string(GetDataParameter("CurrentLevel:")) + ".stars:", 0);
 }
 
-void LevelEditor::LoadLevel()
+void ULevelEditor::LoadLevel()
 {
     std::ifstream file(RESOURCES_PATH + "Levels/" + LevelName + ".txt");
     std::string line;
@@ -164,56 +164,13 @@ void LevelEditor::LoadLevel()
 
         if (stream >> ActorID >> Separator >> xPos >> Separator >> yPos >> Separator >> Rotation)
         {
-            if (ActorID != 0)
-            {
-                ActorsInfo[xPos][yPos] = {ActorID, Rotation};
-                Actors[xPos][yPos] = GResourceSubsystem->ActorsID[ActorID]({(float)xPos, (float)yPos}, (float)Rotation);
-            }
+            auto spawnedActor = WorldInstance->SpawnActorOnCellByID(ActorID, xPos, yPos, (float)Rotation);
+            LevelActors[xPos][yPos] = { ActorID, Rotation, spawnedActor };
         }
     }
 }
 
-void LevelEditor::MoveCamera()
+void ULevelEditor::SelectByID(int newID)
 {
-    // Перемещение камеры по уровню игры
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        CameraOffset += {0.f, -8.f};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        CameraOffset += {0.f, 8.f};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        CameraOffset += {-8.f, 0.f};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        CameraOffset += {8.f, 0.f};
-
-    // Ограничение полета камеры игровым уровнем
-    float CameraX = Clamp(CameraOffset.x, MinCameraPos.x, MaxCameraPos.x);
-    float CameraY = Clamp(CameraOffset.y, MinCameraPos.y, MaxCameraPos.y);
-    CameraOffset = {CameraX, CameraY};
-}
-
-void LevelEditor::SelectObjectIndex()
-{
-    // Выбор - какой объект ставить
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-        CurrentObjectIndex = 1;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-        CurrentObjectIndex = 2;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-        CurrentObjectIndex = 3;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-        CurrentObjectIndex = 4;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
-        CurrentObjectIndex = 6;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7))
-        CurrentObjectIndex = 7;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
-        CurrentObjectIndex = 8;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9))
-        CurrentObjectIndex = 9;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
-        CurrentObjectIndex = 10;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Dash))
-        CurrentObjectIndex = 11;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Equal))
-        CurrentObjectIndex = 12;
+    selectorID = newID;
 }

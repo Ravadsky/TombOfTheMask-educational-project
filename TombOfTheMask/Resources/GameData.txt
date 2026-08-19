@@ -1,22 +1,27 @@
-MusicValue:1
-SoundValue:1
+MusicValue:0
+SoundValue:0
 
-CurrentLevel:1
+CurrentLevel:3
 
-Level1:0
-Level1.stars:0
-Level1.maxstars:3
-Level1.points:0
-Level1.maxpoints:8
+Level1:1
+Level1.stars:3
+Level1.maxstars:4
+Level1.points:1
+Level1.maxpoints:4
 
-Level2:0
+Level2:1
 Level2.stars:0
-Level2.maxstars:3
+Level2.maxstars:1
 Level2.points:0
-Level2.maxpoints:10
+Level2.maxpoints:7
 
-Level3:0
-Level3.stars:0
-Level3.maxstars:3
-Level3.points:0
-Level3.maxpoints:12
+Level30
+Level30
+Level30
+Level30
+Level30
+Level3.maxpoints:1
+Level3.points:1
+Level3.maxstars:2
+Level3.stars:1
+Level3:1

@@ -1,14 +1,21 @@
 #include "UObject.h"
+#include "GameSubsystems/GarbageCollector.h"
 
-bool UObject::CanTick()
+UObject::UObject()
 {
-    return canTick;
+    Engine->RegisterObject(this);
 }
 
-void UObject::BeginPlay()
+UObject::~UObject()
 {
+    Engine->UnregisterObject(this);
 }
 
-void UObject::Update()
+void UObject::MarkAsGarbage()
 {
+    if (bPendingToKill == false)
+    {
+        GetGarbageCollector()->AddObjectToKill(this);
+        bPendingToKill = true;
+    }
 }

@@ -1,65 +1,48 @@
 #include "LevelEditorSelector.h"
 
-#include "AudioSubsystem.h"
-#include "Button.h"
-#include "DataFunctions.h"
-#include "Engine.h"
+#include "Core/GameSubsystems/AudioSubsystem.h"
+#include "GUI/Button.h"
+#include "Core/DataFunctions.h"
 #include "LevelEditor.h"
 #include "MainMenu.h"
+#include "GUI/Base/Image.h"
 
-LevelEditorSelector::LevelEditorSelector()
+void ULevelEditorSelector::OnLevel1ButtonPressed()
 {
-    assert(BackgroundTexture.loadFromFile(RESOURCES_PATH + "GUI/Background.png"));
-    Background = std::make_unique<SpriteComponent>(BackgroundTexture, CAMERA_PIVOT);
-    Background->SetDrawType(DrawType::Widget);
+    ChooseLevel(1);
+}
+
+void ULevelEditorSelector::OnLevel2ButtonPressed()
+{
+    ChooseLevel(2);
+}
+
+void ULevelEditorSelector::OnLevel3ButtonPressed()
+{
+    ChooseLevel(3);
+}
+
+ULevelEditorSelector::ULevelEditorSelector() : UGameState()
+{
+    CanvasImage = Construct<UImage>(nullptr);
+    CanvasImage->SetTextureByName("background");
 
     float CentralWidth = WINDOW_WIGHT / 2;
-    Level1 = std::make_unique<Button>("Level 1", sf::Vector2f(CentralWidth, 200.f));
-    Level2 = std::make_unique<Button>("Level 2", sf::Vector2f(CentralWidth, 400.f));
-    Level3 = std::make_unique<Button>("Level 3", sf::Vector2f(CentralWidth, 600.f));
 
-    GAudioSubsystem->StartNewMusic("menu_music");
+    Level1Button = ConstructButton<UButton>(CanvasImage.get(), "level 1");
+    Level1Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel1ButtonPressed);
+    Level1Button->SetScreenPosition({ 0.0f, -192.0f });
+
+    Level2Button = ConstructButton<UButton>(CanvasImage.get(), "level 2");
+    Level2Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel2ButtonPressed);
+
+    Level3Button = ConstructButton<UButton>(CanvasImage.get(), "level 3");
+    Level3Button->onButtonPressed.Add(this, &ULevelEditorSelector::OnLevel3ButtonPressed);
+    Level3Button->SetScreenPosition({ 0.0f, +192.0f });
 }
 
-void LevelEditorSelector::Update()
+void ULevelEditorSelector::ChooseLevel(int index)
 {
-    sf::Event event;
-    // Рассчет позиции мыши
-    int xMousePos = sf::Mouse::getPosition(*GWindow).x;
-    int yMousePos = sf::Mouse::getPosition(*GWindow).y;
-
-    while (GWindow->pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-            GWindow->close();
-
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            if (Level1->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(1);
-            }
-            if (Level2->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(2);
-            }
-            if (Level3->CheckWithCollisions(xMousePos, yMousePos))
-            {
-                ChooseLevel(3);
-            }
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {
-            GEngine->SwitchState<MainMenu>();
-        }
-    }
-}
-
-void LevelEditorSelector::ChooseLevel(int index)
-{
-    GAudioSubsystem->CreateNewSound("button_sound");
-
-    GEngine->SwitchState<LevelEditor>();
+    Engine->MarkToSwitchState<ULevelEditor>();
     ChangeDataParamater("CurrentLevel:", index);
 }

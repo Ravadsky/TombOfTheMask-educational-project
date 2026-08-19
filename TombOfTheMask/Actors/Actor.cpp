@@ -1,43 +1,85 @@
-#include "Actor.h"
+#include "Actors/Actor.h"
 
-#include "GarbageCollector.h"
+#include "Components/SceneComponent.h"
+#include "Components/ColliderComponent.h"
+#include "Components/SpriteComponent.h"
+#include "World/World.h"
 
-Actor::Actor(ActorType Type, sf::Vector2f position, float rotationAngle)
+AActor::AActor(UWorld* InWorld) : UObject()
 {
-    ActorLocation = position;
-    CollisionBox = {position.x - SPRITE_GAME_SIZE / 2, position.y - SPRITE_GAME_SIZE / 2, SPRITE_GAME_SIZE,
-                    SPRITE_GAME_SIZE};
+    bCanTick = true;
 
-    ActorSprite = std::make_unique<SpriteComponent>(static_cast<int>(Type), position);
+    World = InWorld;
 
-    ActorRotation = rotationAngle;
-    ActorSprite->SetRotation(rotationAngle);
+    SceneComponent = AddNewComponent<USceneComponent>();
+    RootComponent = SceneComponent;
+
+    ColliderComponent = AddNewComponent<UColliderComponent>();
+    ColliderComponent->AttachToComponent(SceneComponent);
+
+    SpriteComponent = AddNewComponent<USpriteComponent>();
+    SpriteComponent->AttachToComponent(SceneComponent);
+
+    GetWorld()->AddActorToWorld(this);
 }
 
-void Actor::BeginPlay()
+AActor::~AActor()
 {
+    for (auto comp : Components)
+    {
+        delete comp;
+    }
+    Components.clear();
+
+    //
+    GetWorld()->RemoveActorFromWorld(this);
 }
 
-void Actor::Update()
+void AActor::BeginPlay() {}
+
+void AActor::Update(float deltaTime)
 {
+    for (auto comp : Components)
+    {
+        comp->Update(deltaTime);
+    }
 }
 
-void Actor::OnCollision(std::weak_ptr<Actor> OtherActor)
+sf::Vector2f AActor::GetActorLocation() const
 {
+    return RootComponent->GetWorldLocation();
 }
-sf::Vector2f Actor::Getlocation()
+
+void AActor::SetActorLocation(sf::Vector2f newLocation)
 {
-    return ActorLocation;
+    RootComponent->SetWorldLocation(newLocation);
 }
-sf::FloatRect Actor::GetCollisionBox()
+
+void AActor::AddWorldOffset(sf::Vector2f offset)
 {
-    return CollisionBox;
+    RootComponent->AddWorldOffset(offset);
 }
-CollisionPreset Actor::GetCollisionPreset()
+
+float AActor::GetActorRotation() const
 {
-    return Collision;
+    float rotation = RootComponent->GetWorldRotation();
+    float angle = std::fmod(rotation, 360.0f);
+    if (angle < 0.0f)
+        angle += 360.0f;
+    return angle;
 }
-void Actor::MarkToKill()
+
+void AActor::SetActorRotation(float newRotation)
 {
-    GGarbageCollector->ActorsToKill.push_back(shared_from_this());
+    RootComponent->SetWorldRotation(newRotation);
+}
+
+sf::Vector2f AActor::GetActorScale() const
+{
+    return RootComponent->GetWorldScale();
+}
+
+void AActor::SetActorScale(sf::Vector2f newScale)
+{
+    RootComponent->SetWorldScale(newScale);
 }

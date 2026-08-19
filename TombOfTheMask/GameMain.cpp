@@ -1,18 +1,20 @@
-#include "CoreMinimal.h"
-#include "Engine.h"
+#include "Core/CoreMinimal.h"
+#include "GameStates/MainMenu.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIGHT, WINDOW_HEIGHT), "Tomb of the Mask");
-    window.setFramerateLimit(MAX_FPS);
-    window.setVerticalSyncEnabled(true);
-    GWindow = &window;
+    sf::RenderWindow gameWindow(GAME_VIDEOMODE, GAME_NAME);
+    gameWindow.setFramerateLimit(MAX_FPS);
+    gameWindow.setVerticalSyncEnabled(true);
+    Window = &gameWindow;
+    
+    Engine = new GEngine();
+    Engine->RegisterSubsystems();
+    Engine->MarkToSwitchState<UMainMenu>();
 
-    GEngine = new Engine();
-
-    while (window.isOpen())
+    while (Window->isOpen())
     {
-        GEngine->Update();
+        Engine->Update();
     }
 
     return 0;
