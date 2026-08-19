@@ -22,6 +22,11 @@ inline sf::Vector2f RotateVector(sf::Vector2f baseVector, float rotationAngle)
                         baseVector.x * sinAngle + baseVector.y * cosAngle);
 }
 
+inline float Length(const sf::Vector2f& vector)
+{
+    return std::sqrt(vector.x * vector.x + vector.y * vector.y);
+}
+
 template <typename T>
 inline void RemoveFromVectorByRef(std::vector<T>& vector, T item)
 {

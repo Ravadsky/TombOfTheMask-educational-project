@@ -20,6 +20,9 @@ public:
     void Move(EMovementDirection direction, bool isPushing = false);
     void StopMovement(bool revertPreviousMovement = false);
 
+    inline float GetMovedDistance() const { return movedDistance; }
+    inline bool WasRealMovement() const { return movedDistance > 16.0f; }
+
     virtual void Update(float deltaTime) override;
 
 private:
@@ -29,6 +32,7 @@ private:
     EMovementDirection currentDirection = EMovementDirection::NoDirection;
     sf::Vector2f lastMovementOffset;
     bool bIsPushing = false;
+    float movedDistance;
 
     void SetMovement(sf::Vector2f direction, float spriteRotation, bool spriteFlip);
 };

@@ -5,6 +5,7 @@ class UInputComponent;
 class UMovementComponent;
 class UCameraComponent;
 class UViewportComponent;
+class UCameraShakeComponent;
 
 class APlayer : public AActor
 {
@@ -18,6 +19,7 @@ private:
     UMovementComponent* MovementComponent;
     UCameraComponent* CameraComponent;
     UViewportComponent* ViewportComponent;
+    UCameraShakeComponent* CameraShakeComponent;
 
     void StopMovement(UColliderComponent* otherCollider);
 };

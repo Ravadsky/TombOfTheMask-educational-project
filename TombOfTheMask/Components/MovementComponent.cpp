@@ -35,12 +35,16 @@ void UMovementComponent::Move(EMovementDirection direction, bool isPushing)
             SetMovement({ 0, 0.f }, 0.0f, false);
     }
     GetOwner()->AddWorldOffset(lastMovementOffset);
+    movedDistance += Length(lastMovementOffset);
+    
+    
 }
 
 void UMovementComponent::StopMovement(bool revertPreviousMovement)
 {
     bIsPushing = false;
     currentDirection = EMovementDirection::NoDirection;
+    movedDistance = 0.0f;
 
     if (revertPreviousMovement)
         GetOwner()->AddWorldOffset(-lastMovementOffset);
