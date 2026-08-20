@@ -177,6 +177,9 @@
     <ClCompile Include="Components\AnimatedSpriteComponent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Actors\Effect.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\UObject.h">
@@ -321,6 +324,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Components\AnimatedSpriteComponent.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Actors\Effect.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
