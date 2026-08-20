@@ -7,6 +7,7 @@ class AEffect : public AActor
 {
 public:
     AEffect(UWorld* InWorld);
+    virtual ~AEffect() = default;
 
     void TriggerEffect(std::string effectName, bool isLooping = false, int framesCount = 6);
     void DestroyEffect();

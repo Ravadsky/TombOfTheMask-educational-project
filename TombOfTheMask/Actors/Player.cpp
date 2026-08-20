@@ -52,10 +52,8 @@ void APlayer::StopMovement(UColliderComponent* otherCollider)
         {
             CameraShakeComponent->StartShake(0.5f, 4.0f);
             GetAudioSubsystem()->PlaySound("hit");
-
             
-            auto effect = GetWorld()->SpawnActor<AEffect>(GetActorLocation(), GetActorRotation(), GetActorScale());
-            effect->TriggerEffect("wall_hit_particle", false, 4);
+            GetWorld()->SpawnEffect("wall_hit_particle", false, 4, GetActorLocation(), GetActorRotation());
         }
 
         MovementComponent->StopMovement(true);

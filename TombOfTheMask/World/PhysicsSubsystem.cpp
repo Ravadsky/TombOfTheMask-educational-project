@@ -46,7 +46,10 @@ void UPhysicsSubsystem::AddTriggerComponent(UColliderComponent* component)
 
 void UPhysicsSubsystem::RemoveTriggerComponent(UColliderComponent* component)
 {
-    auto objectIterator = std::find(triggerComponents.begin(), triggerComponents.end(), component);
+    RemoveFromVectorByRef(triggerComponents, component);
+
+
+    /*auto objectIterator = std::find(triggerComponents.begin(), triggerComponents.end(), component);
     if (objectIterator != triggerComponents.end())
-        triggerComponents.erase(objectIterator);
+        triggerComponents.erase(objectIterator);*/
 }

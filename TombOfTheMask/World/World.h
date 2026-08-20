@@ -2,7 +2,6 @@
 #include "Core/UObject.h"
 
 class AActor;
-class AEffect;
 class UPhysicsSubsystem;
 
 class UWorld : public UObject
@@ -81,11 +80,19 @@ public:
     inline int GetPointCountOnLevel() { return PointCountOnLevel; };
     inline int GetStarCountOnLevel() { return StarCountOnLevel; };
 
+    void AddDelayedAction(std::function<void()> Action);
+    void ProcessDelayedActions();
+
+    void SpawnEffect(std::string effectName, bool isLooping, int framesCount, const sf::Vector2f& location,
+                     const float rotation, const sf::Vector2f& scale = { 1, 1 });
+
 private:
     std::vector<AActor*> ActorsInWorld;
 
     std::string LevelName;
     int PointCountOnLevel, StarCountOnLevel;
+
+    std::vector<std::function<void()>> DelayedActions;
 
     UPhysicsSubsystem* physicsSubsystem;
 };
