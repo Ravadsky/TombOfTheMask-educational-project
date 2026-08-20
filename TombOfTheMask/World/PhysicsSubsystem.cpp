@@ -13,9 +13,15 @@ void UPhysicsSubsystem::Update(float deltaTime)
         if (component->GetCollisionPreset() == ECollisionPreset::Ignore)
             continue;
 
+        if (!component->IsValid())
+            continue;
+
         for (auto otherComponent : triggerComponents)
         {
             if (component == otherComponent)
+                continue;
+
+            if (!otherComponent->IsValid())
                 continue;
 
             if (otherComponent->GetCollisionPreset() == ECollisionPreset::Ignore)

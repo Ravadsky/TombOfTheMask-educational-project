@@ -21,7 +21,7 @@ Level30
 Level30
 Level30
 Level3.maxpoints:1
-Level3.points:0
+Level3.points:1
 Level3.maxstars:2
-Level3.stars:0
-Level3:0
+Level3.stars:1
+Level3:1

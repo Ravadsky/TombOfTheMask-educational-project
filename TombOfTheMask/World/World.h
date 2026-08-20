@@ -2,6 +2,7 @@
 #include "Core/UObject.h"
 
 class AActor;
+class AEffect;
 class UPhysicsSubsystem;
 
 class UWorld : public UObject

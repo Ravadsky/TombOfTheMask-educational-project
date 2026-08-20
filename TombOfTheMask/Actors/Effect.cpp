@@ -5,22 +5,33 @@
 
 AEffect::AEffect(UWorld* InWorld) : AActor(InWorld)
 {
-    ColliderComponent->SetCollisionPreset(ECollisionPreset::Ignore);
+    bCanTick = true;
 
     animatedSpriteComponent = AddNewComponent<UAnimatedSpriteComponent>();
     animatedSpriteComponent->AttachToComponent(SceneComponent);
+    animatedSpriteComponent->SetRenderLayer(ERenderLayer::forward);
 }
 
-void AEffect::TriggerEffect(std::string effectName, bool isLooping)
+void AEffect::TriggerEffect(std::string effectName, bool isLooping, int framesCount)
 {
     bIsLoopingEffect = isLooping;
-    animatedSpriteComponent->PlayAnimation(effectName, bIsLoopingEffect);
+    animatedSpriteComponent->PlayAnimation(effectName, bIsLoopingEffect, 4);
 
-    if (bIsLoopingEffect)
+    if (!bIsLoopingEffect)
         animatedSpriteComponent->onAnimationEnded.Add(this, &AEffect::DestroyEffect);
 }
 
 void AEffect::DestroyEffect()
 {
     MarkAsGarbage();
+}
+
+void AEffect::Update(float deltaTime)
+{
+    AActor::Update(deltaTime);
+}
+
+void AEffect::BeginPlay()
+{
+    AActor::BeginPlay();
 }

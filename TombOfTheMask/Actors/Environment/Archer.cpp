@@ -6,6 +6,8 @@
 #include "Core/GameSubsystems/ResourceSubsystem.h"
 #include "World/World.h"
 
+#include "Actors/Effect.h"
+
 AArcher::AArcher(UWorld* InWorld) : AActor(InWorld)
 {
     bCanTick = true;
