@@ -4,7 +4,6 @@
 #include "Components/ColliderComponent.h"
 #include "Components/ViewportComponent.h"
 #include "Components/AnimatedSpriteComponent.h"
-#include "Core/GameSubsystems/ResourceSubsystem.h"
 #include "World/World.h"
 
 AStar::AStar(UWorld* InWorld) : AActor(InWorld)
@@ -15,7 +14,6 @@ AStar::AStar(UWorld* InWorld) : AActor(InWorld)
 
     animatedSpriteComponent = AddNewComponent<UAnimatedSpriteComponent>();
     animatedSpriteComponent->AttachToComponent(SceneComponent);
-
     animatedSpriteComponent->PlayAnimation("star_idle", true);
 }
 

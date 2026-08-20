@@ -3,7 +3,6 @@
 
 #include "Components/ColliderComponent.h"
 #include "Components/ViewportComponent.h"
-#include "Core/GameSubsystems/ResourceSubsystem.h"
 #include "World/World.h"
 
 APoint::APoint(UWorld* InWorld) : AActor(InWorld)

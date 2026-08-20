@@ -37,6 +37,7 @@ UResourceSubsystem::UResourceSubsystem()
 
     LoadAnimation("star_idle");
     LoadAnimation("star_pickup");
+    LoadAnimation("spikes_idle");
 
     // sprite sheet row 1
     LoadSpriteFromSpriteSheet("player", 1, 1);
