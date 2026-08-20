@@ -18,7 +18,7 @@ public:
     USpriteComponent(AActor* componentOwner);
     virtual ~USpriteComponent();
 
-    void Render(sf::Vector2f cameraOrigin);
+    virtual void Render(sf::Vector2f cameraOrigin);
 
     void SetSpriteTexture(const std::string& textureName);
 

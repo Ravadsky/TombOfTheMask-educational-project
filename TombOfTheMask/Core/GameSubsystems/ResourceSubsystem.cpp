@@ -35,6 +35,10 @@ UResourceSubsystem::UResourceSubsystem()
     LoadSoundBuffer("point");
     LoadSoundBuffer("hit");
 
+    LoadAnimation("star_idle");
+    LoadAnimation("star_pickup");
+    LoadAnimation("spikes_idle");
+
     // sprite sheet row 1
     LoadSpriteFromSpriteSheet("player", 1, 1);
     LoadSpriteFromSpriteSheet("wall", 1, 2);
@@ -93,6 +97,11 @@ void UResourceSubsystem::LoadSpriteSheet(const std::string& filename)
 void UResourceSubsystem::LoadGUISprite(const std::string& filename)
 {
     assert(StaticSprites[filename].loadFromFile(RESOURCES_PATH + "GUI/" + filename + ".png"));
+}
+
+void UResourceSubsystem::LoadAnimation(const std::string& filename)
+{
+    assert(StaticSprites[filename].loadFromFile(RESOURCES_PATH + "Animations/" + filename + ".png"));
 }
 
 void UResourceSubsystem::LoadGameFont(const std::string& filename)

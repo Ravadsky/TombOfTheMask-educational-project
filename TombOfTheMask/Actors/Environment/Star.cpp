@@ -3,7 +3,7 @@
 
 #include "Components/ColliderComponent.h"
 #include "Components/ViewportComponent.h"
-#include "Core/GameSubsystems/ResourceSubsystem.h"
+#include "Components/AnimatedSpriteComponent.h"
 #include "World/World.h"
 
 AStar::AStar(UWorld* InWorld) : AActor(InWorld)
@@ -12,18 +12,29 @@ AStar::AStar(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetWorldScale({ 0.5f, 0.5f });
     ColliderComponent->onCollision.Add(this, &AStar::Pickup);
 
-    SpriteComponent->SetSpriteTexture("star");
+    animatedSpriteComponent = AddNewComponent<UAnimatedSpriteComponent>();
+    animatedSpriteComponent->AttachToComponent(SceneComponent);
+    animatedSpriteComponent->PlayAnimation("star_idle", true);
 }
 
 void AStar::Pickup(UColliderComponent* otherCollider)
 {
+    if (bIsPickuped)
+        return;
 
     auto actor = otherCollider->GetOwner();
 
     if (isClassOf<APlayer>(actor))
     {
         auto viewport = actor->GetComponentByClass<UViewportComponent>();
+        animatedSpriteComponent->PlayAnimation("star_pickup", false);
+        animatedSpriteComponent->onAnimationEnded.Add(this, &AStar::Destroy);
         viewport->AddStar();
-        MarkAsGarbage();
+        bIsPickuped = true;
     }
+}
+
+void AStar::Destroy()
+{
+    MarkAsGarbage();
 }
