@@ -9,6 +9,7 @@ ASpikes::ASpikes(UWorld* InWorld) : AActor(InWorld)
 {
     ColliderComponent->SetCollisionPreset(ECollisionPreset::Block);
     ColliderComponent->onCollision.Add(this, &ASpikes::DamagePlayer);
+    ColliderComponent->SetWorldScale({ 0.8f, 0.8f });
 
     animatedSpriteComponent = AddNewComponent<UAnimatedSpriteComponent>();
     animatedSpriteComponent->AttachToComponent(SceneComponent);

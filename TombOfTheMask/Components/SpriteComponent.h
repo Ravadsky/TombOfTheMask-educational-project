@@ -13,6 +13,7 @@ class USpriteComponent : public USceneComponent
 protected:
     sf::Sprite sprite;
     ERenderLayer renderLayer = ERenderLayer::medium;
+    bool bIgnoreActorRotation = false;
 
 public:
     USpriteComponent(AActor* componentOwner);
@@ -29,4 +30,7 @@ public:
     inline void SetRenderLayer(ERenderLayer layer) { renderLayer = layer; }
 
     sf::FloatRect GetBounds();
+
+    inline void SetRotationIgnore(bool ignoreRotation = true) { bIgnoreActorRotation = ignoreRotation; };
+
 };

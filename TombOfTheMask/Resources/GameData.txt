@@ -1,12 +1,12 @@
-MusicValue:0
+MusicValue:1
 SoundValue:1
 
 CurrentLevel:1
 
-Level1:1
-Level1.stars:3
+Level1:0
+Level1.stars:0
 Level1.maxstars:4
-Level1.points:1
+Level1.points:0
 Level1.maxpoints:4
 
 Level2:0

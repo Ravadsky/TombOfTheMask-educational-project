@@ -155,6 +155,7 @@
     <ClCompile Include="Components\SceneComponent.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="Actors\EditorSpectator.cpp" />
+    <ClCompile Include="Actors\Effect.cpp" />
     <ClCompile Include="GUI\EditorSelector.cpp" />
     <ClCompile Include="GUI\CheckBox.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Components\SceneComponent.h" />
     <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Actors\EditorSpectator.h" />
+    <ClInclude Include="Actors\Effect.h" />
     <ClInclude Include="GUI\EditorSelector.h" />
     <ClInclude Include="GUI\CheckBox.h" />
     <ClInclude Include="Core\CoreMinimal.h" />

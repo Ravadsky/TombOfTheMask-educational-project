@@ -13,9 +13,15 @@ void UPhysicsSubsystem::Update(float deltaTime)
         if (component->GetCollisionPreset() == ECollisionPreset::Ignore)
             continue;
 
+        if (!component->IsValid())
+            continue;
+
         for (auto otherComponent : triggerComponents)
         {
             if (component == otherComponent)
+                continue;
+
+            if (!otherComponent->IsValid())
                 continue;
 
             if (otherComponent->GetCollisionPreset() == ECollisionPreset::Ignore)
@@ -40,7 +46,10 @@ void UPhysicsSubsystem::AddTriggerComponent(UColliderComponent* component)
 
 void UPhysicsSubsystem::RemoveTriggerComponent(UColliderComponent* component)
 {
-    auto objectIterator = std::find(triggerComponents.begin(), triggerComponents.end(), component);
+    RemoveFromVectorByRef(triggerComponents, component);
+
+
+    /*auto objectIterator = std::find(triggerComponents.begin(), triggerComponents.end(), component);
     if (objectIterator != triggerComponents.end())
-        triggerComponents.erase(objectIterator);
+        triggerComponents.erase(objectIterator);*/
 }

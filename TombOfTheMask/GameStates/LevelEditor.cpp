@@ -38,7 +38,7 @@ void ULevelEditor::RotateEntity()
     {
         LevelActors[x_cell][y_cell].currentActor->MarkAsGarbage();
 
-        auto newRotation = LevelActors[x_cell][y_cell].currentRotation + 90;
+        float newRotation = LevelActors[x_cell][y_cell].currentRotation + 90;
         auto rotatedActor =
             WorldInstance->SpawnActorOnCellByID(LevelActors[x_cell][y_cell].ActorID, x_cell, y_cell, newRotation);
 

@@ -8,9 +8,9 @@
 #include "Components/CameraShakeComponent.h"
 #include "Core/GameSubsystems/AudioSubsystem.h"
 
-#include "Actors/Environment/Archer.h"
 #include "GameStates/LevelInstance.h"
 #include "World/World.h"
+#include "Actors/Effect.h"
 
 APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
 {
@@ -25,7 +25,8 @@ APlayer::APlayer(UWorld* InWorld) : AActor(InWorld)
     ColliderComponent->SetWorldScale({ 0.7f, 0.7f });
 
     SpriteComponent->SetSpriteTexture("player");
-    SpriteComponent->SetRenderLayer(ERenderLayer::forward);
+    SpriteComponent->SetRenderLayer(ERenderLayer::medium);
+    SpriteComponent->SetRotationIgnore();
 
     ViewportComponent = AddNewComponent<UViewportComponent>();
 
@@ -51,6 +52,8 @@ void APlayer::StopMovement(UColliderComponent* otherCollider)
         {
             CameraShakeComponent->StartShake(0.5f, 4.0f);
             GetAudioSubsystem()->PlaySound("hit");
+            
+            GetWorld()->SpawnEffect("wall_hit_particle", false, 4, GetActorLocation(), GetActorRotation());
         }
 
         MovementComponent->StopMovement(true);

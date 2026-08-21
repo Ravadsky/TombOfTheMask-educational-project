@@ -6,7 +6,6 @@
 UColliderComponent::UColliderComponent(AActor* componentOwner) : USceneComponent(componentOwner)
 {
     UpdateCollider();
-
     Owner->GetWorld()->GetPhysicsSubsystem()->AddTriggerComponent(this);
 }
 
@@ -20,9 +19,7 @@ void UColliderComponent::OnCollision(UColliderComponent* otherCollider)
     onCollision.Broadcast(otherCollider);
 }
 
-void UColliderComponent::Update(float deltaTime)
-{
-}
+void UColliderComponent::Update(float deltaTime) {}
 
 void UColliderComponent::UpdateCollider()
 {

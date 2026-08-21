@@ -5,6 +5,7 @@
 #include "Core/DataFunctions.h"
 #include <sstream>
 
+#include "Actors/Effect.h"
 #include "Actors/Environment/Point.h"
 #include "Actors/Environment/Star.h"
 #include "Core/GameSubsystems/ResourceSubsystem.h"
@@ -33,11 +34,14 @@ void UWorld::BeginPlay() {}
 
 void UWorld::Update(float deltaTime)
 {
+    ProcessDelayedActions();
+
     for (auto actor : ActorsInWorld)
     {
         if (actor->CanTick())
             actor->Update(deltaTime);
     }
+
     physicsSubsystem->Update(deltaTime);
 }
 
@@ -76,7 +80,6 @@ void UWorld::StartLevel()
 
         // установка стен за объекты
         SpawnActorOnCellByID(2, xPos, yPos, 0.0f);
-
     }
     PointCountOnLevel = GetActorsNumberOfClass<APoint>();
     StarCountOnLevel = GetActorsNumberOfClass<AStar>();
@@ -88,4 +91,28 @@ void UWorld::DestoyLevel()
         actor->MarkAsGarbage();
 
     physicsSubsystem->MarkAsGarbage();
+}
+
+void UWorld::AddDelayedAction(std::function<void()> Action)
+{
+    DelayedActions.push_back(Action);
+}
+
+void UWorld::ProcessDelayedActions()
+{
+    for (auto& action : DelayedActions)
+        action();
+
+    DelayedActions.clear();
+}
+
+void UWorld::SpawnEffect(std::string effectName, bool isLooping, int framesCount, const sf::Vector2f& location,
+                         const float rotation, const sf::Vector2f& scale)
+{
+    AddDelayedAction(
+        [this, effectName, isLooping, framesCount, location, rotation, scale]()
+        {
+            auto effect = SpawnActor<AEffect>(location, rotation, scale);
+            effect->TriggerEffect(effectName, isLooping, framesCount);
+        });
 }

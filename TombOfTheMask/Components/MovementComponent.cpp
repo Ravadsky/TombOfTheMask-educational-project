@@ -19,13 +19,13 @@ void UMovementComponent::Move(EMovementDirection direction, bool isPushing)
     switch (currentDirection)
     {
         case EMovementDirection::Up:
-            SetMovement({ 0.f, -movementSpeed }, 90.0f, true);
+            SetMovement({ 0.f, -movementSpeed }, 270.0f, false);
             break;
         case EMovementDirection::Down:
             SetMovement({ 0.f, movementSpeed }, 90.0f, false);
             break;
         case EMovementDirection::Left:
-            SetMovement({ -movementSpeed, 0.f }, 0.0f, true);
+            SetMovement({ -movementSpeed, 0.f }, 180.0f, true);
             break;
         case EMovementDirection::Right:
             SetMovement({ movementSpeed, 0.f }, 0.0f, false);
@@ -61,7 +61,8 @@ void UMovementComponent::SetMovement(sf::Vector2f direction, float spriteRotatio
 {
 
     lastMovementOffset = direction;
-    sprite->SetWorldRotation(spriteRotation);
+    GetOwner()->SetActorRotation(spriteRotation);
+    //sprite->SetWorldRotation(spriteRotation);
     sprite->Flip(spriteFlip);
 }
 
