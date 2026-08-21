@@ -92,28 +92,28 @@ void UResourceSubsystem::LoadSpriteFromSpriteSheet(const std::string& spriteName
 void UResourceSubsystem::LoadSpriteSheet(const std::string& filename)
 {
 
-    assert(SpriteSheet.loadFromFile(RESOURCES_PATH + filename));
+    SpriteSheet.loadFromFile(RESOURCES_PATH + filename);
 }
 
 void UResourceSubsystem::LoadGUISprite(const std::string& filename)
 {
-    assert(StaticSprites[filename].loadFromFile(RESOURCES_PATH + "GUI/" + filename + ".png"));
+    StaticSprites[filename].loadFromFile(RESOURCES_PATH + "GUI/" + filename + ".png");
 }
 
 void UResourceSubsystem::LoadAnimation(const std::string& filename)
 {
-    assert(StaticSprites[filename].loadFromFile(RESOURCES_PATH + "Animations/" + filename + ".png"));
+    StaticSprites[filename].loadFromFile(RESOURCES_PATH + "Animations/" + filename + ".png");
 }
 
 void UResourceSubsystem::LoadGameFont(const std::string& filename)
 {
-    assert(GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + filename));
+    GameFont.loadFromFile(RESOURCES_PATH + "GUI/" + filename);
 }
 
 void UResourceSubsystem::LoadSoundBuffer(const std::string& filename)
 {
     sf::SoundBuffer newBuffer;
-    assert(newBuffer.loadFromFile(RESOURCES_PATH + "Audio/" + filename + ".wav"));
+    newBuffer.loadFromFile(RESOURCES_PATH + "Audio/" + filename + ".wav");
     SoundBuffers[filename] = std::move(newBuffer);
 }
 

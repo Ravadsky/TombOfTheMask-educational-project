@@ -29,9 +29,9 @@ void UAudioSubsystem::Update(float deltaTime)
 
 void UAudioSubsystem::StartNewMusic(std::string MusicFileName)
 {
-    assert(BackgroundMusic.openFromFile(RESOURCES_PATH + "Audio/" + MusicFileName + ".wav"));
+    BackgroundMusic.openFromFile(RESOURCES_PATH + "Audio/" + MusicFileName + ".wav");
     BackgroundMusic.setLoop(true);
-    BackgroundMusic.setVolume(MusicValue * 10.0f);
+    BackgroundMusic.setVolume(MusicValue * 2.0f);
     BackgroundMusic.play();
 }
 
@@ -42,7 +42,7 @@ void UAudioSubsystem::PlaySound(std::string soundName)
 
 void UAudioSubsystem::UpdateSoundAndMusicValues()
 {
-    MusicValue = GetDataParameter("MusicValue:") * 10.f;
-    SoundValue = GetDataParameter("SoundValue:") * 10.f;
-    BackgroundMusic.setVolume(MusicValue * 10);
+    MusicValue = GetDataParameter("MusicValue:") * 2.f;
+    SoundValue = GetDataParameter("SoundValue:") * 2.f;
+    BackgroundMusic.setVolume(MusicValue * 2);
 }
