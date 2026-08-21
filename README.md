@@ -32,4 +32,5 @@ Tomb of the Mask - двумерный платформер с элементам
 
 ## Ссылки на другие ресурсы
 • [Дизайн-документ](https://docs.google.com/document/d/10OIIMw1mg6SIIncwcO7h0zr5RdkpnkiRjKpLrRSVSXA/edit?usp=sharing)   
+• [Архив с .exe файлом проекта](https://drive.google.com/file/d/1_q6oh5l8mBEA_fgMUCKt9aH1qDI6se4W/view?usp=sharing)  
 • [Оригинальная версия игры](https://en.wikipedia.org/wiki/Tomb_of_the_Mask)
